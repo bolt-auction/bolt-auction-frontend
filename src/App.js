@@ -5,6 +5,7 @@ import SignUp from './components/SignUp';
 import Store from './components/Store';
 import SearchResult from './components/SearchResult';
 import CategoryResult from './components/CategoryResult';
+import ProductDetail from './components/ProductDetail';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -20,7 +21,7 @@ const App = () => {
         <Route path="/store/:id" component={Store} />
         <Route path="/search" component={SearchResult} />
         <Route path="/categories/:category" component={CategoryResult} />
-
+        <Route path="/products/:id" component={ProductDetail} />
         <Route
           render={({ location }) => (
             <div>
