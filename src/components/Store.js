@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
+import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import StoreProducts from './StoreProducts';
 import StoreReviews from './StoreReviews';
 
