@@ -6,6 +6,7 @@ import Store from './components/Store';
 import SearchResult from './components/SearchResult';
 import CategoryResult from './components/CategoryResult';
 import ProductDetail from './components/ProductDetail';
+import SellProduct from './components/SellProduct';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/search" component={SearchResult} />
         <Route path="/categories/:category" component={CategoryResult} />
         <Route path="/products/:id" component={ProductDetail} />
+        <Route path="/sell" component={SellProduct} />
         <Route
           render={({ location }) => (
             <div>

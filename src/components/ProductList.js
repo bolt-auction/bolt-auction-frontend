@@ -19,7 +19,7 @@ const ProductList = () => {
   return (
     <Products>
       {ProductData.map(({ id, owner }) => (
-        <Product id={id} owner={owner} />
+        <Product key={id} id={id} owner={owner} />
       ))}
     </Products>
   );

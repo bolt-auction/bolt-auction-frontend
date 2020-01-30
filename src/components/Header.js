@@ -22,7 +22,9 @@ const Header = withRouter(({ history }) => {
     <HeaderBox>
       <form onSubmit={onSubmit}>
         <input ref={ref} onChange={onChange} placeholder="검색입력" />
+        <button>검색</button>
       </form>
+      <Link to="/sell">상품 등록</Link>
       <div>
         <Link to="/store/0">수빈 상점</Link>{' '}
         <Link to="/store/1">지섭 상점</Link>

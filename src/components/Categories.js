@@ -6,8 +6,8 @@ const Categories = () => {
   return (
     <div>
       <ul>
-        {categories.map(cat => (
-          <li>
+        {categories.map((cat, i) => (
+          <li key={i}>
             <Link to={`categories/${cat}`}>{cat}</Link>
           </li>
         ))}
