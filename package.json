@@ -1,5 +1,5 @@
 {
-  "name": "auction-nara",
+  "name": "bolt-auction",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
