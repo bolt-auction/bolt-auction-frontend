@@ -1,19 +1,22 @@
 import React, { useState, useRef } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import Categories from './Categories';
 
 const HeaderBox = styled.div`
   width: 100%;
   height: 120px;
+  position: fixed;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
     0 4px 5px 0 rgba(0, 0, 0, 0.14);
-  padding: 0 129px;
   text-align: center;
   background-color: #ffffff;
 `;
 
 const FirstBox = styled.div`
   display: flex;
+  width: 1024px;
+  margin: 0 auto;
   flex-direction: row;
   justify-content: space-between;
   padding-top: 24px;
@@ -59,6 +62,8 @@ const Sell = styled.button`
 
 const SecondBox = styled.div`
   display: flex;
+  width: 1024px;
+  margin: 0 auto;
   flex-direction: row;
   justify-content: space-between;
   padding-bottom: 12px;
@@ -68,8 +73,8 @@ const CategoryBox = styled.div`
   display: flex;
   flex-direction: column;
   & > span {
-    width: 100px;
     height: 24px;
+    text-align: left;
     font-family: Roboto;
     font-size: 20px;
     font-weight: 500;
@@ -78,6 +83,7 @@ const CategoryBox = styled.div`
     line-height: 1.2;
     letter-spacing: 0.15px;
     color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 12px;
   }
 `;
 
@@ -123,7 +129,9 @@ const Header = withRouter(({ history }) => {
             $menu.current.style.display = 'none';
           }}>
           <span>카테고리</span>
-          <Menu ref={$menu} />
+          <Menu ref={$menu}>
+            <Categories />
+          </Menu>
         </CategoryBox>
         <div>
           <Link to="/store/0">수빈 상점</Link>{' '}

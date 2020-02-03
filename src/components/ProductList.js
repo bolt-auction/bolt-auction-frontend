@@ -12,8 +12,7 @@ const ProductData = [
   { id: 1, owner: 0 },
   { id: 2, owner: 1 },
   { id: 3, owner: 0 },
-  { id: 4, owner: 1 },
-  { id: 5, owner: 0 }
+  { id: 4, owner: 1 }
 ];
 const ProductList = () => {
   return (
