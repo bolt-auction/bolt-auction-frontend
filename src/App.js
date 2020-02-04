@@ -14,7 +14,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <div>
+    <>
       <Switch>
         <Route path="/" exact component={Main} />
         <Route path="/signin" component={SignIn} />
@@ -33,7 +33,7 @@ const App = () => {
           )}
         />
       </Switch>
-    </div>
+    </>
   );
 };
 

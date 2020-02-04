@@ -6,7 +6,7 @@ import Carousel from './Carousel';
 import styled from 'styled-components';
 
 export const MainBox = styled.div`
-  width: 100vw;
+  width: 100%;
   background-color: #ffffff;
 `;
 
