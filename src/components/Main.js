@@ -30,6 +30,8 @@ export const MainContainer = styled.div`
   width: 1024px;
   margin: 0 auto;
   padding: 24px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
     0 4px 5px 0 rgba(0, 0, 0, 0.14);

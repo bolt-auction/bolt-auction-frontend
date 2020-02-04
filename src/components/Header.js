@@ -92,7 +92,7 @@ const SecondBox = styled.div`
 const CategoryBox = styled.div`
   display: flex;
   flex-direction: column;
-
+  cursor: pointer;
   & > span {
     display: flex;
     align-items: center;

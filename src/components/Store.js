@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import StoreProducts from './StoreProducts';
 import StoreReviews from './StoreReviews';
+import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
+import Header from './Header';
 
 const data = [{ name: '수빈' }, { name: '지섭' }];
 
@@ -15,19 +17,25 @@ const Store = ({ match }) => {
   if (!name) return <div>존재하지 않는 사용자.</div>;
 
   return (
-    <div>
-      <h1>상점 페이지</h1>
-      <h2>
-        {id}({name})
-      </h2>
-      <Link to={`/store/${id}/products`}>상품</Link>
-      <Link to={`/store/${id}/reviews`}>리뷰</Link>
+    <MainBox>
+      <Header />
+      <NonMainConatiner>
+        <h1 className="non-main-title">상점 페이지</h1>
+        <MainContainer>
+          <h2>
+            {id}({name})
+          </h2>
+          <Divider />
+          <Link to={`/store/${id}/products`}>상품</Link>
+          <Link to={`/store/${id}/reviews`}>리뷰</Link>
+        </MainContainer>
+      </NonMainConatiner>
       <Switch>
         <Route path={`/store/${id}`} exact component={StoreTo} />
         <Route path={`/store/${id}/products`} component={StoreProducts} />
         <Route path={`/store/${id}/reviews`} component={StoreReviews} />
       </Switch>
-    </div>
+    </MainBox>
   );
 };
 
