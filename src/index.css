@@ -1,4 +1,5 @@
 @import '../node_modules/normalize.css/normalize.css';
+
 /* Box sizing rules */
 *,
 *::before,
@@ -46,11 +47,6 @@ ol[class] {
   list-style: none;
 }
 
-
-a {
-  text-decoration: none;
-}
-
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
@@ -75,6 +71,18 @@ select {
   font: inherit;
 }
 
+a,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 /* Remove all animations and transitions for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -84,7 +92,6 @@ select {
     scroll-behavior: auto !important;
   }
 }
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -97,4 +104,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+button {
+  border: none;
 }
