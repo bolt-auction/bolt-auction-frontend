@@ -1,10 +1,11 @@
 import React from 'react';
+import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
 
 const StoreReviews = () => {
   return (
-    <div>
+    <MainContainer>
       <h1>내 상점 리뷰 보기</h1>
-    </div>
+    </MainContainer>
   );
 };
 
