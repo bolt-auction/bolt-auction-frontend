@@ -1,10 +1,18 @@
 import React from 'react';
+import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
+import Header from './Header';
 
 const SellProduct = () => {
   return (
-    <div>
-      <h1>상품 등록 페이지</h1>
-    </div>
+    <MainBox>
+      <Header />
+      <NonMainConatiner>
+        <h1 className="non-main-title">판매하기</h1>
+        <MainContainer>
+          <Divider />
+        </MainContainer>
+      </NonMainConatiner>
+    </MainBox>
   );
 };
 

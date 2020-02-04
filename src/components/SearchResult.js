@@ -1,18 +1,26 @@
 import React from 'react';
 import qs from 'qs';
 import ProductList from './ProductList';
+import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
+import Header from './Header';
 
 const SearchResult = ({ location }) => {
   const query = qs.parse(location.search, {
-    ignoreQueryPrefix: true
+    ignoreQueryPrefix: true,
   });
   const item = query.item;
   return (
-    <div>
-      <h1>결과 페이지</h1>
-      <h2>{item}의 검색 결과입니다.</h2>
-      <ProductList />
-    </div>
+    <MainBox>
+      <Header />
+      <NonMainConatiner>
+        <h1 className="non-main-title">{item}의 검색 결과입니다.</h1>
+        <MainContainer>
+          <Divider />
+          <ProductList />
+          <ProductList />
+        </MainContainer>
+      </NonMainConatiner>
+    </MainBox>
   );
 };
 

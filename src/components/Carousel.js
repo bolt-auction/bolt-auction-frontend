@@ -5,7 +5,6 @@ const CarouselBox = styled.div`
   width: 100%;
   height: 384px;
   background-color: #a9a9a9;
-  padding-top: 120px;
 `;
 
 const Carousel = () => {

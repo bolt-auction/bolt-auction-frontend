@@ -1,14 +1,18 @@
 import React, { useState, useRef } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { IconContext } from 'react-icons';
+import { FiMenu } from 'react-icons/fi';
 import { GoSearch } from 'react-icons/go';
 import styled from 'styled-components';
 import Categories from './Categories';
+import Logo from '../imgs/번개옥션.png';
 
 const HeaderBox = styled.div`
   width: 100%;
-  height: 120px;
+  height: 122px;
   position: fixed;
+  top: 0;
+
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
     0 4px 5px 0 rgba(0, 0, 0, 0.14);
   text-align: center;
@@ -25,8 +29,8 @@ const FirstBox = styled.div`
   margin-bottom: 12px;
 `;
 
-const LOGO = styled.span`
-  height: 48px;
+const LOGO = styled.img`
+  height: 50px;
   font-family: Roboto;
   font-size: 34px;
   font-weight: normal;
@@ -88,8 +92,12 @@ const SecondBox = styled.div`
 const CategoryBox = styled.div`
   display: flex;
   flex-direction: column;
+
   & > span {
-    height: 24px;
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 36px;
     text-align: left;
     font-family: Roboto;
     font-size: 20px;
@@ -98,15 +106,18 @@ const CategoryBox = styled.div`
     font-style: normal;
     line-height: 1.2;
     letter-spacing: 0.15px;
+    padding: 5px 10px;
     color: rgba(0, 0, 0, 0.6);
-    margin-bottom: 12px;
+  }
+
+  &:hover > span {
+    color: #5600e8;
   }
 `;
 
 const Menu = styled.div`
   width: 304px;
   height: 529px;
-
   display: none;
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 16px 24px 0 rgba(0, 0, 0, 0.14);
   border: solid 1px rgba(0, 0, 0, 0.12);
@@ -129,7 +140,9 @@ const Header = withRouter(({ history }) => {
   return (
     <HeaderBox>
       <FirstBox>
-        <LOGO>LOGO</LOGO>
+        <Link to="/">
+          <LOGO src={Logo} alt="번개옥션" />
+        </Link>
         <Search onSubmit={onSubmit}>
           <input
             ref={ref}
@@ -196,9 +209,20 @@ const Header = withRouter(({ history }) => {
             $menu.current.style.display = 'none';
           }}
         >
-          <span>카테고리</span>
+          <span>
+            <IconContext.Provider
+              value={{
+                style: {
+                  marginRight: '10px',
+                },
+              }}
+            >
+              <FiMenu />
+            </IconContext.Provider>
+            카테고리
+          </span>
           <Menu ref={$menu}>
-            <Categories />
+            <Categories menu={$menu} />
           </Menu>
         </CategoryBox>
         <div>
