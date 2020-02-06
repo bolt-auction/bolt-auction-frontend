@@ -6,6 +6,7 @@ import { GoSearch } from 'react-icons/go';
 import styled from 'styled-components';
 import Categories from './Categories';
 import Logo from '../imgs/번개옥션.png';
+import Colors from '../styles/Colors';
 
 const HeaderBox = styled.div`
   width: 100%;
@@ -67,7 +68,7 @@ const Sell = styled.button`
   height: 48px;
   border-radius: 23px;
 
-  background-color: #6200ee;
+  background-color: ${Colors['primary-500']};
   color: #fff;
   & svg {
     margin-right: 5px;
@@ -111,7 +112,7 @@ const CategoryBox = styled.div`
   }
 
   &:hover > span {
-    color: #5600e8;
+    color: ${Colors['primary-500']};
   }
 `;
 

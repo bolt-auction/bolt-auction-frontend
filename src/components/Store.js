@@ -26,7 +26,7 @@ const Store = ({ match }) => {
             {id}({name})
           </h2>
           <Divider />
-          <Link to={`/store/${id}/products`}>상품</Link>
+          <Link to={`/store/${id}/products`}>상품</Link>{' '}
           <Link to={`/store/${id}/reviews`}>리뷰</Link>
         </MainContainer>
       </NonMainConatiner>

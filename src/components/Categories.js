@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 import styled from 'styled-components';
+import Colors from '../styles/Colors';
 
 const categories = ['패션잡화', '여성의류', '남성의류'];
 
@@ -29,7 +30,7 @@ const Categories = ({ menu }) => {
               <FaHeart
                 style={{
                   height: '36px',
-                  color: '#6200ee',
+                  color: `${Colors['primary-500']}`,
                   marginRight: '10px',
                 }}
               />
