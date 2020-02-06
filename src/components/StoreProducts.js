@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
+import { MainContainer } from './Main';
 
 const StoreProducts = () => {
   return (
