@@ -55,13 +55,14 @@ export const Divider = styled.div`
   background-color: rgba(33, 33, 33, 0.08);
 `;
 
-const Main = () => {
+const Main = ({ user }) => {
   return (
     <MainBox>
       <Header />
       <Conatiner>
         <Carousel />
         <MainContainer>
+          {user}
           <h2>경매장터 추천상품</h2>
           <Divider />
           <ProductList />

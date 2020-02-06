@@ -203,7 +203,6 @@ const Header = withRouter(({ history }) => {
       <SecondBox>
         <CategoryBox
           onMouseOver={() => {
-            console.log($menu);
             $menu.current.style.display = 'block';
           }}
           onMouseLeave={() => {
