@@ -30,7 +30,7 @@ const Categories = ({ menu }) => {
               <FaHeart
                 style={{
                   height: '36px',
-                  color: `${Colors['primary-500']}`,
+                  color: `${Colors.primary}`,
                   marginRight: '10px',
                 }}
               />

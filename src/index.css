@@ -71,6 +71,10 @@ select {
   font: inherit;
 }
 
+input:focus {
+  outline: none;
+}
+
 a,
 a:visited {
   text-decoration: none;

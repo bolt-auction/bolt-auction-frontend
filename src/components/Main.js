@@ -4,6 +4,8 @@ import Header from './Header';
 import ProductList from './ProductList';
 import Carousel from './Carousel';
 import styled from 'styled-components';
+import Colors from '../styles/Colors';
+import Footer from './Footer';
 
 export const MainBox = styled.div`
   width: 100%;
@@ -44,7 +46,7 @@ export const MainContainer = styled.div`
     font-style: normal;
     line-height: 1.06;
     letter-spacing: normal;
-    color: #6200ee;
+    color: ${Colors.primary};
     margin-bottom: 12px;
   }
 `;
@@ -69,6 +71,7 @@ const Main = ({ user }) => {
           <ProductList />
         </MainContainer>
       </Conatiner>
+      <Footer />
     </MainBox>
   );
 };

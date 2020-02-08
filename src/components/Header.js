@@ -7,13 +7,13 @@ import styled from 'styled-components';
 import Categories from './Categories';
 import Logo from '../imgs/번개옥션.png';
 import Colors from '../styles/Colors';
+import Typography from '../styles/Typography';
 
 const HeaderBox = styled.div`
   width: 100%;
   height: 122px;
   position: fixed;
   top: 0;
-
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
     0 4px 5px 0 rgba(0, 0, 0, 0.14);
   text-align: center;
@@ -26,6 +26,7 @@ const FirstBox = styled.div`
   margin: 0 auto;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding-top: 24px;
   margin-bottom: 12px;
 `;
@@ -45,39 +46,34 @@ const LOGO = styled.img`
 const Search = styled.form`
   width: 603px;
   height: 48px;
-  border-color: #5600e8;
+
   position: relative;
 
-  & > input {
+  & > input,
+  & > input:focus {
+    ${Typography.Subtitle1};
     width: 100%;
     height: 48px;
     padding: 5px 12px;
-    font-family: Roboto;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: 0.15px;
+    border: 2px solid ${Colors.primary};
+    border-radius: 5px;
     color: rgba(0, 0, 0, 0.6);
   }
 `;
 
 const Sell = styled.button`
-  width: 116px;
-  height: 48px;
-  border-radius: 23px;
-
-  background-color: ${Colors['primary-500']};
+  width: 96px;
+  height: 32px;
+  border-radius: 28px;
+  background-color: ${Colors.primary};
   color: #fff;
-  & svg {
-    margin-right: 5px;
-  }
 
   & a {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    ${Typography.Button};
+    font-weight: 500;
+    width: 64px;
+    height: 16px;
+    color: ${Colors.surface};
   }
 `;
 
@@ -112,7 +108,7 @@ const CategoryBox = styled.div`
   }
 
   &:hover > span {
-    color: ${Colors['primary-500']};
+    color: ${Colors.primary};
   }
 `;
 
@@ -154,6 +150,7 @@ const Header = withRouter(({ history }) => {
             value={{
               style: {
                 position: 'absolute',
+                color: Colors.primary,
                 right: '12px',
                 top: '24px',
                 transform: 'translateY(-50%)',
@@ -164,40 +161,7 @@ const Header = withRouter(({ history }) => {
           </IconContext.Provider>
         </Search>
         <Sell>
-          <Link to="/sell">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
-              width="25"
-              height="25"
-              viewBox="0 0 172 172"
-              style={{ fill: `#000000` }}
-            >
-              <g
-                fill="none"
-                fillRule="nonzero"
-                stroke="none"
-                strokeWidth="1"
-                strokeLinecap="butt"
-                strokeLinejoin="miter"
-                strokeMiterlimit="10"
-                strokeDasharray=""
-                strokeDashoffset="0"
-                fontFamily="none"
-                fontWeight="none"
-                fontSize="none"
-                textAnchor="none"
-                style={{ mixBlendMode: 'normal' }}
-              >
-                <path d="M0,172v-172h172v172z" fill="none"></path>
-                <g fill="#ffffff">
-                  <path d="M91.62136,11.41068c-1.48951,0.04438 -2.90324,0.6669 -3.94167,1.73568l-34.4,34.4c-1.49776,1.43802 -2.10108,3.57339 -1.5773,5.58258c0.52378,2.00919 2.09283,3.57823 4.10201,4.10201c2.00919,0.52378 4.14456,-0.07954 5.58258,-1.5773l34.4,-34.4c1.69569,-1.64828 2.20555,-4.16851 1.28389,-6.3463c-0.92166,-2.17779 -3.08576,-3.56638 -5.44951,-3.49667zM103.2,28.66667c-1.53699,0.00016 -3.00955,0.61742 -4.08724,1.71328l-28.43151,28.45391c-1.1945,1.08355 -1.8774,2.62008 -1.88125,4.23281c-0.00177,1.69226 0.74415,3.29887 2.03802,4.38958l33.99687,34.01927c1.07855,1.10275 2.55594,1.72438 4.09844,1.72448c1.52598,-0.00022 2.98891,-0.60877 4.06484,-1.69089l28.59948,-28.59948c1.10964,-1.07938 1.73565,-2.56161 1.73567,-4.10964c-0.00016,-1.53699 -0.61742,-3.00955 -1.71328,-4.08724l-34.31042,-34.31041c-0.02221,-0.02258 -0.04461,-0.04498 -0.06719,-0.06719c-1.07411,-1.06842 -2.52744,-1.66827 -4.04245,-1.66849zM154.68802,74.47734c-1.48951,0.04438 -2.90324,0.66691 -3.94167,1.73568l-34.4,34.4c-1.49778,1.43802 -2.10113,3.5734 -1.57735,5.5826c0.52378,2.0092 2.09284,3.57826 4.10204,4.10204c2.0092,0.52378 4.14458,-0.07957 5.5826,-1.57735l34.4,-34.4c1.69569,-1.64828 2.20555,-4.16851 1.28389,-6.3463c-0.92166,-2.17779 -3.08576,-3.56638 -5.44952,-3.49667zM76.21302,87.67969l-54.58985,46.61692c-2.78774,2.17004 -4.41957,5.50394 -4.42318,9.03672c0,6.33287 5.1338,11.46667 11.46667,11.46667c3.46111,-0.00048 6.73683,-1.56426 8.91354,-4.25521c0.01875,-0.02232 0.03741,-0.04472 0.05599,-0.06718l0.0112,-0.0112l46.67292,-54.67943z"></path>
-                </g>
-              </g>
-            </svg>
-            판매하기
-          </Link>
+          <Link to="/sell">판매하기</Link>
         </Sell>
       </FirstBox>
       <SecondBox>
