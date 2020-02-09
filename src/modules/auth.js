@@ -11,10 +11,13 @@ const users = [
   { email: 'jisop', password: '1234', name: '지섭' },
 ];
 
+const authKey = 'User';
+
 // Initial State
 const initialState = {
   user: null,
-  authenticated: false,
+  authenticated: localStorage.getItem(authKey),
+  authKey,
 };
 
 // Reducer
