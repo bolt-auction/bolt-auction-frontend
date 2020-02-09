@@ -1,6 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-
 /*
 ! authenticated이 true면 전달받은 Component로 이동, 아니면 SignIn으로 Redirect
 */
@@ -10,11 +10,7 @@ function AuthRoute({ authenticated, component: Component, render, ...rest }) {
       {...rest}
       render={props =>
         authenticated ? (
-          render ? (
-            render(props)
-          ) : (
-            <Component {...props} />
-          )
+          <Component {...props} />
         ) : (
           <Redirect
             to={{ pathname: '/signin', state: { from: props.location } }}
@@ -25,4 +21,6 @@ function AuthRoute({ authenticated, component: Component, render, ...rest }) {
   );
 }
 
-export default AuthRoute;
+export default connect(state => ({
+  authenticated: state.auth.authenticated,
+}))(AuthRoute);

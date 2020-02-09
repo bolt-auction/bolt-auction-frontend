@@ -121,7 +121,7 @@ const Menu = styled.div`
   background-color: #ffffff;
 `;
 
-const Header = withRouter(({ history }) => {
+const Header = withRouter(({ history, signout }) => {
   const [value, setValue] = useState('');
   const ref = useRef(null);
   const $menu = useRef(null);
@@ -192,6 +192,7 @@ const Header = withRouter(({ history }) => {
         <div>
           <Link to="/store/0">수빈 상점</Link>{' '}
           <Link to="/store/1">지섭 상점</Link>
+          <button onClick={signout}>로그아웃</button>
         </div>
       </SecondBox>
     </HeaderBox>

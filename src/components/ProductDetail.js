@@ -1,7 +1,7 @@
 import React from 'react';
 import qs from 'qs';
 import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
-import Header from './Header';
+import HeaderContainer from '../containers/HeaderContainer';
 
 const ProductDetail = ({ match, location }) => {
   const query = qs.parse(location.search, {
@@ -11,7 +11,7 @@ const ProductDetail = ({ match, location }) => {
   const owner = query.owner;
   return (
     <MainBox>
-      <Header />
+      <HeaderContainer />
       <NonMainConatiner>
         <h1 className="non-main-title">상품{id}의 상세 페이지</h1>
         <MainContainer>
