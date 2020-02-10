@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const SignIn = ({ authenticated, signin, location }) => {
+const SignIn = ({ signin, key }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleClick = () => {
     try {
-      signin({ email, password });
+      signin(email, password);
+      // localStorage.setItem(key, email);
     } catch (e) {
+      console.log(e);
       alert('Failed to login');
       setEmail('');
       setPassword('');
     }
   };
-
-  const { from } = location.state || { from: { pathname: '/' } };
-  if (authenticated) return <Redirect to={from} />;
 
   return (
     <div>
@@ -38,4 +37,5 @@ const SignIn = ({ authenticated, signin, location }) => {
     </div>
   );
 };
+
 export default SignIn;

@@ -1,11 +1,10 @@
 import React from 'react';
-import Header from './Header';
-
 import ProductList from './ProductList';
 import Carousel from './Carousel';
 import styled from 'styled-components';
 import Colors from '../styles/Colors';
 import Footer from './Footer';
+import HeaderContainer from '../containers/HeaderContainer';
 
 export const MainBox = styled.div`
   width: 100%;
@@ -57,14 +56,13 @@ export const Divider = styled.div`
   background-color: rgba(33, 33, 33, 0.08);
 `;
 
-const Main = ({ user }) => {
+const Main = () => {
   return (
     <MainBox>
-      <Header />
+      <HeaderContainer />
       <Conatiner>
         <Carousel />
         <MainContainer>
-          {user}
           <h2>경매장터 추천상품</h2>
           <Divider />
           <ProductList />

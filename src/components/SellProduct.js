@@ -1,11 +1,11 @@
 import React from 'react';
 import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
-import Header from './Header';
+import HeaderContainer from '../containers/HeaderContainer';
 
 const SellProduct = () => {
   return (
     <MainBox>
-      <Header />
+      <HeaderContainer />
       <NonMainConatiner>
         <h1 className="non-main-title">판매하기</h1>
         <MainContainer>

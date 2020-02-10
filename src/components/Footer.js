@@ -1,5 +1,4 @@
 import React from 'react';
-import { FirstBox } from './Header';
 import styled from 'styled-components';
 import Colors from '../styles/Colors';
 
