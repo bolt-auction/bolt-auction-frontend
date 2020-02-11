@@ -6,6 +6,7 @@ const SIGNOUT = 'auth/SIGNOUT';
 export const signin = (email, password) => ({ type: SIGNIN, email, password });
 export const signout = () => ({ type: SIGNOUT });
 
+// Fake Data
 const users = [
   { email: 'subin', password: '1234', name: '수빈' },
   { email: 'jisop', password: '1234', name: '지섭' },
