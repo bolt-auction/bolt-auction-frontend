@@ -4,7 +4,8 @@ import { Route, Redirect } from 'react-router-dom';
 /*
 ! authenticated이 true면 전달받은 Component로 이동, 아니면 SignIn으로 Redirect
 */
-function AuthRoute({ authenticated, component: Component, render, ...rest }) {
+function AuthRoute({ user, component: Component, render, ...rest }) {
+  const authenticated = user !== null;
   return (
     <Route
       {...rest}
@@ -22,5 +23,5 @@ function AuthRoute({ authenticated, component: Component, render, ...rest }) {
 }
 
 export default connect(state => ({
-  authenticated: state.auth.authenticated,
+  user: state.auth.user,
 }))(AuthRoute);

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const SignIn = ({ signin, key }) => {
+const SignIn = ({ signin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleClick = () => {
     try {
       signin(email, password);
-      // localStorage.setItem(key, email);
     } catch (e) {
       console.log(e);
       alert('Failed to login');
