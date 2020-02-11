@@ -20,11 +20,11 @@ const App = () => {
         <AuthRoute path="/" exact component={Main} />
         <Route path="/signin" component={SignInContainer} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/store/:id" component={Store} />
-        <Route path="/search" component={SearchResult} />
-        <Route path="/categories/:category" component={CategoryResult} />
-        <Route path="/products/:id" component={ProductDetail} />
-        <Route path="/sell" component={SellProduct} />
+        <AuthRoute path="/store/:id" component={Store} />
+        <AuthRoute path="/search" component={SearchResult} />
+        <AuthRoute path="/categories/:category" component={CategoryResult} />
+        <AuthRoute path="/products/:id" component={ProductDetail} />
+        <AuthRoute path="/sell" component={SellProduct} />
         <Route
           render={({ location }) => (
             <div>

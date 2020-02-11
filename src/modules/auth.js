@@ -1,10 +1,15 @@
+import { createAction, handleActions } from 'redux-actions';
+
 // Action Types
 const SIGNIN = 'auth/SIGNIN';
 const SIGNOUT = 'auth/SIGNOUT';
 
 // Action Creators
-export const signin = (email, password) => ({ type: SIGNIN, email, password });
-export const signout = () => ({ type: SIGNOUT });
+export const signin = createAction(SIGNIN, (email, password) => ({
+  email,
+  password,
+}));
+export const signout = createAction(SIGNOUT);
 
 // Fake Data
 const users = [
@@ -22,9 +27,9 @@ const initialState = {
 };
 
 // Reducer
-function auth(state = initialState, action) {
-  switch (action.type) {
-    case SIGNIN:
+const auth = handleActions(
+  {
+    [SIGNIN]: (state, action) => {
       const user = users.find(
         user =>
           user.email === action.email && user.password === action.password,
@@ -34,15 +39,14 @@ function auth(state = initialState, action) {
         user,
         authenticated: user !== null,
       };
-    case SIGNOUT:
-      return {
-        ...state,
-        user: null,
-        authenticated: false,
-      };
-    default:
-      return state;
-  }
-}
+    },
+    [SIGNOUT]: (state, action) => ({
+      ...state,
+      user: null,
+      authenticated: false,
+    }),
+  },
+  initialState,
+);
 
 export default auth;
