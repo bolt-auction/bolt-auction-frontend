@@ -13,6 +13,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from 'styled-components';
 import AuthRoute from './modules/AuthRoute';
+import HeaderContainer from './containers/HeaderContainer';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -56,6 +57,7 @@ const customConf = {
 const App = () => {
   return (
     <ThemeProvider theme={{ awesomegrid: customConf }}>
+      <HeaderContainer />
       <Switch>
         <AuthRoute path="/" exact component={Main} />
         <Route path="/signin" component={SignInContainer} />

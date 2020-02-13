@@ -4,7 +4,6 @@ import Carousel from './Carousel';
 import styled from 'styled-components';
 import Colors from '../styles/Colors';
 import Footer from './Footer';
-import HeaderContainer from '../containers/HeaderContainer';
 
 export const MainBox = styled.div`
   width: 100%;
@@ -59,7 +58,6 @@ export const Divider = styled.div`
 const Main = () => {
   return (
     <MainBox>
-      <HeaderContainer />
       <Conatiner>
         <Carousel />
         <MainContainer>

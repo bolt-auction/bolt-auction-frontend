@@ -2,7 +2,6 @@ import React from 'react';
 import qs from 'qs';
 import ProductList from './ProductList';
 import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
-import HeaderContainer from '../containers/HeaderContainer';
 
 const SearchResult = ({ location }) => {
   const query = qs.parse(location.search, {
@@ -11,7 +10,6 @@ const SearchResult = ({ location }) => {
   const item = query.item;
   return (
     <MainBox>
-      <HeaderContainer />
       <NonMainConatiner>
         <h1 className="non-main-title">{item}의 검색 결과입니다.</h1>
         <MainContainer>

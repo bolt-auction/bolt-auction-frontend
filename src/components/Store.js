@@ -3,7 +3,6 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import StoreProducts from './StoreProducts';
 import StoreReviews from './StoreReviews';
 import { MainBox, NonMainConatiner, MainContainer, Divider } from './Main';
-import HeaderContainer from '../containers/HeaderContainer';
 
 const data = [{ name: '수빈' }, { name: '지섭' }];
 
@@ -18,7 +17,6 @@ const Store = ({ match }) => {
 
   return (
     <MainBox>
-      <HeaderContainer />
       <NonMainConatiner>
         <h1 className="non-main-title">상점 페이지</h1>
         <MainContainer>
