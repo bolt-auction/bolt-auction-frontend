@@ -12,6 +12,7 @@ import { IconContext } from 'react-icons';
 import { FiMenu } from 'react-icons/fi';
 import { GoSearch } from 'react-icons/go';
 import logo512 from '../imgs/logo512.png';
+import ChatContainer from '../containers/ChatContainer';
 
 const NavContainer = styled.div`
   position: fixed;
@@ -190,6 +191,11 @@ const Header = withRouter(({ history, signout }) => {
           </Col>
           <Col debug md={1} align="center">
             <Button onClick={signout}>로그아웃</Button>
+          </Col>
+        </Row>
+        <Row debug>
+          <Col debug sm={2} md={3} lg={3}>
+            <ChatContainer />
           </Col>
         </Row>
       </Container>

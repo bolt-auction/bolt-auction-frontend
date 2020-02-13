@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Colors from './Colors';
 import Typography from './Typography';
 
+// 페이지 제목
+// ex) 내 상점, 판매하기, 검색 결과 등
 export const Title = styled.div`
   margin: 0 auto;
   max-width: 1024px;
@@ -15,6 +17,7 @@ export const Title = styled.div`
   }
 `;
 
+// ProductList를 담는 Contents box
 export const ContentsBox = styled.section`
   margin: 0 auto;
   padding: 24px;
@@ -38,8 +41,14 @@ export const ContentsBox = styled.section`
   }
 `;
 
+// ContentsBox 내부의 Divider
 export const Divider = styled.div`
   width: 100%;
   height: 2px;
   background-color: rgba(33, 33, 33, 0.08);
+`;
+
+// 채팅, 알림 등의 PopUp Container
+export const PopUp = styled.div`
+  height: 200px;
 `;
