@@ -7,14 +7,14 @@ const ProductData = [
   { id: 2, owner: 1 },
   { id: 3, owner: 0 },
   { id: 4, owner: 1 },
-  { id: 1, owner: 0 },
-  { id: 2, owner: 1 },
-  { id: 3, owner: 0 },
-  { id: 4, owner: 1 },
-  { id: 1, owner: 0 },
-  { id: 2, owner: 1 },
-  { id: 3, owner: 0 },
-  { id: 4, owner: 1 },
+  { id: 5, owner: 0 },
+  { id: 6, owner: 1 },
+  { id: 7, owner: 0 },
+  { id: 8, owner: 1 },
+  { id: 9, owner: 0 },
+  { id: 10, owner: 1 },
+  { id: 11, owner: 0 },
+  { id: 12, owner: 1 },
 ];
 
 const ProductList = () => {
@@ -30,8 +30,9 @@ const ProductList = () => {
             lg={3}
             justify="center"
             align="center"
+            key={`product-${id}`}
           >
-            <ProductCard key={id} id={id} owner={owner} />
+            <ProductCard id={id} owner={owner} />
           </Col>
         ))}
       </Row>
