@@ -3,21 +3,18 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const ProductBox = styled.div`
-  width: 226px;
   height: 288px;
   border-radius: 4px;
   margin-top: 24px;
   margin-right: 24px;
 
   & > img {
-    width: 226px;
     height: 192px;
   }
   & .product-data {
     margin: 12px 16px;
   }
   & h5.product-title {
-    width: 245px;
     height: 24px;
     font-family: Roboto;
     font-size: 24px;
@@ -29,7 +26,6 @@ const ProductBox = styled.div`
     color: rgba(0, 0, 0, 0.87);
   }
   & .price {
-    width: 46px;
     height: 16px;
     font-family: Roboto;
     font-size: 10px;
@@ -44,7 +40,6 @@ const ProductBox = styled.div`
     margin-right: 0px;
   }
   & h6 {
-    width: 81px;
     height: 24px;
     font-family: Roboto;
     font-size: 20px;

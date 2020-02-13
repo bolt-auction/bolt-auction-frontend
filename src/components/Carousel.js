@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CarouselBox = styled.div`
+  margin-top: 108px;
   width: 100%;
   height: 384px;
   background-color: #a9a9a9;
