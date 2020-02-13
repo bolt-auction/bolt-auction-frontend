@@ -28,9 +28,11 @@ export const signin = createAction(SIGNIN, (email, password) => ({
 }));
 export const signout = createAction(SIGNOUT);
 
+// 각 action에 대한 saga
 const siginInSaga = createRequestSaga(SIGNIN, api.setToken);
 const signOutSaga = createRequestSaga(SIGNOUT, api.removeToken);
 
+// rootSaga에 전달할 각 action에 대한 saga
 export function* authSaga() {
   yield takeLatest(SIGNIN, siginInSaga);
   yield takeLatest(SIGNOUT, signOutSaga);
@@ -42,6 +44,7 @@ const users = [
   { email: 'jisop', password: '1234', name: '지섭' },
 ];
 
+// localStorage Key
 const authKey = 'User';
 
 // Initial State

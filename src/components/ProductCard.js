@@ -52,7 +52,7 @@ const ProductBox = styled.div`
   }
 `;
 
-const Product = ({ id, owner }) => {
+const ProductCard = ({ id, owner }) => {
   return (
     <Link to={`/products/${id}?owner=${owner}`}>
       <ProductBox>
@@ -70,4 +70,4 @@ const Product = ({ id, owner }) => {
   );
 };
 
-export default Product;
+export default ProductCard;

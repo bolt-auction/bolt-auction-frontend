@@ -17,7 +17,7 @@ const SignIn = ({ signin }) => {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: 108 }}>
       <h1>로그인 컴포넌트</h1>
       <input
         value={email}

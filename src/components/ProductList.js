@@ -1,5 +1,5 @@
 import React from 'react';
-import Product from './Product';
+import ProductCard from './ProductCard';
 import { Container, Row, Col } from 'react-awesome-styled-grid';
 
 const ProductData = [
@@ -19,7 +19,7 @@ const ProductData = [
 
 const ProductList = () => {
   return (
-    <Container noGutter>
+    <Container style={{ padding: 0 }}>
       <Row debug>
         {ProductData.map(({ id, owner }) => (
           <Col
@@ -31,7 +31,7 @@ const ProductList = () => {
             justify="center"
             align="center"
           >
-            <Product key={id} id={id} owner={owner} />
+            <ProductCard key={id} id={id} owner={owner} />
           </Col>
         ))}
       </Row>

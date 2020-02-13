@@ -14,6 +14,7 @@ import './App.css';
 import { ThemeProvider } from 'styled-components';
 import AuthRoute from './modules/AuthRoute';
 import HeaderContainer from './containers/HeaderContainer';
+import Footer from './components/Footer';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -76,6 +77,7 @@ const App = () => {
           )}
         />
       </Switch>
+      <Footer />
     </ThemeProvider>
   );
 };
