@@ -12,7 +12,6 @@ import { IconContext } from 'react-icons';
 import { FiMenu } from 'react-icons/fi';
 import { GoSearch } from 'react-icons/go';
 import logo512 from '../imgs/logo512.png';
-import ChatContainer from '../containers/ChatContainer';
 
 const NavContainer = styled.div`
   position: fixed;
@@ -116,90 +115,84 @@ const Header = withRouter(({ history, signout }) => {
   };
 
   return (
-    <NavContainer>
-      <Container style={{ width: 1024 }}>
-        <Row debug style={{ height: 72 }} justify="space-between">
-          <Hidden xs>
-            <Col debug sm={1} md={2} lg={2} align="center" justify="center">
-              <Link to="/">
-                <LogoImg src={logo512} alt="번개옥션" />
-              </Link>
+    <>
+      <NavContainer>
+        <Container style={{ width: 1024 }}>
+          <Row debug style={{ height: 72 }} justify="space-between">
+            <Hidden xs>
+              <Col debug sm={1} md={2} lg={2} align="center" justify="center">
+                <Link to="/">
+                  <LogoImg src={logo512} alt="번개옥션" />
+                </Link>
+              </Col>
+            </Hidden>
+            <Col debug xs={3} sm={4} md={6} lg={6} justify="center">
+              <Search onSubmit={onSubmit}>
+                <input
+                  ref={ref}
+                  onChange={onChange}
+                  placeholder="상품명으로 검색해보세요."
+                />
+                <IconContext.Provider
+                  value={{
+                    style: {
+                      position: 'absolute',
+                      color: Colors.primary,
+                      right: '12px',
+                      top: '24px',
+                      transform: 'translateY(-50%)',
+                    },
+                  }}
+                >
+                  <GoSearch />
+                </IconContext.Provider>
+              </Search>
             </Col>
-          </Hidden>
-          <Col debug xs={3} sm={4} md={6} lg={6} justify="center">
-            <Search onSubmit={onSubmit}>
-              <input
-                ref={ref}
-                onChange={onChange}
-                placeholder="상품명으로 검색해보세요."
-              />
-              <IconContext.Provider
-                value={{
-                  style: {
-                    position: 'absolute',
-                    color: Colors.primary,
-                    right: '12px',
-                    top: '24px',
-                    transform: 'translateY(-50%)',
-                  },
-                }}
+            <Col debug xs={1} sm={1} md={2} lg={2} justify="center">
+              <Sell>
+                <Link to="/sell">판매하기</Link>
+              </Sell>
+            </Col>
+          </Row>
+          <Row debug style={{ height: 36 }}>
+            <Col debug noGutter md={2} justify="center" align="center">
+              <CategoryBox
+              // onMouseOver={() => {
+              //   $menu.current.style.display = 'block';
+              // }}
+              // onMouseLeave={() => {
+              //   $menu.current.style.display = 'none';
+              // }}
               >
-                <GoSearch />
-              </IconContext.Provider>
-            </Search>
-          </Col>
-          <Col debug xs={1} sm={1} md={2} lg={2} justify="center">
-            <Sell>
-              <Link to="/sell">판매하기</Link>
-            </Sell>
-          </Col>
-        </Row>
-        <Row debug style={{ height: 36 }}>
-          <Col debug noGutter md={2} justify="center" align="center">
-            <CategoryBox
-            // onMouseOver={() => {
-            //   $menu.current.style.display = 'block';
-            // }}
-            // onMouseLeave={() => {
-            //   $menu.current.style.display = 'none';
-            // }}
-            >
-              <Icon>
-                <FiMenu />
-              </Icon>
-              <span>카테고리</span>
-              {/* <Menu ref={$menu}>
+                <Icon>
+                  <FiMenu />
+                </Icon>
+                <span>카테고리</span>
+                {/* <Menu ref={$menu}>
                 <Categories menu={$menu} />
               </Menu> */}
-            </CategoryBox>
-          </Col>
-          <Col debug md={1} offset={{ md: 5 }} align="flex-end">
-            채팅
-          </Col>
-          <Col debug md={1} align="flex-end">
-            알람
-          </Col>
-          <Col debug md={1} align="flex-end">
-            <MyStoreBox>
-              <Link to="/store/0">수빈 상점</Link>
-            </MyStoreBox>
-          </Col>
-          <Col debug md={1} align="flex-end">
-            <MyStoreBox>
-              <Link to="/store/1">지섭 상점</Link>
-            </MyStoreBox>
-          </Col>
-          <Col debug md={1} align="center">
-            <Button onClick={signout}>로그아웃</Button>
-          </Col>
-        </Row>
-        <Row debug>
-          <Col debug sm={2} md={3} lg={3}>
-            <ChatContainer />
-          </Col>
-        </Row>
-      </Container>
-    </NavContainer>
+              </CategoryBox>
+            </Col>
+            <Col debug md={1} offset={{ md: 6 }} align="flex-end">
+              알람
+            </Col>
+            <Col debug md={1} align="flex-end">
+              <MyStoreBox>
+                <Link to="/store/0">수빈 상점</Link>
+              </MyStoreBox>
+            </Col>
+            <Col debug md={1} align="flex-end">
+              <MyStoreBox>
+                <Link to="/store/1">지섭 상점</Link>
+              </MyStoreBox>
+            </Col>
+            <Col debug md={1} align="center">
+              <Button onClick={signout}>로그아웃</Button>
+            </Col>
+          </Row>
+        </Container>
+      </NavContainer>
+    </>
   );
 });
 

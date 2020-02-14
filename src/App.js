@@ -15,6 +15,7 @@ import { ThemeProvider } from 'styled-components';
 import AuthRoute from './modules/AuthRoute';
 import HeaderContainer from './containers/HeaderContainer';
 import Footer from './components/Footer';
+import SideBar from './components/SideBar';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -59,6 +60,7 @@ const App = () => {
   return (
     <ThemeProvider theme={{ awesomegrid: customConf }}>
       <HeaderContainer />
+      <SideBar />
       <Switch>
         <AuthRoute path="/" exact component={Main} />
         <Route path="/signin" component={SignInContainer} />

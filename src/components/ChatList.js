@@ -3,6 +3,11 @@ import styled from 'styled-components';
 
 import * as Styled from '../styles/Styled';
 
+const ChatNav = styled.nav`
+  width: 100%;
+  height: 50px;
+`;
+
 const List = styled.ul``;
 
 const ListItem = styled.li`
@@ -21,10 +26,13 @@ const ListItem = styled.li`
   }
 `;
 
-const ChatList = ({ list, enterRoom }) => {
+const ChatList = ({ list, enterRoom, closeList }) => {
   return (
-    <Styled.PopUp>
-      <h4>채팅리스트</h4>
+    <Styled.PopUp style={{ background: 'pink' }}>
+      <ChatNav>
+        <h4>채팅리스트</h4>
+        <button onClick={closeList}>X</button>
+      </ChatNav>
       <List>
         {list.map(chat => (
           <ListItem
