@@ -2,6 +2,20 @@
   "name": "bolt-auction",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
+  "repository": "https://github.com/bolt-auction/bolt-auction-frontend.git",
+  "author": "bolt-auction",
+  "contributors": [
+    "Sub2n <95su1208@gmail.com>",
+    "JiSop <jisop.shin@gmail.com>"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -19,11 +33,17 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.1.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "normalize.css": "^8.0.1",
+    "prettier": "1.19.1",
+    "qs": "^6.9.1",
+    "react-icons": "^3.9.0",
+    "styled-components": "^5.0.0"
+  },
+  "resolutions": {
+    "serialize-javascript": "^2.1.2"
   },
   "browserslist": {
     "production": [
@@ -36,18 +56,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "main": "index.js",
-  "repository": "https://github.com/Sub2n/bolt-auction.git",
-  "author": "Sub2n <95su1208@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "normalize.css": "^8.0.1",
-    "prettier": "1.19.1",
-    "qs": "^6.9.1",
-    "react-icons": "^3.9.0",
-    "styled-components": "^5.0.0"
   }
 }
