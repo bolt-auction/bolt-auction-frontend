@@ -4,11 +4,11 @@ import ChatRoom from '../components/ChatRoom';
 import ChatList from '../components/ChatList';
 import { enter, leave } from '../modules/chat';
 
-const ChatContainer = ({ user, list, activeRoom, enter, leave }) => {
+const ChatContainer = ({ user, list, activeRoom, enter, leave, close }) => {
   return activeRoom ? (
     <ChatRoom roomId={activeRoom} leaveRoom={leave} />
   ) : (
-    <ChatList list={list} enterRoom={enter} />
+    <ChatList list={list} enterRoom={enter} closeList={close} />
   );
 };
 

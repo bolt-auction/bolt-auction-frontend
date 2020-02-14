@@ -50,5 +50,6 @@ export const Divider = styled.div`
 
 // 채팅, 알림 등의 PopUp Container
 export const PopUp = styled.div`
-  height: 200px;
+  width: 100%;
+  height: 500px;
 `;
