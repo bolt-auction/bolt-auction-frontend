@@ -5,10 +5,8 @@ import Elevation from '../styles/Elevation';
 import Colors from '../styles/Colors';
 
 const ProductCardBlock = styled.div`
-  width: 226px;
-  height: 288px;
   border-radius: 4px;
-  margin-top: 12px;
+  margin-top: 24px;
   box-shadow: ${Elevation.z1};
   background-color: ${Colors.surface};
 
@@ -18,17 +16,12 @@ const ProductCardBlock = styled.div`
     img {
       border-radius: 4px 4px 0 0;
       display: block;
-      width: 226px;
-      height: 192px;
       object-fit: cover;
     }
   }
 
   .product-data {
-    min-width: 192px;
-    min-height: 72px;
-    margin-left: 12px;
-    margin-right: 12px;
+    margin: 0 16px 12px 16px;
     display: flex;
     flex-direction: column;
 
