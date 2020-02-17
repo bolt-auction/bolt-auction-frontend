@@ -1,4 +1,4 @@
-import { put, select } from 'redux-saga/effects';
+import { put, select, call } from 'redux-saga/effects';
 import { startLoading, finishLoading } from '../modules/loading';
 
 /**
@@ -16,8 +16,14 @@ export default function createRequestSaga(type, request) {
     try {
       // 비동기 request가 호출되며 action이 parameter로 전달됨
       const state = yield select(state => state.auth);
-      // const response = yield call(request, action.payload);
-      const response = request(state, action.payload);
+      // SIGNIN이 구현이 덜 되어 로직을 분리해놓음
+      // SIGNIN API로 구현 시 yield call만 사용할 것
+      let response;
+      if (type === 'SIGNIN') response = request(state, action.payload);
+      else {
+        response = yield call(request, action.payload);
+      }
+      console.log('response', response);
       //성공 action dispatch
       yield put({
         type: SUCCESS,
