@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductCard from './ProductCard';
-import { Container, Row, Col } from 'react-awesome-styled-grid';
+import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
 
 const ProductData = [
   { id: 1, owner: 0 },
@@ -20,13 +20,13 @@ const ProductData = [
 const ProductList = () => {
   return (
     <Container style={{ padding: 0 }}>
-      <Row debug>
+      <ScreenBadge />
+      <Row>
         {ProductData.map(({ id, owner }) => (
           <Col
-            debug
             xs={2}
-            sm={4}
-            md={4}
+            sm={2}
+            md={3}
             lg={3}
             justify="center"
             align="center"

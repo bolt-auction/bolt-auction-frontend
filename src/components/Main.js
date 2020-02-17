@@ -1,33 +1,41 @@
 import React from 'react';
+import styled from 'styled-components';
 import ProductList from './ProductList';
 import Carousel from './Carousel';
-import * as Styled from '../styles/Styled';
-import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
+
+import Colors from '../styles/Colors';
+import Elevation from '../styles/Elevation';
+
+const MainContentBlock = styled.section`
+  margin: 0 auto;
+  padding: 1.5rem;
+  max-width: 1024px;
+  border-radius: 15px 15px 0 0;
+  box-shadow: ${Elevation.z4};
+
+  & h2 {
+    color: ${Colors.primary};
+    margin-bottom: 12px;
+  }
+`;
+
+// ContentsBox 내부의 Divider
+const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: rgba(33, 33, 33, 0.08);
+`;
 
 const Main = () => {
   return (
     <>
       <Carousel />
-      <Styled.ContentsBox>
-        <Container debug style={{ width: '100%' }}>
-          <ScreenBadge />
-          <Row debug noGutter>
-            <Col debug sm={12} md={6} lg={4} noGutter>
-              <h2>경매장터 인기상품</h2>
-            </Col>
-          </Row>
-          <Row debug>
-            <Col debug noGutter>
-              <Styled.Divider />
-            </Col>
-          </Row>
-          <Row debug>
-            <Col debug lg={12} noGutter>
-              <ProductList />
-            </Col>
-          </Row>
-        </Container>
-      </Styled.ContentsBox>
+      <MainContentBlock>
+        <h2>경매장터 인기상품</h2>
+        <Divider />
+        <ProductList />
+        <ProductList />
+      </MainContentBlock>
     </>
   );
 };
