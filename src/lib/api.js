@@ -1,6 +1,7 @@
 /*
   API request를 함수화한 library
 */
+import axios from 'axios';
 
 // .env.development에 저장된 BASE URL(REACT_APP_URL)
 const apiUrl = process.env.REACT_APP_URL;
@@ -27,4 +28,4 @@ export const removeToken = (state, action) => {
   return {};
 };
 
-export const getCategories = (state, action) => {};
+export const getCategories = () => axios.get(`${apiUrl}/api/category`);
