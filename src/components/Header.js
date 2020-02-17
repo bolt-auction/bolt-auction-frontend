@@ -92,7 +92,6 @@ const Icon = styled.span`
 `;
 
 const Menu = styled.div`
-  height: 529px;
   display: none;
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 16px 24px 0 rgba(0, 0, 0, 0.14);
   border: solid 1px rgba(0, 0, 0, 0.12);
