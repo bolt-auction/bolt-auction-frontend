@@ -10,7 +10,9 @@ import * as serviceWorker from './serviceWorker';
 import rootReducer, { rootSaga } from './modules';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const logger = createLogger();
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(

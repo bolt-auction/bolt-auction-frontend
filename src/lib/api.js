@@ -2,6 +2,9 @@
   API request를 함수화한 library
 */
 
+// .env.development에 저장된 BASE URL(REACT_APP_URL)
+const apiUrl = process.env.REACT_APP_URL;
+
 // 원래 api요청이어야 하지만 우선 localStorage에 key를 통해서 id를 저장하고 삭제하는 코드를 작성함
 // 추후 localStorage 관련 코드는 auth 모듈로 옮겨질 것임
 export const setToken = (state, payload) => {
@@ -23,3 +26,5 @@ export const removeToken = (state, action) => {
   localStorage.removeItem(state.authKey);
   return {};
 };
+
+export const getCategories = (state, action) => {};
