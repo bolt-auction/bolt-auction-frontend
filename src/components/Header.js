@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link, withRouter } from 'react-router-dom';
 
-import Categories from './Categories';
+import CategoriesContainer from '../containers/CategoriesContainer';
 
 import { Container, Row, Col, Hidden } from 'react-awesome-styled-grid';
 import Colors from '../styles/Colors';
@@ -100,8 +100,6 @@ const Menu = styled.div`
   display: none;
   top: 34px;
   left: -1px;
-  /* width: 304px; */
-  height: 529px;
   background-color: ${Colors.surface};
   border: solid 1px rgba(0, 0, 0, 0.12);
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 16px 24px 0 rgba(0, 0, 0, 0.14);
@@ -188,7 +186,7 @@ const Header = withRouter(({ history, signout }) => {
                 <span>카테고리</span>
               </div>
               <Menu ref={$menu}>
-                <Categories menu={$menu} />
+                <CategoriesContainer menu={$menu} />
               </Menu>
             </Col>
 

@@ -1,23 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaHeart } from 'react-icons/fa';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Colors from '../styles/Colors';
+import { Link } from 'react-router-dom';
 
-const categories = ['패션잡화', '여성의류', '남성의류'];
+import { FaHeart } from 'react-icons/fa';
+import Colors from '../styles/Colors';
 
 const CategoriesBlock = styled.div`
   .category {
     width: 302px;
     padding: 8px 16px;
     text-align: left;
+    color: ${Colors.onSurfaceMedium};
 
     .category-icon {
       width: 24px;
       height: 24px;
       padding: 2px;
-      color: ${Colors.onSurfaceMedium};
       margin-right: 16px;
+      color: inherit;
     }
 
     a {
@@ -35,26 +35,44 @@ const CategoriesBlock = styled.div`
   }
 `;
 
-const Categories = ({ menu }) => {
+const Categories = ({ menu, categories, getCategories, error }) => {
+  useEffect(() => {
+    // console.log(getCategories);
+    getCategories();
+  }, [getCategories]);
   return (
     <CategoriesBlock>
       <ul>
-        {categories.map((cat, i) => (
-          <li className="category" key={i}>
-            <Link
-              to={`/categories/${cat}`}
-              onClick={() => (menu.current.style.display = 'none')}
-            >
-              <FaHeart
-                className="category-icon"
-                style={{
-                  width: '20px',
-                }}
-              />
-              {cat}
-            </Link>
-          </li>
-        ))}
+        {!error
+          ? categories?.supCategoryList?.map(cat => (
+              <li className="category" key={cat.id}>
+                <Link
+                  to={`/categories/${cat.name}`}
+                  onClick={() => (menu.current.style.display = 'none')}
+                >
+                  <FaHeart
+                    className="category-icon"
+                    style={{
+                      width: '20px',
+                    }}
+                  />
+                  {cat.name}
+                </Link>
+                {/* <ul>
+                  {cat.subCategoryList?.map(subCat => (
+                    <li key={subCat.id}>
+                      <Link
+                        to={`/categories/${subCat.name}`}
+                        onClick={() => (menu.current.style.display = 'none')}
+                      >
+                        {subCat.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul> */}
+              </li>
+            ))
+          : '카테고리를 불러올 수 없습니다.'}
       </ul>
     </CategoriesBlock>
   );
