@@ -3,7 +3,7 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import StoreProducts from './StoreProducts';
 import StoreReviews from './StoreReviews';
 import * as Styled from '../styles/Styled';
-import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
+// import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
 
 const data = [{ name: '수빈' }, { name: '지섭' }];
 

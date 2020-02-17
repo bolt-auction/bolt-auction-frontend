@@ -3,8 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Row, Col, Hidden } from 'react-awesome-styled-grid';
 
-import Categories from './Categories';
-
 import Colors from '../styles/Colors';
 import Elevation from '../styles/Elevation';
 import Typography from '../styles/Typography';
@@ -12,6 +10,8 @@ import { IconContext } from 'react-icons';
 import { FiMenu } from 'react-icons/fi';
 import { GoSearch } from 'react-icons/go';
 import logo512 from '../imgs/logo512.png';
+
+import CategoriesContainer from '../containers/CategoriesContainer';
 
 const NavContainer = styled.div`
   position: fixed;
@@ -91,14 +91,12 @@ const Icon = styled.span`
   align-items: center;
 `;
 
-// const Menu = styled.div`
-//   width: 304px;
-//   height: 529px;
-//   display: none;
-//   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 16px 24px 0 rgba(0, 0, 0, 0.14);
-//   border: solid 1px rgba(0, 0, 0, 0.12);
-//   background-color: #ffffff;
-// `;
+const Menu = styled.div`
+  display: none;
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 16px 24px 0 rgba(0, 0, 0, 0.14);
+  border: solid 1px rgba(0, 0, 0, 0.12);
+  background-color: #ffffff;
+`;
 
 const Header = withRouter(({ history, signout }) => {
   const [value, setValue] = useState('');
@@ -157,22 +155,17 @@ const Header = withRouter(({ history, signout }) => {
           <Row debug style={{ height: 36 }}>
             <Col debug noGutter md={2} justify="center" align="center">
               <CategoryBox
-              // onMouseOver={() => {
-              //   $menu.current.style.display = 'block';
-              // }}
-              // onMouseLeave={() => {
-              //   $menu.current.style.display = 'none';
-              // }}
+                onMouseOver={() => {
+                  $menu.current.style.display = 'block';
+                }}
               >
                 <Icon>
                   <FiMenu />
                 </Icon>
                 <span>카테고리</span>
-                {/* <Menu ref={$menu}>
-                <Categories menu={$menu} />
-              </Menu> */}
               </CategoryBox>
             </Col>
+
             <Col debug md={1} offset={{ md: 6 }} align="flex-end">
               알람
             </Col>
@@ -188,6 +181,18 @@ const Header = withRouter(({ history, signout }) => {
             </Col>
             <Col debug md={1} align="center">
               <Button onClick={signout}>로그아웃</Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Menu
+                ref={$menu}
+                onMouseLeave={() => {
+                  $menu.current.style.display = 'none';
+                }}
+              >
+                <CategoriesContainer menu={$menu} />
+              </Menu>
             </Col>
           </Row>
         </Container>
