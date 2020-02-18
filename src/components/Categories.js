@@ -7,6 +7,8 @@ import Colors from '../styles/Colors';
 import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
 
 const CategoriesBlock = styled.div`
+  max-width: 1024px;
+
   .category {
     padding: 8px 16px;
     text-align: left;
@@ -42,7 +44,7 @@ const Categories = ({ menu, categories, getCategories, error }) => {
   }, [getCategories]);
   return (
     <CategoriesBlock>
-      <Container style={{ padding: 0, width: 1024 }}>
+      <Container style={{ padding: 0 }}>
         <ScreenBadge />
         <Row debug>
           {!error
@@ -51,7 +53,7 @@ const Categories = ({ menu, categories, getCategories, error }) => {
                   debug
                   key={cat.id}
                   xs={2}
-                  sm={4}
+                  sm={2}
                   md={3}
                   lg={3}
                   align="center"

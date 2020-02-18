@@ -39,6 +39,7 @@ body {
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  min-width: 480px;
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
