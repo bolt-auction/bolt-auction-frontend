@@ -77,14 +77,14 @@ const HeaderBlock = styled.nav`
       align-items: center;
     }
 
-    div:first-child {
+    .category {
       display: flex;
       align-items: center;
     }
 
     :hover {
       border: solid 1px rgba(0, 0, 0, 0.12);
-      div:first-child > span {
+      .category > span {
         color: ${Colors.primary};
       }
     }
@@ -98,6 +98,7 @@ const HeaderMarginBlock = styled.div`
 const Menu = styled.div`
   position: absolute;
   display: none;
+  /* display: block; */
   top: 34px;
   left: -1px;
   background-color: ${Colors.surface};
@@ -111,11 +112,13 @@ const LogOutButton = styled.button`
 
 const Header = withRouter(({ history, signout }) => {
   const [value, setValue] = useState('');
-  const ref = useRef(null);
+  const [size, setSize] = useState(1024);
+  const $input = useRef(null);
   const $menu = useRef(null);
+  const $header = useRef(null);
 
   const onChange = () => {
-    setValue(ref.current.value);
+    setValue($input.current.value);
   };
   const onSubmit = e => {
     e.preventDefault();
@@ -123,10 +126,12 @@ const Header = withRouter(({ history, signout }) => {
     history.push(`/search?item=${value}`);
   };
 
+  window.addEventListener('resize', () => setSize($header.current.offsetWidth));
+
   return (
     <>
-      <HeaderBlock>
-        <Container style={{ width: 1024 }}>
+      <HeaderBlock ref={$header}>
+        <Container style={{ maxWidth: 1024 }}>
           <Row style={{ height: 72 }} justify="space-between">
             <Hidden xs>
               <Col sm={1} md={2} lg={2} align="center" justify="center">
@@ -139,7 +144,7 @@ const Header = withRouter(({ history, signout }) => {
             <Col xs={3} sm={4} md={6} lg={6} justify="center">
               <form className="search" onSubmit={onSubmit}>
                 <input
-                  ref={ref}
+                  ref={$input}
                   onChange={onChange}
                   placeholder="상품명으로 검색해보세요."
                 />
@@ -179,14 +184,14 @@ const Header = withRouter(({ history, signout }) => {
                 $menu.current.style.display = 'none';
               }}
             >
-              <div>
+              <div className="category">
                 <span className="menu-icon">
                   <FiMenu />
                 </span>
                 <span>카테고리</span>
               </div>
               <Menu ref={$menu}>
-                <CategoriesContainer menu={$menu} />
+                <CategoriesContainer menu={$menu} size={size} />
               </Menu>
             </Col>
 

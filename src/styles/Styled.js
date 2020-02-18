@@ -1,19 +1,21 @@
 import styled from 'styled-components';
 import Colors from './Colors';
-import Typography from './Typography';
 
 // 페이지 제목
 // ex) 내 상점, 판매하기, 검색 결과 등
 export const Title = styled.div`
-  margin: 0 auto;
+  margin: 30px auto;
   max-width: 1024px;
   height: 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
   padding-left: 16px;
 
-  & h3 {
-    padding-top: 14px;
-    ${Typography.headline3};
-    line-height: inherit;
+  & h2 {
+    color: ${Colors.primary};
+    margin-bottom: 12px;
   }
 `;
 

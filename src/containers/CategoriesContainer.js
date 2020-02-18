@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import Categories from '../components/Categories';
 import { getCats } from '../modules/category';
 
-const CategoriesContainer = ({ menu, categories, getCats, error }) => {
+const CategoriesContainer = ({ menu, size, categories, getCats, error }) => {
   return (
     <Categories
       menu={menu}
       categories={categories}
       getCategories={getCats}
       error={error}
+      width={size}
     />
   );
 };
