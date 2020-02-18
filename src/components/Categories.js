@@ -6,7 +6,9 @@ import { FaHeart } from 'react-icons/fa';
 import Colors from '../styles/Colors';
 
 const CategoriesBlock = styled.div`
-  .category {
+  .category,
+  .sub-category {
+    position: relative;
     width: 302px;
     padding: 8px 16px;
     text-align: left;
@@ -30,19 +32,47 @@ const CategoriesBlock = styled.div`
       }
     }
   }
+
+  .sub-category-list {
+    position: absolute;
+    display: none;
+    left: 302px;
+    top: 0;
+    background-color: ${Colors.surface};
+    border: solid 1px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2),
+      0 16px 24px 0 rgba(0, 0, 0, 0.14);
+  }
+
+  .sub-category-list.open {
+    display: block;
+  }
 `;
 
-const Categories = ({ menu, categories, getCategories, error }) => {
+const Categories = ({
+  menu,
+  categories,
+  getCategories,
+  error,
+  activeId,
+  activateId,
+  deactivateId,
+}) => {
   useEffect(() => {
-    // console.log(getCategories);
     getCategories();
   }, [getCategories]);
+
   return (
     <CategoriesBlock>
       <ul>
         {!error
           ? categories?.supCategoryList?.map(cat => (
-              <li className="category" key={cat.id}>
+              <li
+                className="category"
+                key={cat.id}
+                onMouseEnter={() => activateId(cat.id)}
+                onMouseLeave={deactivateId}
+              >
                 <Link
                   to={`/categories/${cat.name}`}
                   onClick={() => (menu.current.style.display = 'none')}
@@ -55,9 +85,13 @@ const Categories = ({ menu, categories, getCategories, error }) => {
                   />
                   {cat.name}
                 </Link>
-                {/* <ul>
-                  {cat.subCategoryList?.map(subCat => (
-                    <li key={subCat.id}>
+                <ul
+                  className={`sub-category-list ${
+                    activeId !== null && activeId === cat.id ? 'open' : ''
+                  }`}
+                >
+                  {cat.subCategoryList.map(subCat => (
+                    <li className="sub-category" key={subCat.id}>
                       <Link
                         to={`/categories/${subCat.name}`}
                         onClick={() => (menu.current.style.display = 'none')}
@@ -66,7 +100,7 @@ const Categories = ({ menu, categories, getCategories, error }) => {
                       </Link>
                     </li>
                   ))}
-                </ul> */}
+                </ul>
               </li>
             ))
           : '카테고리를 불러올 수 없습니다.'}

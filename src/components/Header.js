@@ -77,7 +77,8 @@ const HeaderBlock = styled.nav`
       align-items: center;
     }
 
-    .category {
+    .category,
+    .sub-category {
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -85,7 +86,8 @@ const HeaderBlock = styled.nav`
 
     :hover {
       border: solid 1px rgba(0, 0, 0, 0.12);
-      .category > span {
+      .category > span,
+      .sub-category > span {
         color: ${Colors.primary};
       }
     }
