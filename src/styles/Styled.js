@@ -41,7 +41,44 @@ export const ContentsBox = styled.section`
     color: ${Colors.primary};
     margin-bottom: 12px;
   }
+
+  .tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    position: relative;
+  }
+  .tab:hover,
+  .tab.active {
+    color: ${Colors.primary};
+  }
+
+  .tab:hover::after,
+  .tab.active::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 40px;
+    background-color: ${Colors.primary};
+  }
 `;
+
+// ul {
+//     text-align: left;
+//   }
+
+//   .tabNav {
+//     display: flex;
+//     justify-content: space-around;
+//     width: 60%;
+
+//     .tab {
+//       /* width: 100px; */
+//       height: 30px;
+//       text-align: center;
+//       cursor: pointer;
+//     }
+//   }
 
 // ContentsBox 내부의 Divider
 export const Divider = styled.div`

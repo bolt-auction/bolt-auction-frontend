@@ -8,6 +8,7 @@ import Colors from '../styles/Colors';
 const CategoriesBlock = styled.div`
   .category,
   .sub-category {
+    z-index: 1000;
     position: relative;
     width: 302px;
     padding: 8px 16px;

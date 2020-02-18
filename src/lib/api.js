@@ -29,4 +29,8 @@ export const removeToken = (state, action) => {
   return {};
 };
 
+// 카테고리 받아오기
 export const getCategories = () => axios.get(`/api/category`);
+
+// 카테고리로 아이템 조회
+export const getCategoryItems = id => axios.get(`/api/category/${id}`);
