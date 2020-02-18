@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 import { FaHeart } from 'react-icons/fa';
 import Colors from '../styles/Colors';
+import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
 
 const CategoriesBlock = styled.div`
   .category {
-    width: 302px;
     padding: 8px 16px;
     text-align: left;
     color: ${Colors.onSurfaceMedium};
@@ -25,7 +25,7 @@ const CategoriesBlock = styled.div`
       align-items: center;
     }
 
-    :hover {
+    a:hover {
       background-color: ${Colors.primarySelect};
       color: ${Colors.primary};
       .category-icon {
@@ -42,38 +42,52 @@ const Categories = ({ menu, categories, getCategories, error }) => {
   }, [getCategories]);
   return (
     <CategoriesBlock>
-      <ul>
-        {!error
-          ? categories?.supCategoryList?.map(cat => (
-              <li className="category" key={cat.id}>
-                <Link
-                  to={`/categories/${cat.name}`}
-                  onClick={() => (menu.current.style.display = 'none')}
+      <Container style={{ padding: 0, width: 1024 }}>
+        <ScreenBadge />
+        <Row debug>
+          {!error
+            ? categories?.supCategoryList?.map(cat => (
+                <Col
+                  debug
+                  key={cat.id}
+                  xs={2}
+                  sm={4}
+                  md={3}
+                  lg={3}
+                  align="center"
+                  justify="start"
                 >
-                  <FaHeart
-                    className="category-icon"
-                    style={{
-                      width: '20px',
-                    }}
-                  />
-                  {cat.name}
-                </Link>
-                {/* <ul>
-                  {cat.subCategoryList?.map(subCat => (
-                    <li key={subCat.id}>
-                      <Link
-                        to={`/categories/${subCat.name}`}
-                        onClick={() => (menu.current.style.display = 'none')}
-                      >
-                        {subCat.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul> */}
-              </li>
-            ))
-          : '카테고리를 불러올 수 없습니다.'}
-      </ul>
+                  <div>
+                    <FaHeart
+                      style={{
+                        color: `${Colors.primary}`,
+                        marginRight: '10px',
+                      }}
+                    />
+                    <Link
+                      to={`/categories/${cat.name}`}
+                      onClick={() => (menu.current.style.display = 'none')}
+                    >
+                      <b>{cat.name}</b>
+                    </Link>
+                  </div>
+                  <ul>
+                    {cat.subCategoryList?.map(subCat => (
+                      <li key={subCat.id}>
+                        <Link
+                          to={`/categories/${subCat.name}`}
+                          onClick={() => (menu.current.style.display = 'none')}
+                        >
+                          {subCat.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </Col>
+              ))
+            : '카테고리를 불러올 수 없습니다.'}
+        </Row>
+      </Container>
     </CategoriesBlock>
   );
 };

@@ -13,7 +13,7 @@ const ChatButton = styled.button`
 `;
 
 const ChatSidebar = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
