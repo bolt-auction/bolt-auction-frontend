@@ -20,6 +20,7 @@ const HeaderBlock = styled.nav`
   right: 0;
   box-shadow: ${Elevation.z4};
   background-color: ${Colors.surface};
+  z-index: 20;
 
   .my-store {
     ${Typography.button};

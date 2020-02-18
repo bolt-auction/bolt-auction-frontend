@@ -43,6 +43,7 @@ export const ContentsBox = styled.section`
   }
 
   .tab {
+    z-index: 0;
     padding: 8px 16px;
     cursor: pointer;
     position: relative;
