@@ -29,6 +29,7 @@ const initialState = {
   categories: [],
   error: false,
   activeCategory: null,
+  selectedCategory: null,
 };
 
 // Reducer
