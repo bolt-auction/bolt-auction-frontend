@@ -80,6 +80,7 @@ const HeaderBlock = styled.nav`
     .category {
       display: flex;
       align-items: center;
+      cursor: pointer;
     }
 
     :hover {
