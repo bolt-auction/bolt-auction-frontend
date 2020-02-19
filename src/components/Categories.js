@@ -58,10 +58,16 @@ const Categories = ({
   activeId,
   activateId,
   deactivateId,
+  selectCategory,
 }) => {
   useEffect(() => {
     getCategories();
   }, [getCategories]);
+
+  const onCategotyClick = (id, name) => {
+    menu.current.style.display = 'none';
+    selectCategory(id, name);
+  };
 
   return (
     <CategoriesBlock>
@@ -76,7 +82,7 @@ const Categories = ({
               >
                 <Link
                   to={`/categories/${cat.name}`}
-                  onClick={() => (menu.current.style.display = 'none')}
+                  onClick={() => onCategotyClick(cat.id, cat.name)}
                 >
                   <FaHeart
                     className="category-icon"
@@ -95,7 +101,7 @@ const Categories = ({
                     <li className="sub-category" key={subCat.id}>
                       <Link
                         to={`/categories/${subCat.name}`}
-                        onClick={() => (menu.current.style.display = 'none')}
+                        onClick={() => onCategotyClick(subCat.id, subCat.name)}
                       >
                         {subCat.name}
                       </Link>
