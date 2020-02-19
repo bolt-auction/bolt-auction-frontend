@@ -10,15 +10,16 @@ const ChatButton = styled.button`
   cursor: pointer;
   border-radius: 50%;
   color: #ffffff;
+  z-index: 20;
 `;
 
 const ChatSidebar = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  height: 500px;
   overflow: hidden;
+  height: 500px;
 
   & .chat-list {
     position: absolute;

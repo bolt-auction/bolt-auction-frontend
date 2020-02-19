@@ -1,19 +1,21 @@
 import styled from 'styled-components';
 import Colors from './Colors';
-import Typography from './Typography';
 
 // 페이지 제목
 // ex) 내 상점, 판매하기, 검색 결과 등
 export const Title = styled.div`
-  margin: 0 auto;
+  margin: 30px auto;
   max-width: 1024px;
   height: 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
   padding-left: 16px;
 
-  & h3 {
-    padding-top: 14px;
-    ${Typography.headline3};
-    line-height: inherit;
+  & h2 {
+    color: ${Colors.primary};
+    margin-bottom: 12px;
   }
 `;
 
@@ -39,7 +41,45 @@ export const ContentsBox = styled.section`
     color: ${Colors.primary};
     margin-bottom: 12px;
   }
+
+  .tab {
+    z-index: 0;
+    padding: 8px 16px;
+    cursor: pointer;
+    position: relative;
+  }
+  .tab:hover,
+  .tab.active {
+    color: ${Colors.primary};
+  }
+
+  .tab:hover::after,
+  .tab.active::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 40px;
+    background-color: ${Colors.primary};
+  }
 `;
+
+// ul {
+//     text-align: left;
+//   }
+
+//   .tabNav {
+//     display: flex;
+//     justify-content: space-around;
+//     width: 60%;
+
+//     .tab {
+//       /* width: 100px; */
+//       height: 30px;
+//       text-align: center;
+//       cursor: pointer;
+//     }
+//   }
 
 // ContentsBox 내부의 Divider
 export const Divider = styled.div`

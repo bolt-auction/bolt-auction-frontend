@@ -17,12 +17,12 @@ const ProductData = [
   { id: 12, owner: 1 },
 ];
 
-const ProductList = () => {
+const ProductList = ({ items }) => {
   return (
     <Container style={{ padding: 0 }}>
       <ScreenBadge />
       <Row>
-        {ProductData.map(({ id, owner }) => (
+        {(items?.length > 0 ? items : ProductData).map(({ id, owner }) => (
           <Col
             xs={2}
             sm={2}
