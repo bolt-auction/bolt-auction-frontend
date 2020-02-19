@@ -17,6 +17,7 @@ const CategoriesContainer = ({
   activeCategory,
   activateSub,
   deactivateSub,
+  selectCategory,
 }) => {
   return (
     <Categories
@@ -37,7 +38,7 @@ export default connect(
   ({ category }) => ({
     categories: category.categories,
     error: category.categoryLoadError,
-    activeCategory: category.activeCategory,
+    activeCategory: category.activeSupCategory,
   }),
   {
     getCats,

@@ -65,8 +65,8 @@ const Categories = ({
   }, [getCategories]);
 
   const onCategotyClick = (id, name) => {
-    selectCategory(id, name);
     menu.current.style.display = 'none';
+    selectCategory(id, name);
   };
 
   return (

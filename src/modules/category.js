@@ -47,7 +47,7 @@ export function* categorySaga() {
 const initialState = {
   categories: [],
   categoryLoadError: false,
-  activeCategory: null,
+  activeSupCategory: null,
   selectedCategory: null,
   categoryItems: [],
 };
@@ -66,11 +66,11 @@ const category = handleActions(
     }),
     [ACTIVATE_SUB]: (state, action) => ({
       ...state,
-      activeCategory: action.payload,
+      activeSupCategory: action.payload,
     }),
     [DEACTIVATE_SUB]: (state, action) => ({
       ...state,
-      activeCategory: null,
+      activeSupCategory: null,
     }),
     [SELECT_CATEGORY]: (state, action) => ({
       ...state,
