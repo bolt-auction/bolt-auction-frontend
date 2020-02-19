@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductList from './ProductList';
 import * as Styled from '../styles/Styled';
+import Tab from './Tab';
 
 const CategoryResult = ({ match }) => {
   const { category } = match.params;
@@ -11,6 +12,8 @@ const CategoryResult = ({ match }) => {
         <h2>{category}의 추천 상품</h2>
       </Styled.Title>
       <Styled.ContentsBox>
+        <Tab />
+        <Styled.Divider />
         <ProductList />
       </Styled.ContentsBox>
     </div>
