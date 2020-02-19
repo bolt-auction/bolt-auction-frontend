@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Categories from '../components/Categories';
-import { getCats, activateSub, deactivateSub } from '../modules/category';
+import {
+  getCats,
+  activateSub,
+  deactivateSub,
+  selectCategory,
+} from '../modules/category';
 
 const CategoriesContainer = ({
   menu,
@@ -23,6 +28,7 @@ const CategoriesContainer = ({
       activeId={activeCategory}
       activateId={activateSub}
       deactivateId={deactivateSub}
+      selectCategory={selectCategory}
     />
   );
 };
@@ -30,12 +36,13 @@ const CategoriesContainer = ({
 export default connect(
   ({ category }) => ({
     categories: category.categories,
-    error: category.error,
+    error: category.categoryLoadError,
     activeCategory: category.activeCategory,
   }),
   {
     getCats,
     activateSub,
     deactivateSub,
+    selectCategory,
   },
 )(CategoriesContainer);

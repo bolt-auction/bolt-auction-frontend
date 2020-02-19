@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProductList from './ProductList';
 import * as Styled from '../styles/Styled';
 import Tab from './Tab';
 
-const CategoryResult = ({ match }) => {
+const CategoryResult = ({ match, id, items, getItems }) => {
   const { category } = match.params;
+  useEffect(() => {
+    getItems(id);
+  });
   return (
     <div>
       <Styled.Title>
@@ -14,7 +17,7 @@ const CategoryResult = ({ match }) => {
       <Styled.ContentsBox>
         <Tab />
         <Styled.Divider />
-        <ProductList />
+        <ProductList items={items} />
       </Styled.ContentsBox>
     </div>
   );

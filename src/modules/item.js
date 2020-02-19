@@ -1,14 +1,20 @@
-import { createAction } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
+// import { takeEvery } from 'redux-saga/effects';
+// import * as api from '../lib/api';
+// import createRequestSaga from '../lib/createRequestSaga';
 
 // Action Types
-const SEARCH = 'item/SEARCH';
-const SEARCH_SUCCESS = 'item/SEARCH_SUCCESS';
-
+// 상품명 검색으로 아이템 조회
 const GET_ITEM = 'item/GET_ITEM';
 const GET_ITEM_SUCCESS = 'item/GET_ITEM_SUCCESS';
 
-const GET_CATEGORY_ITEM = 'item/GET_CATEGORY_ITEM';
-
 // Action Creators
-export const search = createAction(SEARCH, query => query);
-export const getItem = createAction(GET_ITEM, id => id);
+export const getItems = createAction(GET_ITEM, id => id);
+
+// Initial State
+const initialState = {};
+
+// Reducer
+const item = handleActions({}, initialState);
+
+export default item;
