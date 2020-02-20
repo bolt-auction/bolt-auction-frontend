@@ -1,7 +1,12 @@
 import React from 'react';
+import ProductList from './ProductList';
 
 const StoreProducts = () => {
-  return <h1>내 상품 보기</h1>;
+  return (
+    <div style={{ marginTop: 24 }}>
+      <ProductList />
+    </div>
+  );
 };
 
 export default StoreProducts;

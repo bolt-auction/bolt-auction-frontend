@@ -51,7 +51,7 @@ const authKey = 'User';
 const initialState = {
   users,
   authKey,
-  user: localStorage.getItem(authKey),
+  user: JSON.parse(localStorage.getItem(authKey)),
 };
 
 // Reducer

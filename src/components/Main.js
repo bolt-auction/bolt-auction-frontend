@@ -31,7 +31,7 @@ const Main = () => {
     <>
       <Carousel />
       <MainContentBlock>
-        <h2>경매장터 인기상품</h2>
+        <h2 className="content-title">경매장터 인기상품</h2>
         <Divider />
         <ProductList />
         <ProductList />
