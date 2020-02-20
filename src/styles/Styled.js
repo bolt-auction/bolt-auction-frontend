@@ -13,6 +13,16 @@ export const Title = styled.div`
   flex-direction: column;
   padding-left: 16px;
 
+  & h1 {
+    width: 375px;
+    height: 48px;
+    font-family: RobotoMono;
+    font-size: 48px;
+    line-height: 48px;
+    letter-spacing: -0.4px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
   & h2 {
     color: ${Colors.primary};
     margin-bottom: 12px;
@@ -30,7 +40,7 @@ export const ContentsBox = styled.section`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
     0 4px 5px 0 rgba(0, 0, 0, 0.14);
 
-  & h2 {
+  & h2.content-title {
     font-family: Roboto;
     font-size: 34px;
     font-weight: normal;
@@ -61,6 +71,37 @@ export const ContentsBox = styled.section`
     position: absolute;
     top: 40px;
     background-color: ${Colors.primary};
+  }
+
+  .profile-image {
+    max-width: 167px;
+    max-height: 167px;
+    border-radius: 50%;
+  }
+
+  .profile-desc {
+    display: inline-block;
+    max-width: 810px;
+    min-height: 120px;
+  }
+
+  .profile-title {
+    flex-direction: row;
+    position: relative;
+    h2 {
+      width: 310px;
+      height: 48px;
+      text-align: center;
+      font-family: NotoSansKR;
+      font-size: 34px;
+      font-weight: 500;
+      line-height: 24px;
+      color: rgba(0, 0, 0, 0.87);
+    }
+    .edit {
+      position: absolute;
+      left: calc(50% + 155px);
+    }
   }
 `;
 
