@@ -15,7 +15,7 @@ export const setToken = (state, payload) => {
     user => user.email === payload.email && user.password === payload.password,
   );
   if (!user) return {};
-  localStorage.setItem(state.authKey, user);
+  localStorage.setItem(state.authKey, JSON.stringify(user));
   return {
     data: {
       user,
