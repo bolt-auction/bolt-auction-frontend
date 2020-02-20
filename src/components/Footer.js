@@ -12,7 +12,7 @@ const FooterBox = styled.div`
 
 const FlexBox = styled.div`
   display: flex;
-  width: 1024px;
+  max-width: 1024px;
   margin: 0 auto;
   flex-direction: row;
   align-items: center;

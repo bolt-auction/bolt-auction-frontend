@@ -17,12 +17,13 @@ const ProductData = [
   { id: 12, owner: 1 },
 ];
 
-const ProductList = () => {
+const ProductList = ({ items }) => {
+  console.log('productList: ', items);
   return (
     <Container style={{ padding: 0 }}>
       <ScreenBadge />
       <Row>
-        {ProductData.map(({ id, owner }) => (
+        {(items?.length > 0 ? items : ProductData).map(item => (
           <Col
             xs={2}
             sm={2}
@@ -30,9 +31,15 @@ const ProductList = () => {
             lg={3}
             justify="center"
             align="center"
-            key={`product-${id}`}
+            key={`product-${item.id}`}
           >
-            <ProductCard id={id} owner={owner} />
+            <ProductCard
+              id={item.id}
+              name={item.name}
+              currentPrice={item.currentPrice}
+              owner={item.storeId}
+              imageArr={item.imagePath?.path}
+            />
           </Col>
         ))}
       </Row>

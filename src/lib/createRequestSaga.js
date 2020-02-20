@@ -19,7 +19,8 @@ export default function createRequestSaga(type, request) {
       // SIGNIN이 구현이 덜 되어 로직을 분리해놓음
       // SIGNIN API로 구현 시 yield call만 사용할 것
       let response;
-      if (type === 'SIGNIN') response = request(state, action.payload);
+      if (type === 'auth/SIGNOUT' || type === 'auth/SIGNIN')
+        response = request(state, action.payload);
       else {
         response = yield call(request, action.payload);
       }

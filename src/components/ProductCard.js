@@ -40,22 +40,26 @@ const ProductCardBlock = styled.div`
   }
 `;
 
-const ProductCard = ({ id, owner }) => {
+const ProductCard = ({ id, owner, name, currentPrice, imageArr }) => {
   return (
     <ProductCardBlock>
       <Link to={`/products/${id}?owner=${owner}`}>
         <div className="product-img">
           <img
-            src="https://www.yokogawa.com/public/img/default_image.png"
+            src={`${
+              imageArr?.length > 0
+                ? imageArr[0]
+                : 'https://www.yokogawa.com/public/img/default_image.png'
+            }`}
             alt="이미지"
           />
         </div>
         <div className="product-data">
-          <h5 className="product-title">상품 타이틀</h5>
+          <h5 className="product-title">{name}</h5>
           <div className="auction-data">
             <div className="price">
               <h6>현재 가격</h6>
-              <h5>10,000원</h5>
+              <h5>{currentPrice}</h5>
             </div>
             <div className="limit-time">
               <h6>0d 00h 00m</h6>

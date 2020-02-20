@@ -9,9 +9,9 @@ const SearchResult = ({ location }) => {
   });
   const item = query.item;
   return (
-    <div style={{ marginTop: 108 }}>
+    <div>
       <Styled.Title>
-        <h3>{item}의 검색 결과입니다.</h3>
+        <h2>{item}의 검색 결과입니다.</h2>
       </Styled.Title>
       <Styled.ContentsBox>
         <ProductList />
