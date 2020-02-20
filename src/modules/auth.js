@@ -40,8 +40,8 @@ export function* authSaga() {
 
 // Fake Data
 const users = [
-  { email: 'subin', password: '1234', name: '수빈' },
-  { email: 'jisop', password: '1234', name: '지섭' },
+  { email: 'subin', password: '1234', name: '수빈', id: 21 },
+  { email: 'jisop', password: '1234', name: '지섭', id: 21 },
 ];
 
 // localStorage Key

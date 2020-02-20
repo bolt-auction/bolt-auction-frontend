@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
 import * as api from '../lib/api';
 import createRequestSaga from '../lib/createRequestSaga';
 
@@ -40,7 +40,7 @@ const getCategoryItemSaga = createRequestSaga(
 // rootSaga에 전달할 Saga
 export function* categorySaga() {
   yield takeEvery(GET_CATS, getCatsSaga);
-  yield takeEvery(GET_CATEGORY_ITEM, getCategoryItemSaga);
+  yield takeLatest(GET_CATEGORY_ITEM, getCategoryItemSaga);
 }
 
 // Initial State

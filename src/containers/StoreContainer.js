@@ -1,5 +1,6 @@
 import React from 'react';
 import Store from '../components/Store';
+import { connect } from 'react-redux';
 
 const StoreContainer = ({ match }) => {
   const data = [{ name: '수빈' }, { name: '지섭' }];
@@ -9,4 +10,4 @@ const StoreContainer = ({ match }) => {
   return <Store id={id} name={name} />;
 };
 
-export default StoreContainer;
+export default connect(({ auth }) => ({ user: auth.user }))(StoreContainer);

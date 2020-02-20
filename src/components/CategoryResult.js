@@ -7,7 +7,7 @@ const CategoryResult = ({ match, id, items, getItems }) => {
   const { category } = match.params;
   useEffect(() => {
     getItems(id);
-  });
+  }, [getItems, id]);
   return (
     <div>
       <Styled.Title>
@@ -17,7 +17,7 @@ const CategoryResult = ({ match, id, items, getItems }) => {
       <Styled.ContentsBox>
         <Tab />
         <Styled.Divider />
-        <ProductList items={items} />
+        <ProductList items={items['_embedded']?.itemDtoList} />
       </Styled.ContentsBox>
     </div>
   );
