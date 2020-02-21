@@ -40,6 +40,8 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   min-width: 480px;
+
+  overflow-x: hidden;
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
