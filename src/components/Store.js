@@ -10,15 +10,18 @@ import * as Styled from '../styles/Styled';
 
 import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
 import { MdModeEdit } from 'react-icons/md';
+import { useState } from 'react';
 
 const StoreTo = ({ match }) => {
   return <Redirect to={`${match.path}/products`} />;
 };
 
 const Store = ({ id, name }) => {
+  const [activeTab, setActiveTab] = useState('product');
+
   const tabMenu = [
-    { name: '상품', params: `/store/${id}/products` },
-    { name: '리뷰', params: `/store/${id}/reviews` },
+    { name: '상품', params: `/store/${id}/products`, id: 'product' },
+    { name: '리뷰', params: `/store/${id}/reviews`, id: 'review' },
   ];
 
   return (
@@ -71,7 +74,12 @@ const Store = ({ id, name }) => {
             </Col>
           </Row>
         </Container>
-        <Tab menu={tabMenu} align="center" store />
+        <Tab
+          menu={tabMenu}
+          align="center"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
         <Styled.Divider />
         <Switch>
           <Route path={`/store/${id}`} exact component={StoreTo} />

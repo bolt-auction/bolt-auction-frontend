@@ -5,6 +5,7 @@ import { getCategoryItems } from '../modules/category';
 
 const CategoryResultContainer = ({
   match,
+  location,
   selectedCategory,
   categoryItems,
   getCategoryItems,
@@ -12,6 +13,7 @@ const CategoryResultContainer = ({
   return (
     <CategoryResult
       match={match}
+      location={location}
       id={selectedCategory?.id}
       items={categoryItems}
       getItems={getCategoryItems}
