@@ -7,27 +7,24 @@ import axios from 'axios';
 // CORS 문제를 해결하기 위해서 package.json의 proxy 사용
 // const apiUrl = process.env.REACT_APP_URL;
 
-// 원래 api요청이어야 하지만 우선 localStorage에 key를 통해서 id를 저장하고 삭제하는 코드를 작성함
-// 추후 localStorage 관련 코드는 auth 모듈로 옮겨질 것임
-export const setToken = (state, payload) => {
-  console.log('setToken', state, payload);
-  const user = state.users.find(
-    user => user.email === payload.email && user.password === payload.password,
-  );
-  if (!user) return {};
-  localStorage.setItem(state.authKey, JSON.stringify(user));
-  return {
-    data: {
-      user,
-      authenticated: true,
-    },
-  };
-};
+// const token = `Bearer ${localStorage.token}`;
+// axios.defaults.headers.common['Authorization'] = token;
 
-export const removeToken = (state, action) => {
-  localStorage.removeItem(state.authKey);
-  return {};
-};
+// 로그인
+export const signin = ({ uid, passwd }) =>
+  axios.post('/api/auth/login', { uid, passwd });
+
+// 회원가입
+export const signup = ({ uid, passwd, name }) =>
+  axios.post('/api/member', { uid, passwd, name });
+
+// 회원정보 조회
+export const check = () =>
+  axios.get('/api/member', {
+    headers: {
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
 
 // 카테고리 받아오기
 export const getCategories = () => axios.get(`/api/category`);
