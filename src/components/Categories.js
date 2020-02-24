@@ -81,7 +81,7 @@ const Categories = ({
                 onMouseLeave={deactivateId}
               >
                 <Link
-                  to={`/categories/${cat.name}`}
+                  to={`/categories/${cat.name}?order=popular`}
                   onClick={() => onCategotyClick(cat.id, cat.name)}
                 >
                   <FaHeart
@@ -100,7 +100,7 @@ const Categories = ({
                   {cat.subCategoryList.map(subCat => (
                     <li className="sub-category" key={subCat.id}>
                       <Link
-                        to={`/categories/${subCat.name}`}
+                        to={`/categories/${subCat.name}?order=popular`}
                         onClick={() => onCategotyClick(subCat.id, subCat.name)}
                       >
                         {subCat.name}

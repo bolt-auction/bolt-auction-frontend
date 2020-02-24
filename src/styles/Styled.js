@@ -52,25 +52,35 @@ export const ContentsBox = styled.section`
     margin-bottom: 12px;
   }
 
-  .tab {
-    z-index: 0;
-    padding: 8px 16px;
-    cursor: pointer;
-    position: relative;
-  }
-  .tab:hover,
-  .tab.active {
-    color: ${Colors.primary};
-  }
+  .tabNav {
+    .tab {
+      z-index: 0;
+      position: relative;
+      padding: 0;
+    }
 
-  .tab:hover::after,
-  .tab.active::after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    top: 40px;
-    background-color: ${Colors.primary};
+    .tab a {
+      display: inline-block;
+      width: 100%;
+      height: 40px;
+      text-align: center;
+      padding: 8px 16px;
+    }
+
+    .tab:hover,
+    .tab.active {
+      color: ${Colors.primary};
+    }
+
+    .tab:hover::after,
+    .tab.active::after {
+      content: '';
+      width: 100%;
+      height: 2px;
+      position: absolute;
+      top: 40px;
+      background-color: ${Colors.primary};
+    }
   }
 
   .profile-image {

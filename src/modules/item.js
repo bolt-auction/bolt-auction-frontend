@@ -1,20 +1,39 @@
 import { createAction, handleActions } from 'redux-actions';
-// import { takeEvery } from 'redux-saga/effects';
-// import * as api from '../lib/api';
-// import createRequestSaga from '../lib/createRequestSaga';
+import { takeLatest } from 'redux-saga/effects';
+import * as api from '../lib/api';
+import createRequestSaga from '../lib/createRequestSaga';
 
 // Action Types
-// 상품명 검색으로 아이템 조회
-const GET_ITEM = 'item/GET_ITEM';
-const GET_ITEM_SUCCESS = 'item/GET_ITEM_SUCCESS';
+
+// 상품명 아이템 조회 요청
+const GET_ITEMS = 'item/GET_ITEMS';
+const GET_ITEMS_SUCCESS = 'item/GET_ITEMS_SUCCESS';
 
 // Action Creators
-export const getItems = createAction(GET_ITEM, id => id);
+export const getItems = createAction(GET_ITEMS, keyword => keyword);
+
+// Action Saga
+const getItemsSaga = createRequestSaga(GET_ITEMS, api.serachItem);
+
+//rootSagaㅇ에 전달할 Saga
+export function* itemSaga() {
+  yield takeLatest(GET_ITEMS, getItemsSaga);
+}
 
 // Initial State
-const initialState = {};
+const initialState = {
+  searchedItems: [],
+};
 
 // Reducer
-const item = handleActions({}, initialState);
+const item = handleActions(
+  {
+    [GET_ITEMS_SUCCESS]: (state, action) => ({
+      ...state,
+      searchedItems: action.payload,
+    }),
+  },
+  initialState,
+);
 
 export default item;

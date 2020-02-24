@@ -1,7 +1,6 @@
 import React from 'react';
 import Main from './components/Main';
 import SignUp from './components/SignUp';
-import SearchResult from './components/SearchResult';
 import ProductDetail from './components/ProductDetail';
 import SellProduct from './components/SellProduct';
 import SignInContainer from './containers/SignInContainer';
@@ -16,6 +15,7 @@ import Footer from './components/Footer';
 import SideBar from './components/SideBar';
 import CategoryResultContainer from './containers/CategoryResultContainer';
 import StoreContainer from './containers/StoreContainer';
+import SearchResultContainer from './containers/SearchResultContainer';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -66,7 +66,7 @@ const App = () => {
         <Route path="/signin" component={SignInContainer} />
         <Route path="/signup" component={SignUp} />
         <AuthRoute path="/store/:id" component={StoreContainer} />
-        <AuthRoute path="/search" component={SearchResult} />
+        <AuthRoute path="/search" component={SearchResultContainer} />
         <AuthRoute
           path="/categories/:category"
           component={CategoryResultContainer}

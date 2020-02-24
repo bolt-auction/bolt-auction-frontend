@@ -9,7 +9,7 @@ export default {
   primaryHover: '#ff8b3d0a',
   primarySelect: '#ff8a3d14',
   primaryPressed: '#ff8a3d19',
-  primaryFocused: '#ff8a3d1e',
+  primaryFocused: '#ff8a3d4c',
   blackHover: '#0000000a',
   blackDragged: '#00000014',
   caroucelBold: '#525252',

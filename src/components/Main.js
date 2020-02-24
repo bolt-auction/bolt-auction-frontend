@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProductList from './ProductList';
-import Carousel from './Carousel';
+import CarouselContainer from './CarouselContainer';
 
 import Colors from '../styles/Colors';
 import Elevation from '../styles/Elevation';
@@ -29,7 +29,7 @@ const Divider = styled.div`
 const Main = () => {
   return (
     <>
-      <Carousel />
+      <CarouselContainer />
       <MainContentBlock>
         <h2 className="content-title">경매장터 인기상품</h2>
         <Divider />

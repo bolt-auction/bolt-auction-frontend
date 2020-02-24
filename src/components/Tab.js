@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Hidden } from 'react-awesome-styled-grid';
 import { Link } from 'react-router-dom';
 
-const Tab = ({ menu, align, store }) => {
+const Tab = ({ menu, align, activeTab, setActiveTab }) => {
   return (
     <Container style={{ padding: 0 }}>
       <Hidden sm xs>
@@ -10,10 +10,10 @@ const Tab = ({ menu, align, store }) => {
           className="tabNav"
           style={{ margin: 0, justifyContent: `${align}` }}
         >
-          {menu.map(m => (
+          {menu.map(tab => (
             <Col
-              key={`tab-${m.name}`}
-              className="tab"
+              key={`tab-${tab.name}`}
+              className={`tab ${activeTab === tab.id ? 'active' : ''}`}
               align="center"
               justify="center"
               lg={1.5}
@@ -21,7 +21,9 @@ const Tab = ({ menu, align, store }) => {
               sm={1.5}
               xs={1}
             >
-              {store ? <Link to={m.params}>{m.name}</Link> : m.name}
+              <Link to={tab.params} onClick={() => setActiveTab(tab.id)}>
+                {tab.name}
+              </Link>
             </Col>
           ))}
         </Row>
