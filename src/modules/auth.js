@@ -2,66 +2,147 @@ import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
 import * as api from '../lib/api';
 import createRequestSaga from '../lib/createRequestSaga';
-
-/*
-02.11.20
-1. SIGNIN action 발생
-2. createRequestSaga의 Generator 함수 내부 로직에 따라서 api.requsetFunction이 실행된다.
-(이 때 redux-saga의 select로 현재 redux의 state와 action.payload를 전달할 수 있다.)
-3. api.requestFuncton 성공 시 SIGNIN_SUCCESS action이 발생하고 auth 리듀서에서 새로운 state를 생성한다.
-
-SIGNOUT action도 마찬가지로 동작한다.
-witten by. 수빈
-*/
+import produce from 'immer';
 
 // Action Types
+const CHANGE_FIELD = 'auth/CHANGE_FIELD';
+const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
+
+const SIGNUP = 'auth/SIGNUP';
+const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS';
+const SIGNUP_FAILURE = 'auth/SIGNUP_FAILURE';
+
 const SIGNIN = 'auth/SIGNIN';
 const SIGNIN_SUCCESS = 'auth/SIGNIN_SUCCESS';
+const SIGNIN_FAILURE = 'auth/SIGNIN_FAILURE';
+
+const TEMP_SET_USER = 'auth/TEMP_SET_USER';
+
+const CHECK = 'auth/CHECK';
+const CHECK_SUCCESS = 'auth/CHECK_SUCCESS';
+const CHECK_FAILURE = 'auth/CHECK_FAILURE';
 
 const SIGNOUT = 'auth/SIGNOUT';
-const SIGNOUT_SUCCESS = 'auth/SIGNOUT_SUCCESS';
 
 // Action Creators
-export const signin = createAction(SIGNIN, (email, password) => ({
-  email,
-  password,
+export const changeField = createAction(
+  CHANGE_FIELD,
+  ({ form, key, value }) => ({
+    form, // signin , signup
+    key, // uid, passwd, passwdConfirm
+    value, // 실제 바꾸려는 값
+  }),
+);
+export const initializeForm = createAction(INITIALIZE_FORM, form => form); // signin / signup
+
+export const signup = createAction(SIGNUP, ({ uid, passwd, name }) => ({
+  uid,
+  passwd,
+  name,
 }));
+export const signin = createAction(SIGNIN, ({ uid, passwd }) => ({
+  uid,
+  passwd,
+}));
+
+export const tempSetUser = createAction(TEMP_SET_USER, user => user);
+export const check = createAction(CHECK);
+
 export const signout = createAction(SIGNOUT);
 
 // 각 action에 대한 saga
-const siginInSaga = createRequestSaga(SIGNIN, api.setToken);
-const signOutSaga = createRequestSaga(SIGNOUT, api.removeToken);
+const signupSaga = createRequestSaga(SIGNUP, api.signup);
+const signinSaga = createRequestSaga(SIGNIN, api.signin);
+const checkSaga = createRequestSaga(CHECK, api.check);
+
+function signoutSaga() {
+  try {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  } catch (e) {
+    console.log('localStorage is not working');
+  }
+}
 
 // rootSaga에 전달할 각 action에 대한 saga
 export function* authSaga() {
-  yield takeLatest(SIGNIN, siginInSaga);
-  yield takeLatest(SIGNOUT, signOutSaga);
+  yield takeLatest(SIGNUP, signupSaga);
+  yield takeLatest(SIGNIN, signinSaga);
+  yield takeLatest(CHECK, checkSaga);
+  yield takeLatest(CHECK_FAILURE, signoutSaga);
+  yield takeLatest(SIGNOUT, signoutSaga);
 }
-
-// Fake Data
-const users = [
-  { email: 'subin', password: '1234', name: '수빈', id: 21 },
-  { email: 'jisop', password: '1234', name: '지섭', id: 21 },
-];
-
-// localStorage Key
-const authKey = 'User';
 
 // Initial State
 const initialState = {
-  users,
-  authKey,
-  user: JSON.parse(localStorage.getItem(authKey)),
+  signup: {
+    uid: '',
+    passwd: '',
+    passwdConfirm: '',
+    name: '',
+  },
+  signin: {
+    uid: '',
+    passwd: '',
+  },
+  auth: null,
+  authError: null,
+  user: null,
+  checkError: null,
 };
 
 // Reducer
 const auth = handleActions(
   {
-    [SIGNIN_SUCCESS]: (state, action) => ({
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
+      produce(state, draft => {
+        draft[form][key] = value;
+      }),
+    [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
-      user: action.payload.user,
+      [form]: initialState[form],
     }),
-    [SIGNOUT_SUCCESS]: (state, action) => ({
+    // 회원가입 성공
+    [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+    }),
+    // 회원가입 실패
+    [SIGNUP_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    // 로그인 성공
+    [SIGNIN_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+    }),
+    // 로그인 실패
+    [SIGNIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    // 새로고침 이후 임시 로그인 처리
+    [TEMP_SET_USER]: (state, { payload: user }) => ({
+      ...state,
+      user,
+    }),
+    // 유저 정보확인 성공
+    [CHECK_SUCCESS]: (state, { payload: user }) => ({
+      ...state,
+      user,
+      checkError: null,
+    }),
+    // 유저 정보확인 실패
+    [CHECK_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      user: null,
+      checkError: error,
+    }),
+    // 로그아웃
+    [SIGNOUT]: state => ({
       ...state,
       user: null,
     }),

@@ -22,6 +22,6 @@ function AuthRoute({ user, component: Component, render, ...rest }) {
   );
 }
 
-export default connect(state => ({
-  user: state.auth.user,
+export default connect(({ auth }) => ({
+  user: auth.user,
 }))(AuthRoute);

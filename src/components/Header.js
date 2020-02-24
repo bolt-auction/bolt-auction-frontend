@@ -114,7 +114,7 @@ const LogOutButton = styled.button`
   font-size: 0.75em;
 `;
 
-const Header = withRouter(({ history, signout, search }) => {
+const Header = withRouter(({ history, user, signout, search }) => {
   const [keyword, setKeyword] = useState('');
   const [size, setSize] = useState(1024);
   const $input = useRef(null);
@@ -206,14 +206,22 @@ const Header = withRouter(({ history, signout, search }) => {
             </Col>
 
             <Col md={1} align="flex-end">
+              {/* /store/:user.id로 바뀌어야함 */}
               <div className="my-store">
-                <Link to="/store/21">내 상점</Link>{' '}
-                {/* /store/:user.id로 바뀌어야함 */}
+                {user ? (
+                  <Link to="/store/21">{user.name} 상점</Link>
+                ) : (
+                  <Link to="/">내 상점</Link>
+                )}
               </div>
             </Col>
 
             <Col md={1} align="center">
-              <LogOutButton onClick={signout}>로그아웃</LogOutButton>
+              {user ? (
+                <LogOutButton onClick={signout}>로그아웃</LogOutButton>
+              ) : (
+                <LogOutButton to="/signin">로그인</LogOutButton>
+              )}
             </Col>
           </Row>
         </Container>
