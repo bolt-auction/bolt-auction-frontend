@@ -34,3 +34,7 @@ export const getCategories = () => axios.get(`/api/category`);
 
 // 카테고리로 아이템 조회
 export const getCategoryItems = id => axios.get(`/api/item/category/${id}`);
+
+// 아이템 검색
+export const serachItem = keyword =>
+  axios.get(`/api/item?filter=name&keyword=${keyword}`);

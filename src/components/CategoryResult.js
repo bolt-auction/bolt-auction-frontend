@@ -1,18 +1,13 @@
 import React, { useEffect } from 'react';
-import qs from 'qs';
 
 import ProductList from './ProductList';
 import * as Styled from '../styles/Styled';
 import Tab from './Tab';
 import { useState } from 'react';
 
-const CategoryResult = ({ match, location, id, items, getItems }) => {
+const CategoryResult = ({ match, order, id, items, getItems }) => {
   const { category } = match.params;
   const [activeTab, setActiveTab] = useState('popular');
-  const query = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
-  const order = query.order;
 
   useEffect(() => {
     console.log('order', order);

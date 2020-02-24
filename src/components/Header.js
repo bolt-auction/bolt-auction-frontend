@@ -114,20 +114,22 @@ const LogOutButton = styled.button`
   font-size: 0.75em;
 `;
 
-const Header = withRouter(({ history, signout }) => {
-  const [value, setValue] = useState('');
+const Header = withRouter(({ history, signout, search }) => {
+  const [keyword, setKeyword] = useState('');
   const [size, setSize] = useState(1024);
   const $input = useRef(null);
   const $menu = useRef(null);
   const $header = useRef(null);
 
   const onChange = () => {
-    setValue($input.current.value);
+    setKeyword($input.current.value);
   };
   const onSubmit = e => {
     e.preventDefault();
-    if (!value.length) return;
-    history.push(`/search?item=${value}`);
+    if (!keyword.length) return;
+    search(keyword);
+    history.push(`/search?keyword=${keyword}&order=porpular`);
+    $input.current.value = '';
   };
 
   window.addEventListener('resize', () => setSize($header.current.offsetWidth));
