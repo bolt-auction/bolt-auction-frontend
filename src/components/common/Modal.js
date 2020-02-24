@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Colors from '../styles/Colors';
-import Elevation from '../styles/Elevation';
+import Colors from '../../styles/Colors';
+import Elevation from '../../styles/Elevation';
 import logo512 from '../imgs/logo512.png';
 
 const ModalOverlay = styled.div`

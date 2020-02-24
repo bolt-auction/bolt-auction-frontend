@@ -1,21 +1,22 @@
 import React from 'react';
+import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import AuthRoute from './util/AuthRoute';
+
 import Main from './components/Main';
-import SignUp from './components/SignUp';
 import ProductDetail from './components/ProductDetail';
 import SellProduct from './components/SellProduct';
-import SignInContainer from './containers/SignInContainer';
-
-import { Route, Switch } from 'react-router-dom';
-
-import './App.css';
-import { ThemeProvider } from 'styled-components';
-import AuthRoute from './modules/AuthRoute';
-import HeaderContainer from './containers/HeaderContainer';
 import Footer from './components/Footer';
 import SideBar from './components/SideBar';
+
+import HeaderContainer from './containers/HeaderContainer';
 import CategoryResultContainer from './containers/CategoryResultContainer';
 import StoreContainer from './containers/StoreContainer';
 import SearchResultContainer from './containers/SearchResultContainer';
+
+import SigninPage from './pages/SigninPage';
+import SignupPage from './pages/SignupPage';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -62,9 +63,8 @@ const App = () => {
       <HeaderContainer />
       <SideBar />
       <Switch>
-        <AuthRoute path="/" exact component={Main} />
-        <Route path="/signin" component={SignInContainer} />
-        <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SigninPage} />
+        <Route path="/signup" component={SignupPage} />
         <AuthRoute path="/store/:id" component={StoreContainer} />
         <AuthRoute path="/search" component={SearchResultContainer} />
         <AuthRoute
@@ -73,6 +73,7 @@ const App = () => {
         />
         <AuthRoute path="/products/:id" component={ProductDetail} />
         <AuthRoute path="/sell" component={SellProduct} />
+        <AuthRoute path="/" exact component={Main} />
         <Route
           render={({ location }) => (
             <div>
