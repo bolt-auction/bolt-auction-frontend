@@ -1,4 +1,6 @@
 import React from 'react';
+import qs from 'qs';
+
 import CategoryResult from '../components/CategoryResult';
 import { connect } from 'react-redux';
 import { getCategoryItems } from '../modules/category';
@@ -10,10 +12,14 @@ const CategoryResultContainer = ({
   categoryItems,
   getCategoryItems,
 }) => {
+  const query = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });
+  const order = query.order;
   return (
     <CategoryResult
       match={match}
-      location={location}
+      order={order}
       id={selectedCategory?.id}
       items={categoryItems}
       getItems={getCategoryItems}
