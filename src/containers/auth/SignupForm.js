@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { changeField, initializeForm, signup, check } from '../../modules/auth';
+import { changeField, initializeForm, signup } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
 import { withRouter } from 'react-router-dom';
 
 const SignupForm = withRouter(
-  ({
-    history,
-    form,
-    auth,
-    authError,
-    user,
-    changeField,
-    initializeForm,
-    signup,
-    check,
-  }) => {
+  ({ history, form, auth, authError, changeField, initializeForm, signup }) => {
     const [error, setError] = useState(null);
 
     // 인풋 변경 이벤트 핸들러
@@ -29,7 +19,8 @@ const SignupForm = withRouter(
     };
 
     // 폼 등록 이벤트 핸들러
-    //TODO: '이미 사용중인 이메일 or 아이디 입니다' 에러 메시지 추가
+    //TODO: '이미 사용중인 이메일 or 아이디 입니다', '올바른 이메일 형식이 아닙니다' 에러 메시지 추가
+    //TODO: 회원가입 성공 후 로그인 페이지로 이동하기 전 성공했다는 메시지 보여주기
     const onSubmit = e => {
       e.preventDefault();
       const { uid, passwd, passwdConfirm, name } = form;
@@ -60,23 +51,9 @@ const SignupForm = withRouter(
       }
       if (auth) {
         console.log('회원가입 성공');
-        localStorage.setItem('token', auth.accessToken);
-        check();
+        history.push('/signin');
       }
-    }, [auth, authError, check]);
-
-    // user 값 설정 확인
-    useEffect(() => {
-      if (user) {
-        history.push('/'); // 홈 화면으로 이동
-        try {
-          localStorage.setItem('user', JSON.stringify(user));
-        } catch (e) {
-          console.log('localStorage is not working');
-        }
-        return;
-      }
-    }, [history, user]);
+    }, [auth, authError, history]);
 
     return (
       <AuthForm
@@ -92,15 +69,13 @@ const SignupForm = withRouter(
 
 export default connect(
   ({ auth }) => ({
-    form: auth.signin,
+    form: auth.signup,
     auth: auth.auth,
     authError: auth.authError,
-    user: auth.user,
   }),
   {
     changeField,
     initializeForm,
     signup,
-    check,
   },
 )(SignupForm);
