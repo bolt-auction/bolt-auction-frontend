@@ -19,8 +19,7 @@ const SignupForm = withRouter(
     };
 
     // 폼 등록 이벤트 핸들러
-    //TODO: '이미 사용중인 이메일 or 아이디 입니다', '올바른 이메일 형식이 아닙니다' 에러 메시지 추가
-    //TODO: 회원가입 성공 후 로그인 페이지로 이동하기 전 성공했다는 메시지 보여주기
+    // TODO: '이미 사용중인 이메일 or 아이디 입니다', '올바른 이메일 형식이 아닙니다' 에러 메시지 추가
     const onSubmit = e => {
       e.preventDefault();
       const { uid, passwd, passwdConfirm, name } = form;
@@ -43,6 +42,7 @@ const SignupForm = withRouter(
     }, [initializeForm]);
 
     // 회원가입 성공/실패 처리
+    // TODO: 회원가입 성공 후 로그인 페이지로 이동하기 전 성공했다는 메시지 보여주기
     useEffect(() => {
       if (authError) {
         console.log('회원가입 실패');
