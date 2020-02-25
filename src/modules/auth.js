@@ -57,8 +57,8 @@ const checkSaga = createRequestSaga(CHECK, api.check);
 
 function signoutSaga() {
   try {
-    localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
   } catch (e) {
     console.log('localStorage is not working');
   }
@@ -144,6 +144,7 @@ const auth = handleActions(
     // 로그아웃
     [SIGNOUT]: state => ({
       ...state,
+      auth: null,
       user: null,
     }),
   },
