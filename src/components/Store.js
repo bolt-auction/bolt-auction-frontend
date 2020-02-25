@@ -15,8 +15,8 @@ import { useState } from 'react';
 const StoreTo = ({ match }) => {
   return <Redirect to={`${match.path}/products`} />;
 };
-
-const Store = ({ id, name }) => {
+// TODO : isMyStore true일 경우 프로필 수정 가능 / false일 경우 리뷰 작성 가능
+const Store = ({ isMyStore, id, name, getInfo, getProducts, getReviews }) => {
   const [activeTab, setActiveTab] = useState('product');
 
   const tabMenu = [
@@ -83,8 +83,22 @@ const Store = ({ id, name }) => {
         <Styled.Divider />
         <Switch>
           <Route path={`/store/${id}`} exact component={StoreTo} />
-          <Route path={`/store/${id}/products`} component={StoreProducts} />
-          <Route path={`/store/${id}/reviews`} component={StoreReviews} />
+          <Route
+            path={`/store/${id}/products`}
+            component={() => (
+              <StoreProducts id={id} getProducts={getProducts} />
+            )}
+          />
+          <Route
+            path={`/store/${id}/reviews`}
+            component={() => (
+              <StoreReviews
+                isMyStore={isMyStore}
+                id={id}
+                getReviews={getReviews}
+              />
+            )}
+          />
         </Switch>
       </Styled.ContentsBox>
     </div>

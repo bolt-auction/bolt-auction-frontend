@@ -85,7 +85,8 @@ const reviews = [
   },
 ];
 
-const StoreReviews = () => {
+const StoreReviews = ({ isMyStore }) => {
+  console.log('isMyStore: ', isMyStore);
   return (
     <ReviewBlock>
       <Container className="review-list">
