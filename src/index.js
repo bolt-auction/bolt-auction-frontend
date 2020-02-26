@@ -33,7 +33,7 @@ function loadUser() {
   }
 }
 
-store.subscribe(() => console.log('state updated'));
+// store.subscribe(() => console.log('state updated'));
 sagaMiddleware.run(rootSaga);
 loadUser();
 

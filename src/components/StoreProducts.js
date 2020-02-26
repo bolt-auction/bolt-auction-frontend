@@ -1,10 +1,10 @@
 import React from 'react';
 import ProductList from './ProductList';
 
-const StoreProducts = () => {
+const StoreProducts = ({ items }) => {
   return (
     <div style={{ marginTop: 24 }}>
-      <ProductList />
+      <ProductList items={items['_embedded']?.itemDtoList} />
     </div>
   );
 };
