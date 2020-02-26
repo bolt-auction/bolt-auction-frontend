@@ -44,6 +44,9 @@ const AuthFooter = styled.div`
 
 const ButtonWithMarginTop = styled(Button)`
   margin-top: 1rem;
+  height: 36px;
+  font-size: 14px;
+  padding: 0.25rem;
 `;
 
 const textMap = {
@@ -100,10 +103,15 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <ButtonWithMarginTop orange fullWidth>
+        <ButtonWithMarginTop primary fullWidth>
           {text}
         </ButtonWithMarginTop>
       </form>
+      {type === 'signin' && (
+        <ButtonWithMarginTop kakao fullWidth>
+          카카오톡으로 로그인
+        </ButtonWithMarginTop>
+      )}
       <AuthFooter>
         {type === 'signin' ? (
           <Link to="/signup">회원가입</Link>
