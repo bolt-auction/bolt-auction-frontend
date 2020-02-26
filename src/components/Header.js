@@ -206,10 +206,9 @@ const Header = withRouter(({ history, user, signout, search }) => {
             </Col>
 
             <Col md={1} align="flex-end">
-              {/* /store/:user.id로 바뀌어야함 */}
               <div className="my-store">
                 {user ? (
-                  <Link to="/store/21">{user.name} 상점</Link>
+                  <Link to={`/store/${user.store?.id}`}>{user.name} 상점</Link>
                 ) : (
                   <Link to="/">내 상점</Link>
                 )}

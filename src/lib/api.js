@@ -10,6 +10,7 @@ import axios from 'axios';
 // const token = `Bearer ${localStorage.token}`;
 // axios.defaults.headers.common['Authorization'] = token;
 
+// SECTION : 회원 인증 API
 // 로그인
 export const signin = ({ uid, passwd }) =>
   axios.post('/api/auth/login', { uid, passwd });
@@ -26,6 +27,7 @@ export const check = () =>
     },
   });
 
+// SECTION : 카테고리 API
 // 카테고리 받아오기
 export const getCategories = () => axios.get(`/api/category`);
 
@@ -35,3 +37,24 @@ export const getCategoryItems = id => axios.get(`/api/item/category/${id}`);
 // 아이템 검색
 export const serachItem = keyword =>
   axios.get(`/api/item?filter=name&keyword=${keyword}`);
+
+// SECTION : 상점 API
+// 상점 id로 상점 정보 불러오기
+export const getStoreInfo = id => axios.get(`/api/store/${id}`);
+
+// 상점 id로 상점에 등록된 상품 불러오기
+export const getStoreProducts = id => axios.get(`/api/item/store/${id}`);
+
+// 상점 id로 상점에 등록된 리뷰 불러오기
+export const getStoreReviews = id => axios.get(`/api/review/store/${id}`);
+
+// 상점 리뷰 등록하기 (accessToken 필요, request body로 content 필요)
+export const postStoreReview = ({ id, content }) =>
+  axios.post(`/api/review/store/${id}?content=${content}`, content, {
+    headers: {
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
+
+// 상점 리뷰 삭제하기 ?? 리뷰를 다 삭제한다는 거임?
+export const deleteStoreReview = id => axios.delete(`/api/review/store/${id}`);
