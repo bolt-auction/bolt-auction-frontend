@@ -11,12 +11,23 @@ import * as Styled from '../styles/Styled';
 import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
 import { MdModeEdit } from 'react-icons/md';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const StoreTo = ({ match }) => {
   return <Redirect to={`${match.path}/products`} />;
 };
 // TODO : isMyStore true일 경우 프로필 수정 가능 / false일 경우 리뷰 작성 가능
-const Store = ({ isMyStore, id, name, getInfo, getProducts, getReviews }) => {
+const Store = ({
+  isMyStore,
+  id,
+  info,
+  products,
+  reviews,
+  getInfo,
+  getProducts,
+  getReviews,
+  postReview,
+}) => {
   const [activeTab, setActiveTab] = useState('product');
 
   const tabMenu = [
@@ -24,10 +35,16 @@ const Store = ({ isMyStore, id, name, getInfo, getProducts, getReviews }) => {
     { name: '리뷰', params: `/store/${id}/reviews`, id: 'review' },
   ];
 
+  useEffect(() => {
+    getInfo(id);
+    getProducts(id);
+    getReviews(id);
+  }, [getInfo, getProducts, getReviews, id]);
+
   return (
     <div>
       <Styled.Title>
-        <h1>내 상점</h1>
+        <h1>{isMyStore ? '내 상점' : `다른 사람 상점`}</h1>
       </Styled.Title>
       <Styled.ContentsBox>
         <Container className="profile">
@@ -36,7 +53,7 @@ const Store = ({ isMyStore, id, name, getInfo, getProducts, getReviews }) => {
             <Col align="center" justify="center">
               <img
                 className="profile-image"
-                src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png"
                 alt=""
               />
             </Col>
@@ -51,15 +68,17 @@ const Store = ({ isMyStore, id, name, getInfo, getProducts, getReviews }) => {
               md={12}
               lg={12}
             >
-              <h2>{name}</h2>{' '}
-              <MdModeEdit
-                className="edit"
-                style={{
-                  color: 'rgba(0, 0, 0, 0.54)',
-                  float: 'right',
-                  width: 18,
-                }}
-              />
+              <h2>{info.length > 0 ? 'info이름' : '사용자이름'}</h2>{' '}
+              {isMyStore ? (
+                <MdModeEdit
+                  className="edit"
+                  style={{
+                    color: 'rgba(0, 0, 0, 0.54)',
+                    float: 'right',
+                    width: 18,
+                  }}
+                />
+              ) : null}
             </Col>
           </Row>
           <Row>
@@ -85,9 +104,7 @@ const Store = ({ isMyStore, id, name, getInfo, getProducts, getReviews }) => {
           <Route path={`/store/${id}`} exact component={StoreTo} />
           <Route
             path={`/store/${id}/products`}
-            component={() => (
-              <StoreProducts id={id} getProducts={getProducts} />
-            )}
+            component={() => <StoreProducts items={products} />}
           />
           <Route
             path={`/store/${id}/reviews`}
@@ -95,7 +112,8 @@ const Store = ({ isMyStore, id, name, getInfo, getProducts, getReviews }) => {
               <StoreReviews
                 isMyStore={isMyStore}
                 id={id}
-                getReviews={getReviews}
+                reviews={reviews['_embedded']?.reviewDtoList}
+                postReview={postReview}
               />
             )}
           />

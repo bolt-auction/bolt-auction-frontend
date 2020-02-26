@@ -49,12 +49,11 @@ export const getStoreProducts = id => axios.get(`/api/item/store/${id}`);
 export const getStoreReviews = id => axios.get(`/api/review/store/${id}`);
 
 // 상점 리뷰 등록하기 (accessToken 필요, request body로 content 필요)
-export const postStoreReview = (id, content) =>
-  axios.post(`/api/review/store/${id}`, {
+export const postStoreReview = ({ id, content }) =>
+  axios.post(`/api/review/store/${id}?content=${content}`, content, {
     headers: {
       Authorization: `Bearer ${localStorage.token}`,
     },
-    content,
   });
 
 // 상점 리뷰 삭제하기 ?? 리뷰를 다 삭제한다는 거임?

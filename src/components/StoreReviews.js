@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { Container, Row, Col, Hidden } from 'react-awesome-styled-grid';
+import { Container, Row, Col } from 'react-awesome-styled-grid';
 
 const ReviewBlock = styled.div`
+  .review-form {
+    display: flex;
+    align-items: stretch;
+    height: 150px;
+    padding: 24px;
+    justify-content: space-around;
+
+    .review-input {
+      width: 80%;
+      padding: 8px 10px;
+      word-wrap: break-word;
+    }
+  }
+
   .review-list {
     width: 810px;
     margin: 0 auto;
@@ -54,56 +68,73 @@ const ReviewBlock = styled.div`
   }
 `;
 
-const reviews = [
+const defaultImg =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png';
+
+const fakeReviews = [
   {
     id: 1,
-    title: 'Title1',
-    img:
-      'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
-    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
+    register: { name: '수빈' },
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
   },
   {
     id: 2,
-    title: 'Title2',
-    img:
-      'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
-    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
+    register: { name: '수빈' },
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
   },
   {
     id: 3,
-    title: 'Title3',
-    img:
-      'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
-    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
+    register: { name: '수빈' },
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
   },
   {
     id: 4,
-    title: 'Title4',
-    img:
-      'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
-    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
+    register: { name: '수빈' },
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
   },
 ];
 
-const StoreReviews = ({ isMyStore }) => {
-  console.log('isMyStore: ', isMyStore);
+const StoreReviews = ({ isMyStore, reviews, id, postReview }) => {
+  const [content, setContent] = useState('');
+  const $reviewText = useRef(null);
+  const onSubmit = e => {
+    e.preventDefault();
+    postReview(id, content);
+  };
   return (
     <ReviewBlock>
       <Container className="review-list">
+        {isMyStore ? null : (
+          <Row>
+            <Col>
+              <form className="review-form" onSubmit={onSubmit}>
+                <textarea
+                  className="review-input"
+                  onChange={() => setContent($reviewText.current.value)}
+                  type="text"
+                  ref={$reviewText}
+                />
+                <button className="submit">리뷰입력</button>
+              </form>
+            </Col>
+          </Row>
+        )}
         <Row>
           <ul className="review-list">
             <Col>
-              {reviews.map(review => (
+              {(reviews?.length > 0 ? reviews : fakeReviews).map(review => (
                 <li className="review" key={review.id}>
                   <img
                     className="profile-image"
-                    src={review.img}
+                    src={
+                      review.register?.img ? review.register.img : defaultImg
+                    }
                     alt="profile"
                   />
                   <div className="content">
                     <div>
-                      <h4 className="title">{review.title}</h4>
-                      <p>{review.comment}</p>
+                      <h4 className="title">{review.register?.name}</h4>
+                      <p>{review.content}</p>
                     </div>
                     <span className="date">1 day ago</span>
                   </div>
