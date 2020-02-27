@@ -1,12 +1,12 @@
 import React from 'react';
-import AuthTemplate from '../components/auth/AuthTemplate';
 import SignupForm from '../containers/auth/SignupForm';
+import Modal from '../components/common/Modal';
 
 const SignupPage = () => {
   return (
-    <AuthTemplate>
+    <Modal>
       <SignupForm />
-    </AuthTemplate>
+    </Modal>
   );
 };
 
