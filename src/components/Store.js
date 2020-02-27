@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Tab from './Tab';
@@ -9,9 +9,11 @@ import * as Styled from '../styles/Styled';
 // import Colors from '../styles/Colors';
 
 import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
-import { MdModeEdit } from 'react-icons/md';
 import { useState } from 'react';
 import { useEffect } from 'react';
+
+import { FaCamera } from 'react-icons/fa';
+import defaultImg from '../imgs/default-profile.webp';
 
 const StoreTo = ({ match }) => {
   return <Redirect to={`${match.path}/products`} />;
@@ -27,8 +29,18 @@ const Store = ({
   getProducts,
   getReviews,
   postReview,
+  editInfo,
+  editName,
+  editDesc,
+  editImage,
+  submitInfo,
 }) => {
   const [activeTab, setActiveTab] = useState('product');
+  const [editMode, setEditMode] = useState(false);
+
+  const $name = useRef(null);
+  const $desc = useRef(null);
+  const $image = useRef(null);
 
   const tabMenu = [
     { name: '상품', params: `/store/${id}/products`, id: 'product' },
@@ -41,6 +53,28 @@ const Store = ({
     getReviews(id);
   }, [getInfo, getProducts, getReviews, id]);
 
+  const onImageClick = () => {
+    $image.current.click();
+  };
+
+  const onImageUpload = e => {
+    console.log($image.current.value);
+    console.dir(e.target);
+    const file = e.target.files[0];
+    if (!file.type.match('image/.*')) {
+      alert('이미지 확장자만 업로드 가능합니다.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => editImage(e.target.result);
+    reader.readAsDataURL(file);
+  };
+
+  const onSubmit = () => {
+    setEditMode(false);
+    submitInfo(id, editInfo.name, editInfo.description, editInfo.image);
+  };
+
   return (
     <div>
       <Styled.Title>
@@ -50,12 +84,27 @@ const Store = ({
         <Container className="profile">
           <ScreenBadge />
           <Row style={{ height: 200, marginBottom: 25 }}>
-            <Col align="center" justify="center">
+            <Col
+              align="center"
+              justify="center"
+              style={{ position: 'relative' }}
+            >
               <img
                 className="profile-image"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png"
+                src={editInfo.image || info.imagePath || defaultImg}
                 alt=""
               />
+              <input
+                type="file"
+                ref={$image}
+                onChange={e => onImageUpload(e)}
+                accept="img/*"
+                required
+                style={{ display: 'none' }}
+              />
+              {isMyStore ? (
+                <FaCamera className="image-edit" onClick={onImageClick} />
+              ) : null}
             </Col>
           </Row>
           <Row style={{ height: 48, marginBottom: 4 }}>
@@ -68,28 +117,76 @@ const Store = ({
               md={12}
               lg={12}
             >
-              <h2>{info.length > 0 ? 'info이름' : '사용자이름'}</h2>{' '}
-              {isMyStore ? (
-                <MdModeEdit
-                  className="edit"
-                  style={{
-                    color: 'rgba(0, 0, 0, 0.54)',
-                    float: 'right',
-                    width: 18,
-                  }}
+              {editMode ? (
+                <input
+                  onChange={() => editName($name.current.value)}
+                  placeholder={info.name}
+                  ref={$name}
                 />
+              ) : (
+                <h2>{info.name}</h2>
+              )}{' '}
+              {isMyStore ? (
+                !editMode ? (
+                  // <MdModeEdit
+                  //   className="edit"
+                  //   onClick={() => setEditMode(true)}
+                  //   style={{
+                  //     color: 'rgba(0, 0, 0, 0.54)',
+                  //     float: 'right',
+                  //     cursor: 'pointer',
+                  //     width: 18,
+                  //   }}
+                  // />
+                  <button className="submit" onClick={() => setEditMode(true)}>
+                    수정
+                  </button>
+                ) : (
+                  <>
+                    <button className="submit" onClick={onSubmit}>
+                      완료
+                    </button>
+                    <button
+                      className="cancel"
+                      onClick={() => setEditMode(false)}
+                    >
+                      취소
+                    </button>
+                  </>
+                )
               ) : null}
             </Col>
           </Row>
           <Row>
-            <Col align="center" justify="center" xs={4} sm={8} md={12} lg={12}>
-              <p className="profile-desc">
-                {' '}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
+            <Col
+              align="center"
+              justify="center"
+              xs={4}
+              sm={8}
+              md={12}
+              lg={12}
+              style={{ padding: 10 }}
+            >
+              {editMode ? (
+                <textarea
+                  className="profile-desc"
+                  ref={$desc}
+                  onChange={() => editDesc($desc.current.value)}
+                  placeholder={
+                    info.description
+                      ? info.description
+                      : '상점 소개글을 입력하세요.'
+                  }
+                />
+              ) : (
+                <p className="profile-desc">
+                  {info.description
+                    ? info.description
+                    : isMyStore
+                    ? '상점 소개글을 입력하세요.'
+                    : '상점 소개글이 없습니다.'}
+                </p>
+              )}
             </Col>
           </Row>
         </Container>
