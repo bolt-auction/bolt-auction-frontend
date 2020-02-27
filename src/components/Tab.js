@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Tab = ({ menu, align, activeTab, setActiveTab }) => {
   return (
     <Container style={{ padding: 0 }}>
-      <Hidden sm xs>
+      <Hidden xs>
         <Row
           className="tabNav"
           style={{ margin: 0, justifyContent: `${align}` }}
