@@ -1,14 +1,21 @@
 import { createAction, handleActions } from 'redux-actions';
 
 // Action Type
+// 채팅방 목록 불러오기
 const LOAD_LIST = 'chat/LOAD_LIST';
+// 채팅방 입장하기
 const ENTER = 'chat/ENTER';
+// 채팅방 떠나기
 const LEAVE = 'chat/LEAVE';
+
+// 채팅방 생성하기
+const CREATE = 'chat/CREATE';
 
 // Action Creators
 export const loadList = createAction(LOAD_LIST);
 export const enter = createAction(ENTER, id => id);
 export const leave = createAction(LEAVE);
+export const create = createAction(CREATE);
 
 // initialState
 const initialState = {

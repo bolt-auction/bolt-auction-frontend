@@ -36,7 +36,7 @@ const Store = ({
   submitInfo,
   error,
 }) => {
-  const [activeTab, setActiveTab] = useState('product');
+  const [activeTab, setActiveTab] = useState('');
   const [editMode, setEditMode] = useState(false);
 
   const $name = useRef(null);
@@ -223,7 +223,9 @@ const Store = ({
           <Route path={`/store/${id}`} exact component={StoreTo} />
           <Route
             path={`/store/${id}/products`}
-            component={() => <StoreProducts items={products} />}
+            component={() => (
+              <StoreProducts items={products} setActiveTab={setActiveTab} />
+            )}
           />
           <Route
             path={`/store/${id}/reviews`}
@@ -233,6 +235,7 @@ const Store = ({
                 id={id}
                 reviews={reviews['_embedded']?.reviewDtoList}
                 postReview={postReview}
+                setActiveTab={setActiveTab}
               />
             )}
           />

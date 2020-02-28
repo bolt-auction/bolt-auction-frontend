@@ -1,3 +1,4 @@
+import { put, select } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
 import { takeEvery, takeLatest } from 'redux-saga/effects';
 import * as api from '../lib/api';
@@ -68,6 +69,14 @@ const deleteReviewSaga = createRequestSaga(
   api.deleteStoreReview,
 );
 const putInfoSaga = createRequestSaga(PUT_INFO, api.putStoreInfo);
+// get review after post successed
+const postReviewSuccessSaga = function*() {
+  const id = yield select(state => state.store.info.id);
+  yield put({
+    type: GET_REVIEWS,
+    payload: id,
+  });
+};
 
 // rootSaga에 등록할 Saga
 export function* storeSaga() {
@@ -77,6 +86,7 @@ export function* storeSaga() {
   yield takeLatest(POST_REVIEW, postReviewSaga);
   yield takeLatest(DELETE_REVIEW, deleteReviewSaga);
   yield takeLatest(PUT_INFO, putInfoSaga);
+  yield takeLatest(POST_REVIEW_SUCCESS, postReviewSuccessSaga);
 }
 
 // Initial State
