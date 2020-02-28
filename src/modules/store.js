@@ -36,6 +36,8 @@ const EDIT_IMAGE = 'store/EDIT_IMAGE';
 
 // 상점 정보 수정하기
 const PUT_INFO = 'store/PUT_INFO';
+const PUT_INFO_SUCCESS = 'store/PUT_INFO_SUCCESS';
+const PUT_INFO_FAILURE = 'store/PUT_INFO_FAILURE';
 
 // SECTION Action Creator
 export const getInfo = createAction(GET_INFO, id => id);
@@ -83,6 +85,7 @@ const initialState = {
   products: [],
   reviews: [],
   editInfo: { name: '', description: '', image: null },
+  error: null,
 };
 
 // Reducer
@@ -123,6 +126,14 @@ const store = handleActions(
     [EDIT_IMAGE]: (state, action) => ({
       ...state,
       editInfo: { ...state.editInfo, image: action.payload },
+    }),
+    [PUT_INFO_SUCCESS]: (state, action) => ({
+      ...state,
+      error: null,
+    }),
+    [PUT_INFO_FAILURE]: (state, action) => ({
+      ...state,
+      error: action.payload,
     }),
   },
   initialState,

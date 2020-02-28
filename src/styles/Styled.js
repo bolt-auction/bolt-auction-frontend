@@ -64,7 +64,7 @@ export const ContentsBox = styled.section`
       width: 100%;
       height: 40px;
       text-align: center;
-      padding: 8px 16px;
+      line-height: 40px;
     }
 
     .tab:hover,
