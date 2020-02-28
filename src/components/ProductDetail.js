@@ -1,17 +1,27 @@
 import React from 'react';
-import qs from 'qs';
+import styled from 'styled-components';
+import { Container, Row, Col } from 'react-awesome-styled-grid';
 
-const ProductDetail = ({ match, location }) => {
-  const query = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
-  const { id } = match.params;
-  const owner = query.owner;
+const ProductDetailBlock = styled(Container);
+
+const ProductDetail = ({ match, history }) => {
+  // const { id } = match.params;
   return (
-    <>
-      <h1 className="non-main-title">상품{id}의 상세 페이지</h1>
-      <h2>상품등록자 id: {owner}</h2>
-    </>
+    <Container>
+      <Row>
+        <Col>category.name</Col>
+      </Row>
+      <hr />
+      <Row>
+        <Col>
+          <img src="" alt="" />
+        </Col>
+        <Col>
+          <h3>상품명</h3>
+          <div>현재가 </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

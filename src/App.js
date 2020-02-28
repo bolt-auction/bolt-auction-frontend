@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components';
 import AuthRoute from './util/AuthRoute';
 
 import Main from './components/Main';
-import ProductDetail from './components/ProductDetail';
 import SellProduct from './components/SellProduct';
 import Footer from './components/Footer';
 import SideBar from './components/SideBar';
@@ -17,6 +16,7 @@ import SearchResultContainer from './containers/SearchResultContainer';
 
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -65,13 +65,13 @@ const App = () => {
       <Switch>
         <Route path="/signin" component={SigninPage} />
         <Route path="/signup" component={SignupPage} />
+        <AuthRoute path="/products/:id" component={ProductDetailPage} />
         <AuthRoute path="/store/:id" component={StoreContainer} />
         <AuthRoute path="/search" component={SearchResultContainer} />
         <AuthRoute
           path="/categories/:category"
           component={CategoryResultContainer}
         />
-        <AuthRoute path="/products/:id" component={ProductDetail} />
         <AuthRoute path="/sell" component={SellProduct} />
         <AuthRoute path="/" exact component={Main} />
         <Route
