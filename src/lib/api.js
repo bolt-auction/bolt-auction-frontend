@@ -63,5 +63,13 @@ export const deleteStoreReview = id => axios.delete(`/api/review/store/${id}`);
 // 상점 정보 수정
 export const putStoreInfo = ({ id, name, desc, image }) => {
   // console.log(id, name, desc, image);
-  return axios.put(`/api/store/${id}?description=${desc}&file=${image}`);
+  return axios.put(
+    `/api/store/${id}?description=${desc}&file=${image}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    },
+  );
 };

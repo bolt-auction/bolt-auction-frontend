@@ -34,8 +34,9 @@ const Store = ({
   editDesc,
   editImage,
   submitInfo,
+  error,
 }) => {
-  const [activeTab, setActiveTab] = useState('product');
+  const [activeTab, setActiveTab] = useState('');
   const [editMode, setEditMode] = useState(false);
 
   const $name = useRef(null);
@@ -48,10 +49,27 @@ const Store = ({
   ];
 
   useEffect(() => {
+    if (error) alert(error);
+  }, [error]);
+
+  useEffect(() => {
     getInfo(id);
     getProducts(id);
     getReviews(id);
   }, [getInfo, getProducts, getReviews, id]);
+
+  useEffect(() => {
+    editName(info.name);
+    editDesc(info.description);
+    editImage(info.imagePath);
+  }, [
+    editDesc,
+    editImage,
+    editName,
+    info.description,
+    info.imagePath,
+    info.name,
+  ]);
 
   const onImageClick = () => {
     $image.current.click();
@@ -94,16 +112,20 @@ const Store = ({
                 src={editInfo.image || info.imagePath || defaultImg}
                 alt=""
               />
-              <input
-                type="file"
-                ref={$image}
-                onChange={e => onImageUpload(e)}
-                accept="img/*"
-                required
-                style={{ display: 'none' }}
-              />
-              {isMyStore ? (
-                <FaCamera className="image-edit" onClick={onImageClick} />
+              {editMode ? (
+                <>
+                  <input
+                    type="file"
+                    ref={$image}
+                    onChange={e => onImageUpload(e)}
+                    accept="img/*"
+                    required
+                    style={{ display: 'none' }}
+                  />
+                  {isMyStore ? (
+                    <FaCamera className="image-edit" onClick={onImageClick} />
+                  ) : null}
+                </>
               ) : null}
             </Col>
           </Row>
@@ -201,7 +223,9 @@ const Store = ({
           <Route path={`/store/${id}`} exact component={StoreTo} />
           <Route
             path={`/store/${id}/products`}
-            component={() => <StoreProducts items={products} />}
+            component={() => (
+              <StoreProducts items={products} setActiveTab={setActiveTab} />
+            )}
           />
           <Route
             path={`/store/${id}/reviews`}
@@ -211,6 +235,7 @@ const Store = ({
                 id={id}
                 reviews={reviews['_embedded']?.reviewDtoList}
                 postReview={postReview}
+                setActiveTab={setActiveTab}
               />
             )}
           />

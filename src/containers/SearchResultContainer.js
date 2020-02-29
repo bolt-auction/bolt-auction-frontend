@@ -9,7 +9,9 @@ const SearchResultContainer = ({ location, items }) => {
     ignoreQueryPrefix: true,
   });
   const keyword = query.keyword;
-  return <SearchResult keyword={keyword} items={items} />;
+
+  const order = query.order;
+  return <SearchResult keyword={keyword} items={items} order={order} />;
 };
 
 export default connect(({ item }) => ({ items: item.searchedItems }))(

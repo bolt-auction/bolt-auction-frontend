@@ -27,6 +27,7 @@ const StoreContainer = ({
   editDesc,
   editImage,
   putInfo,
+  error,
 }) => {
   const { id } = match.params;
   const isMyStore = user.store?.id === +id;
@@ -48,6 +49,7 @@ const StoreContainer = ({
       editDesc={editDesc}
       editImage={editImage}
       submitInfo={putInfo}
+      error={error}
     />
   );
 };
@@ -59,6 +61,7 @@ export default connect(
     products: store.products,
     reviews: store.reviews,
     editInfo: store.editInfo,
+    error: store.error,
   }),
   {
     getProducts,

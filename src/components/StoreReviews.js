@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-awesome-styled-grid';
+import { useEffect } from 'react';
 
 const ReviewBlock = styled.div`
   .review-form {
@@ -94,13 +95,16 @@ const fakeReviews = [
   },
 ];
 
-const StoreReviews = ({ isMyStore, reviews, id, postReview }) => {
+const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
   const [content, setContent] = useState('');
   const $reviewText = useRef(null);
   const onSubmit = e => {
     e.preventDefault();
     postReview(id, content);
   };
+  useEffect(() => {
+    setActiveTab('review');
+  }, [setActiveTab]);
   return (
     <ReviewBlock>
       <Container className="review-list">

@@ -3,8 +3,8 @@ import ProductList from './ProductList';
 import * as Styled from '../styles/Styled';
 import Tab from './Tab';
 
-const SearchResult = ({ keyword, items }) => {
-  const [activeTab, setActiveTab] = useState('popular');
+const SearchResult = ({ keyword, items, order }) => {
+  const [activeTab, setActiveTab] = useState(order);
 
   const filter = [
     {
