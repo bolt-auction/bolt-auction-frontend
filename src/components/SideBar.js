@@ -27,21 +27,21 @@ const ChatSidebar = styled.div`
   right: 0;
   z-index: 100;
 
-  & .chat-list {
-    min-width: 250px;
-    max-width: 250px;
-    background: #7386d5;
-    color: #fff;
+  & .chat-wrapper {
+    min-width: 320px;
+    max-width: 320px;
+    background: #fff;
+    color: #000;
     transition: all 0.3s;
   }
 
-  & .chat-list.active {
-    margin-right: -250px;
+  & .chat-wrapper.active {
+    margin-right: -320px;
   }
 `;
 
 const SideBar = () => {
-  const [chatOpen, setChatOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(true);
 
   const toggleChat = () => setChatOpen(!chatOpen);
 
@@ -55,7 +55,7 @@ const SideBar = () => {
         </ChatButton>
       )}
       <ChatSidebar>
-        <div className={`chat-list ${chatOpen ? '' : 'active'}`}>
+        <div className={`chat-wrapper ${chatOpen ? '' : 'active'}`}>
           <ChatContainer close={toggleChat} />
         </div>
       </ChatSidebar>

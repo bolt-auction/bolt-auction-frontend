@@ -182,3 +182,20 @@ export const PopUp = styled.div`
   width: 100%;
   height: 500px;
 `;
+
+export const ChatNav = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+  .close-btn,
+  .back-btn {
+    width: 18px;
+    height: 18px;
+    background: none;
+    cursor: pointer;
+  }
+`;
