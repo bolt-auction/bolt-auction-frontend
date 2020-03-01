@@ -4,7 +4,7 @@ import Modal from '../components/common/Modal';
 
 const SigninPage = () => {
   return (
-    <Modal>
+    <Modal randomBg>
       <SigninForm />
     </Modal>
   );
