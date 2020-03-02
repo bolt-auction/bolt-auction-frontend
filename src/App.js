@@ -16,7 +16,7 @@ import SearchResultContainer from './containers/SearchResultContainer';
 
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
-import ProductDetailPage from './pages/ProductDetailPage';
+import ProductsDetailContainer from './containers/ProductsDetailContainer';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -65,7 +65,7 @@ const App = () => {
       <Switch>
         <Route path="/signin" component={SigninPage} />
         <Route path="/signup" component={SignupPage} />
-        <AuthRoute path="/products/:id" component={ProductDetailPage} />
+        <AuthRoute path="/products/:id" component={ProductsDetailContainer} />
         <AuthRoute path="/store/:id" component={StoreContainer} />
         <AuthRoute path="/search" component={SearchResultContainer} />
         <AuthRoute

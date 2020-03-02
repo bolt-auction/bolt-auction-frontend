@@ -10,7 +10,7 @@ export default {
     font-family: NotoSansKR;
     font-size: 34px;
     font-weight: 500;
-    line-height: 46px;
+    line-height: 32px;
   `,
   Headline5: css`
     font-family: Roboto;
@@ -21,7 +21,7 @@ export default {
   Headline6: css`
     font-family: NotoSansKR;
     font-size: 20px;
-    line-height: 20px;
+    line-height: 24px;
     letter-spacing: 0.2px;
   `,
   Subtitle1: css`
