@@ -28,26 +28,54 @@ const ProductDetailBlock = styled(Container)`
   }
 `;
 
-const ProductDetail = () => {
+const ProductDetail = ({ detail, error, loading }) => {
+  if (error) {
+    if (error.response && error.response.status === 404) {
+      return <ContentSection>존재하지 않는 상품입니다.</ContentSection>;
+    }
+    return <ContentSection>오류가 발생했어요 ㅠㅠ</ContentSection>;
+  }
+
+  if (loading || !detail) {
+    return null;
+  }
+
+  const {
+    itemName,
+    quickPrice,
+    currentPrice,
+    endDt,
+    category,
+    description,
+    imagePath,
+  } = detail;
+
   return (
     <ContentSection>
       <ProductDetailBlock>
         <ScreenBadge />
         <Row justify="space-between">
           <Col className="category-name" xs={1} sm={1} md={2} lg={2}>
-            상품 카테고리
+            {category.name}
           </Col>
           <Col justify="center" xs={1} sm={1} md={1} lg={1}>
+            {/* TODO: 상품수정, 상품삭제 기능 메뉴 추가 */}
             <MdMoreVert style={{ marginLeft: 'auto' }} />
           </Col>
         </Row>
         <Divider />
         <Row>
           <Col className="carousel" xs={4} sm={3} md={5} lg={5}>
+            {/* TODO: 캐로샐 적용하고 imagePath에서 이미지 가지고 오기 */}
             <img src="https://via.placeholder.com/520x520" alt="상품 이미지" />
           </Col>
           <Col justify="center" xs={4} sm={5} md={7} lg={7}>
-            <DetailData />
+            <DetailData
+              itemName={itemName}
+              quickPrice={quickPrice}
+              currentPrice={currentPrice}
+              endDt={endDt}
+            />
           </Col>
         </Row>
         <Row>
@@ -57,12 +85,7 @@ const ProductDetail = () => {
           <Divider thick="1px" margin="0.75rem" />
         </Row>
         <Row>
-          <Col>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error,
-            architecto consequuntur! Quo hic culpa quis doloribus autem nihil,
-            totam quod laboriosam rem ea quia velit, adipisci similique
-            voluptatem eligendi itaque!
-          </Col>
+          <Col>{description}</Col>
         </Row>
         <Row>
           <Col className="sub-title">

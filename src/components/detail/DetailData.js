@@ -43,40 +43,48 @@ const DetailDataBlock = styled(Container)`
   }
 `;
 
-const DetailData = () => {
+const DetailData = ({ itemName, quickPrice, currentPrice, endDt }) => {
   return (
     <DetailDataBlock>
-      <h2 className="product-title">
-        상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명
-      </h2>
+      <h2 className="product-title">{itemName}</h2>
       <Row>
         <Col className="current-price-label" xs={1} sm={2} md={4} lg={4}>
           현재가
         </Col>
-        <Col className="current-price">10,000원</Col>
+        {/* TODO: 가격 포맷팅 기능 추가 (예: 25,000원) */}
+        <Col className="current-price">{currentPrice}원</Col>
       </Row>
       <Row>
         <Col className="label" xs={1} sm={2} md={4} lg={4}>
           즉시 낙찰가
         </Col>
-        <Col className="quick-price">20,000원</Col>
+        <Col className="quick-price">{quickPrice}원</Col>
       </Row>
       <Row>
         <Col className="label" xs={1} sm={2} md={4} lg={4}>
           남은시간
         </Col>
-        <Col>0일 00시간 간 00분 00초 (종료: 00-00-00 00:00)</Col>
+        <Col>
+          {endDt}
+          {/* TODO: moment.js 사용해서 포맷팅 하기
+          0일 00시간 간 00분 00초 (종료: 00-00-00 00:00)
+          */}
+        </Col>
       </Row>
       <Row>
         <Col className="label" xs={1} sm={2} md={4} lg={4}>
           입찰수
         </Col>
         <Col>
+          {/* TODO: 해당 아이템의 입찰 횟수 조회해야함 */}
           <p>25회</p>
         </Col>
       </Row>
       <Divider thick="1px" />
-      {/* <Row>
+      {/* 
+      TODO: 유저 이미지 가져오기, auth.user.store.imagePath
+      TODO: 유저 네임 가져오기, auth.user.name
+      <Row>
         <Col>
           <div>
             <img
@@ -87,7 +95,8 @@ const DetailData = () => {
             판매자 아이디
           </div>
         </Col>
-      </Row> */}
+      </Row> 
+      */}
       <Row>
         <Col>
           <Button primary>즉시낙찰</Button>

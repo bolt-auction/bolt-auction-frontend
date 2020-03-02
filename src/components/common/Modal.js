@@ -48,7 +48,7 @@ const ModalBlock = styled.div`
     }
   } */
 `;
-// FIXME: 로그인, 회원가입 일때만 BgBlock이 렌더링 되게 수정 해야함
+
 const Modal = ({ children, randomBg }) => {
   return (
     <>
