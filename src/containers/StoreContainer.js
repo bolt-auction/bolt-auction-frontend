@@ -1,7 +1,16 @@
 import React from 'react';
 import Store from '../components/Store';
 import { connect } from 'react-redux';
-import { getProducts, getInfo, getReviews, postReview } from '../modules/store';
+import {
+  getProducts,
+  getInfo,
+  getReviews,
+  postReview,
+  editName,
+  editDesc,
+  editImage,
+  putInfo,
+} from '../modules/store';
 
 const StoreContainer = ({
   match,
@@ -13,6 +22,12 @@ const StoreContainer = ({
   getInfo,
   getReviews,
   postReview,
+  editInfo,
+  editName,
+  editDesc,
+  editImage,
+  putInfo,
+  error,
 }) => {
   const { id } = match.params;
   const isMyStore = user.store?.id === +id;
@@ -29,6 +44,12 @@ const StoreContainer = ({
       getProducts={getProducts}
       getReviews={getReviews}
       postReview={postReview}
+      editInfo={editInfo}
+      editName={editName}
+      editDesc={editDesc}
+      editImage={editImage}
+      submitInfo={putInfo}
+      error={error}
     />
   );
 };
@@ -39,11 +60,17 @@ export default connect(
     info: store.info,
     products: store.products,
     reviews: store.reviews,
+    editInfo: store.editInfo,
+    error: store.error,
   }),
   {
     getProducts,
     getInfo,
     getReviews,
     postReview,
+    editName,
+    editDesc,
+    editImage,
+    putInfo,
   },
 )(StoreContainer);

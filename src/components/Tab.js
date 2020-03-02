@@ -1,11 +1,17 @@
 import React from 'react';
-import { Container, Row, Col, Hidden } from 'react-awesome-styled-grid';
+import {
+  Container,
+  Row,
+  Col,
+  Hidden,
+  ScreenClass,
+} from 'react-awesome-styled-grid';
 import { Link } from 'react-router-dom';
 
 const Tab = ({ menu, align, activeTab, setActiveTab }) => {
   return (
     <Container style={{ padding: 0 }}>
-      <Hidden sm xs>
+      <Hidden>
         <Row
           className="tabNav"
           style={{ margin: 0, justifyContent: `${align}` }}
@@ -19,11 +25,21 @@ const Tab = ({ menu, align, activeTab, setActiveTab }) => {
               lg={1.5}
               md={1.5}
               sm={1.5}
-              xs={1}
+              xs={0.8}
             >
-              <Link to={tab.params} onClick={() => setActiveTab(tab.id)}>
-                {tab.name}
-              </Link>
+              <ScreenClass
+                render={screen => (
+                  <Link
+                    style={{
+                      fontSize: ['xs'].includes(screen) ? '14px' : 'inherit',
+                    }}
+                    to={tab.params}
+                    onClick={() => setActiveTab(tab.id)}
+                  >
+                    {tab.name}
+                  </Link>
+                )}
+              />
             </Col>
           ))}
         </Row>

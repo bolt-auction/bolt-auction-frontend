@@ -61,3 +61,18 @@ export const postStoreReview = ({ id, content }) =>
 
 // 상점 리뷰 삭제하기 ?? 리뷰를 다 삭제한다는 거임?
 export const deleteStoreReview = id => axios.delete(`/api/review/store/${id}`);
+
+// FIXME : parameter가 아니고 request body로 수정해야함 name도 수정할수있어야함
+// 상점 정보 수정
+export const putStoreInfo = ({ id, name, desc, image }) => {
+  // console.log(id, name, desc, image);
+  return axios.put(
+    `/api/store/${id}?description=${desc}&file=${image}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    },
+  );
+};

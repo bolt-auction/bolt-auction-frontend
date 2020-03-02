@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 const CategoryResult = ({ match, order, id, items, getItems }) => {
   const { category } = match.params;
-  const [activeTab, setActiveTab] = useState('popular');
+  const [activeTab, setActiveTab] = useState(order);
 
   useEffect(() => {
     console.log('order', order);

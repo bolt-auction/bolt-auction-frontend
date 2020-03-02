@@ -2,18 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 import * as Styled from '../styles/Styled';
-
-const ChatNav = styled.div`
-  width: 100%;
-  height: 50px;
-`;
+import Colors from '../styles/Colors';
 
 const List = styled.ul``;
 
 const ListItem = styled.li`
   width: 100%;
   cursor: pointer;
-  margin-bottom: 10px;
+
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+
+  height: 50px;
 
   &:last-child {
     margin-bottom: 0;
@@ -24,15 +25,21 @@ const ListItem = styled.li`
     border-radius: 50%;
     display: inline-block;
   }
+
+  &:nth-child(even) {
+    background-color: ${Colors.primaryPressed};
+  }
 `;
 
 const ChatList = ({ list, enterRoom, closeList }) => {
   return (
-    <Styled.PopUp style={{ background: 'pink' }}>
-      <ChatNav>
+    <Styled.PopUp>
+      <Styled.ChatNav style={{ borderBottom: `1.2px solid ${Colors.gray[1]}` }}>
         <h4>채팅리스트</h4>
-        <button onClick={closeList}>X</button>
-      </ChatNav>
+        <button className="close-btn" onClick={closeList}>
+          X
+        </button>
+      </Styled.ChatNav>
       <List>
         {list.map(chat => (
           <ListItem
@@ -44,7 +51,9 @@ const ChatList = ({ list, enterRoom, closeList }) => {
               src="https://img.icons8.com/cotton/2x/person-male--v2.png"
               alt={chat.id}
             />
-            {chat.id}: {chat.lastText}
+            <span>
+              {chat.id}: {chat.lastText}
+            </span>
           </ListItem>
         ))}
       </List>

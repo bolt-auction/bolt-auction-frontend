@@ -64,7 +64,7 @@ export const ContentsBox = styled.section`
       width: 100%;
       height: 40px;
       text-align: center;
-      padding: 8px 16px;
+      line-height: 40px;
     }
 
     .tab:hover,
@@ -83,34 +83,72 @@ export const ContentsBox = styled.section`
     }
   }
 
-  .profile-image {
-    max-width: 167px;
-    max-height: 167px;
-    border-radius: 50%;
-  }
-
-  .profile-desc {
-    display: inline-block;
-    max-width: 810px;
-    min-height: 120px;
-  }
-
-  .profile-title {
-    flex-direction: row;
-    position: relative;
-    h2 {
-      width: 310px;
-      height: 48px;
-      text-align: center;
-      font-family: NotoSansKR;
-      font-size: 34px;
-      font-weight: 500;
-      line-height: 24px;
-      color: rgba(0, 0, 0, 0.87);
+  .profile {
+    .profile-image {
+      width: 167px;
+      height: 167px;
+      border-radius: 50%;
     }
-    .edit {
+
+    .image-edit {
       position: absolute;
-      left: calc(50% + 155px);
+      bottom: 17px;
+      left: calc(50% + 167px / 4);
+      cursor: pointer;
+      width: 35px;
+      height: 35px;
+      color: ${Colors.primary};
+    }
+
+    .profile-desc {
+      display: flex;
+      max-width: 810px;
+      min-height: 120px;
+      align-items: center;
+    }
+
+    textarea.profile-desc {
+      min-width: 522px;
+      border: none;
+      border: 1.1px solid rgba(0, 0, 0, 0.54);
+      border-radius: 5px;
+    }
+
+    .profile-title {
+      flex-direction: row;
+      position: relative;
+      h2,
+      input {
+        width: 310px;
+        height: 48px;
+        text-align: center;
+        font-family: NotoSansKR;
+        font-size: 34px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87);
+      }
+      input {
+        border: none;
+        box-sizing: content-box;
+        border-bottom: 1.2px solid rgba(0, 0, 0, 0.54);
+      }
+      .edit,
+      button.submit {
+        position: absolute;
+        left: calc(50% + 155px);
+      }
+      button.submit,
+      button.cancel {
+        cursor: pointer;
+        width: 48px;
+        height: 48px;
+        margin-left: 5px;
+      }
+
+      button.cancel {
+        position: absolute;
+        left: calc(50% + 208px);
+      }
     }
   }
 `;
@@ -143,4 +181,21 @@ export const Divider = styled.div`
 export const PopUp = styled.div`
   width: 100%;
   height: 500px;
+`;
+
+export const ChatNav = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+  .close-btn,
+  .back-btn {
+    width: 18px;
+    height: 18px;
+    background: none;
+    cursor: pointer;
+  }
 `;

@@ -60,9 +60,9 @@ const Categories = ({
   deactivateId,
   selectCategory,
 }) => {
-  // useEffect(() => {
-  //   getCategories();
-  // }, [getCategories]);
+  useEffect(() => {
+    getCategories();
+  }, [getCategories]);
 
   const onCategotyClick = (id, name) => {
     menu.current.style.display = 'none';
