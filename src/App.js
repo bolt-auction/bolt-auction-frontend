@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components';
 import AuthRoute from './util/AuthRoute';
 
 import Main from './components/Main';
-import ProductDetail from './components/ProductDetail';
 import SellProduct from './components/SellProduct';
 import Footer from './components/Footer';
 import SideBar from './components/SideBar';
@@ -14,9 +13,9 @@ import HeaderContainer from './containers/HeaderContainer';
 import CategoryResultContainer from './containers/CategoryResultContainer';
 import StoreContainer from './containers/StoreContainer';
 import SearchResultContainer from './containers/SearchResultContainer';
-
-import SigninPage from './pages/SigninPage';
-import SignupPage from './pages/SignupPage';
+import ProductsDetailContainer from './containers/ProductsDetailContainer';
+import SigninContainer from './containers/auth/SigninContainer';
+import SignupContainer from './containers/auth/SignupContainer';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -63,15 +62,18 @@ const App = () => {
       <HeaderContainer />
       <SideBar />
       <Switch>
-        <Route path="/signin" component={SigninPage} />
-        <Route path="/signup" component={SignupPage} />
+        <Route path="/signin" component={SigninContainer} />
+        <Route path="/signup" component={SignupContainer} />
+        <AuthRoute
+          path="/products/:itemId"
+          component={ProductsDetailContainer}
+        />
         <AuthRoute path="/store/:id" component={StoreContainer} />
         <AuthRoute path="/search" component={SearchResultContainer} />
         <AuthRoute
           path="/categories/:category"
           component={CategoryResultContainer}
         />
-        <AuthRoute path="/products/:id" component={ProductDetail} />
         <AuthRoute path="/sell" component={SellProduct} />
         <AuthRoute path="/" exact component={Main} />
         <Route

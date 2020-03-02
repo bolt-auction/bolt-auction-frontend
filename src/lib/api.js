@@ -27,6 +27,9 @@ export const check = () =>
     },
   });
 
+// 상품정보 조회
+export const productDetail = id => axios.get(`/api/item/${id}`);
+
 // SECTION : 카테고리 API
 // 카테고리 받아오기
 export const getCategories = () => axios.get(`/api/category`);

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Colors from '../../styles/Colors';
 import Button from '../common/Button';
+import Modal from '../common/Modal';
 
 const AuthFormBlock = styled.div`
   h3 {
@@ -64,62 +65,64 @@ const ErrorMessage = styled.div`
 const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
   return (
-    <AuthFormBlock>
-      <h3>{text}</h3>
-      <form onSubmit={onSubmit}>
-        <StyledInput
-          autoComplete="uid"
-          name="uid"
-          placeholder="이메일"
-          onChange={onChange}
-          value={form.uid}
-        />
-        <StyledInput
-          autoComplete="new-password"
-          name="passwd"
-          placeholder="비밀번호"
-          type="password"
-          onChange={onChange}
-          value={form.passwd}
-        />
-        {type === 'signup' && (
+    <Modal randomBg>
+      <AuthFormBlock>
+        <h3>{text}</h3>
+        <form onSubmit={onSubmit}>
+          <StyledInput
+            autoComplete="uid"
+            name="uid"
+            placeholder="이메일"
+            onChange={onChange}
+            value={form.uid}
+          />
           <StyledInput
             autoComplete="new-password"
-            name="passwdConfirm"
-            placeholder="비밀번호 확인"
+            name="passwd"
+            placeholder="비밀번호"
             type="password"
             onChange={onChange}
-            value={form.passwdConfirm}
+            value={form.passwd}
           />
+          {type === 'signup' && (
+            <StyledInput
+              autoComplete="new-password"
+              name="passwdConfirm"
+              placeholder="비밀번호 확인"
+              type="password"
+              onChange={onChange}
+              value={form.passwdConfirm}
+            />
+          )}
+          {type === 'signup' && (
+            <StyledInput
+              autoComplete="name"
+              name="name"
+              placeholder="닉네임"
+              type="text"
+              onChange={onChange}
+              value={form.name}
+            />
+          )}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <ButtonWithMarginTop primary fullWidth>
+            {text}
+          </ButtonWithMarginTop>
+        </form>
+        {type === 'signin' && (
+          <ButtonWithMarginTop kakao fullWidth>
+            카카오톡으로 로그인
+          </ButtonWithMarginTop>
         )}
-        {type === 'signup' && (
-          <StyledInput
-            autoComplete="name"
-            name="name"
-            placeholder="닉네임"
-            type="text"
-            onChange={onChange}
-            value={form.name}
-          />
-        )}
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        <ButtonWithMarginTop primary fullWidth>
-          {text}
-        </ButtonWithMarginTop>
-      </form>
-      {type === 'signin' && (
-        <ButtonWithMarginTop kakao fullWidth>
-          카카오톡으로 로그인
-        </ButtonWithMarginTop>
-      )}
-      <AuthFooter>
-        {type === 'signin' ? (
-          <Link to="/signup">회원가입</Link>
-        ) : (
-          <Link to="/signin">로그인</Link>
-        )}
-      </AuthFooter>
-    </AuthFormBlock>
+        <AuthFooter>
+          {type === 'signin' ? (
+            <Link to="/signup">회원가입</Link>
+          ) : (
+            <Link to="/signin">로그인</Link>
+          )}
+        </AuthFooter>
+      </AuthFormBlock>
+    </Modal>
   );
 };
 

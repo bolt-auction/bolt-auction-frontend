@@ -47,7 +47,6 @@ export const signin = createAction(SIGNIN, ({ uid, passwd }) => ({
 
 export const tempSetUser = createAction(TEMP_SET_USER, user => user);
 export const check = createAction(CHECK);
-
 export const signout = createAction(SIGNOUT);
 
 // 각 action에 대한 saga

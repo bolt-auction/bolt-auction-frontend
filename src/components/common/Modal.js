@@ -3,6 +3,17 @@ import styled from 'styled-components';
 import Colors from '../../styles/Colors';
 import Elevation from '../../styles/Elevation';
 
+const BgBlock = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url(https://source.unsplash.com/collection/9617783/1600x900);
+  background-color: white;
+  z-index: 25;
+`;
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -23,6 +34,7 @@ const ModalBlock = styled.div`
   box-shadow: ${Elevation.z24};
   border-radius: 4px;
   padding: 1rem;
+  z-index: 40;
 
   /* .modal-header {
     height: 56px;
@@ -37,11 +49,14 @@ const ModalBlock = styled.div`
   } */
 `;
 
-const Modal = ({ children }) => {
+const Modal = ({ children, randomBg }) => {
   return (
-    <ModalOverlay>
-      <ModalBlock>{children}</ModalBlock>
-    </ModalOverlay>
+    <>
+      {randomBg && <BgBlock />}
+      <ModalOverlay>
+        <ModalBlock>{children}</ModalBlock>
+      </ModalOverlay>
+    </>
   );
 };
 
