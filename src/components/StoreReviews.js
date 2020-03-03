@@ -2,30 +2,57 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-awesome-styled-grid';
 import { useEffect } from 'react';
+import moment from 'moment';
+import 'moment/locale/ko';
+
+import Colors from '../styles/Colors';
 
 const ReviewBlock = styled.div`
   .review-form {
     display: flex;
     align-items: stretch;
     height: 150px;
-    padding: 24px;
+    padding: 24px 0;
     justify-content: space-around;
-
-    .review-input {
+    div {
+      position: relative;
       width: 80%;
-      padding: 8px 10px;
-      word-wrap: break-word;
+
+      .length-check {
+        position: absolute;
+        right: 15px;
+        bottom: 10px;
+        color: rgba(33, 33, 33, 0.8);
+        transition: color 0.2s ease;
+      }
+
+      .length-check.overflow {
+        color: red;
+      }
+
+      .review-input {
+        width: 100%;
+        height: 100%;
+        padding: 8px 10px;
+        word-wrap: break-word;
+      }
+    }
+    .submit {
+      background-color: ${Colors.primary};
+      color: #fff;
+      width: 15%;
+      padding: 4px 16px;
     }
   }
 
   .review-list {
-    width: 810px;
+    max-width: 810px;
     margin: 0 auto;
   }
 
   .review {
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     flex-direction: row;
     padding: 16px;
 
@@ -38,16 +65,22 @@ const ReviewBlock = styled.div`
 
     .content {
       display: flex;
-      width: 100%;
+      width: calc(100% - 56px);
       flex-direction: row;
-      height: 63px;
+      min-height: 63px;
       position: relative;
 
       div {
         display: flex;
-        width: 100%;
+        width: calc(100% - 44px);
         flex-direction: column;
-        height: 63px;
+        min-height: 63px;
+        word-wrap: break-word;
+
+        p {
+          max-width: calc(100% - 44px);
+          overflow-wrap: break-word;
+        }
       }
 
       .date {
@@ -55,6 +88,7 @@ const ReviewBlock = styled.div`
         font-size: 10px;
         line-height: 16px;
         color: rgba(0, 0, 0, 0.87);
+        overflow-wrap: break-word;
       }
     }
 
@@ -72,39 +106,31 @@ const ReviewBlock = styled.div`
 const defaultImg =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png';
 
-const fakeReviews = [
-  {
-    id: 1,
-    register: { name: '수빈' },
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
-  },
-  {
-    id: 2,
-    register: { name: '수빈' },
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
-  },
-  {
-    id: 3,
-    register: { name: '수빈' },
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
-  },
-  {
-    id: 4,
-    register: { name: '수빈' },
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
-  },
-];
-
 const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
   const [content, setContent] = useState('');
+  const [overflow, setOverflow] = useState(false);
   const $reviewText = useRef(null);
+
+  const onChange = () => {
+    setContent($reviewText.current.value);
+    if (content.length > 200) setOverflow(true);
+    else if (content.length <= 200 && overflow) setOverflow(false);
+  };
+
   const onSubmit = e => {
     e.preventDefault();
+    if (content.length <= 0 && content.length > 200) return;
     postReview(id, content);
   };
+
   useEffect(() => {
     setActiveTab('review');
   }, [setActiveTab]);
+
+  useEffect(() => {
+    moment.locale('ko');
+  }, []);
+
   return (
     <ReviewBlock>
       <Container className="review-list">
@@ -112,13 +138,21 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
           <Row>
             <Col>
               <form className="review-form" onSubmit={onSubmit}>
-                <textarea
-                  className="review-input"
-                  onChange={() => setContent($reviewText.current.value)}
-                  type="text"
-                  ref={$reviewText}
-                />
-                <button className="submit">리뷰입력</button>
+                <div>
+                  <textarea
+                    className="review-input"
+                    onChange={onChange}
+                    type="text"
+                    ref={$reviewText}
+                    placeholder="200자 이하로 리뷰를 작성해주세요."
+                  />
+                  <span
+                    className={`length-check ${overflow ? 'overflow' : null}`}
+                  >
+                    {content.length}/200
+                  </span>
+                </div>
+                <button className="submit">작성</button>
               </form>
             </Col>
           </Row>
@@ -126,24 +160,36 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
         <Row>
           <ul className="review-list">
             <Col>
-              {(reviews?.length > 0 ? reviews : fakeReviews).map(review => (
-                <li className="review" key={review.id}>
-                  <img
-                    className="profile-image"
-                    src={
-                      review.register?.img ? review.register.img : defaultImg
-                    }
-                    alt="profile"
-                  />
-                  <div className="content">
-                    <div>
-                      <h4 className="title">{review.register?.name}</h4>
-                      <p>{review.content}</p>
-                    </div>
-                    <span className="date">1 day ago</span>
-                  </div>
-                </li>
-              ))}
+              {reviews?.length > 0
+                ? reviews.map(review => (
+                    <li className="review" key={review.reviewId}>
+                      <img
+                        className="profile-image"
+                        src={
+                          review.register?.imagePath
+                            ? review.register.imagePath
+                            : defaultImg
+                        }
+                        alt="profile"
+                      />
+
+                      <div className="content">
+                        <div>
+                          <h4 className="title">
+                            {review.register?.registerName}
+                          </h4>
+                          <p>{review.content}</p>
+                        </div>
+                        <span className="date">
+                          {moment(
+                            review.createDt,
+                            'YYYY-MM-DD[T]HH:mm:ss',
+                          ).fromNow()}
+                        </span>
+                      </div>
+                    </li>
+                  ))
+                : '아직 작성된 리뷰가 없습니다 :D'}
             </Col>
           </ul>
         </Row>

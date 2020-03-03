@@ -53,8 +53,9 @@ export const getStoreReviews = id => axios.get(`/api/review/store/${id}`);
 
 // 상점 리뷰 등록하기 (accessToken 필요, request body로 content 필요)
 export const postStoreReview = ({ id, content }) =>
-  axios.post(`/api/review/store/${id}?content=${content}`, content, {
+  axios.post(`/api/review/store/${id}`, content, {
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.token}`,
     },
   });
@@ -66,13 +67,14 @@ export const deleteStoreReview = id => axios.delete(`/api/review/store/${id}`);
 // 상점 정보 수정
 export const putStoreInfo = ({ id, name, desc, image }) => {
   // console.log(id, name, desc, image);
-  return axios.put(
-    `/api/store/${id}?description=${desc}&file=${image}`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.token}`,
-      },
+  const formData = new FormData();
+  formData.append('description', desc);
+  formData.append('image', image);
+  formData.append('memberName', name);
+  return axios.put(`/api/store/${id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.token}`,
     },
-  );
+  });
 };
