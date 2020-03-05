@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import * as Styled from '../styles/Styled';
 import Colors from '../styles/Colors';
 import { MdArrowBack } from 'react-icons/md';
+import SockJsClient from 'react-stomp';
 
 const OppMessageBlock = styled.li`
   display: flex;
@@ -123,19 +124,25 @@ const ChatRoomBlock = styled.div`
  * @param {* number} roomId - 채팅방 id
  * @param {* ActionFunction} leaveRoom - chat module의 leave function. 채팅방을 떠나서 state.chat.activeRoom을 null로 만듦
  */
-const ChatRoom = ({ roomId, leaveRoom, roomRecord, postChat }) => {
+const ChatRoom = ({ myId, roomId, leaveRoom, roomRecord, postChat }) => {
   const $input = useRef(null);
+  const $client = useRef(null);
   const [message, setMessage] = useState('');
-  // temp data
-  const myId = 1;
 
   const onSubmit = e => {
     e.preventDefault();
-    const msg = { content: message, chatRoomId: roomId };
+    try {
+      const msg = { content: message, chatRoomId: roomId };
 
-    postChat(myId, msg);
-    $input.current.value = '';
-    setMessage('');
+      $client.sendMessage('/chat.sendMessage', JSON.stringify(msg));
+
+      postChat(myId, msg);
+      $input.current.value = '';
+      setMessage('');
+      return true;
+    } catch (e) {
+      return false;
+    }
   };
 
   return (
@@ -185,6 +192,15 @@ const ChatRoom = ({ roomId, leaveRoom, roomRecord, postChat }) => {
           </button>
         </form>
       </ChatRoomBlock>
+      <SockJsClient
+        url="http://18.190.79.25:8080/ws-stomp"
+        topics={[`/topic/chatroom/${roomId}`]}
+        onConnect={() => console.log('socket connected successfully')}
+        onMessage={msg => {
+          console.log(msg);
+        }}
+        ref={$client}
+      />
     </Styled.PopUp>
   );
 };

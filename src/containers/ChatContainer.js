@@ -21,6 +21,7 @@ const ChatContainer = ({
       leaveRoom={leave}
       roomRecord={roomRecord}
       postChat={send}
+      myId={user?.id}
     />
   ) : (
     <ChatList

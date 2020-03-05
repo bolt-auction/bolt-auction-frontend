@@ -39,6 +39,7 @@ const StoreContainer = ({
     <Store
       isMyStore={isMyStore}
       id={id}
+      user={user}
       info={info}
       products={products}
       reviews={reviews}
