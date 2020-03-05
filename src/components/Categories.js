@@ -61,8 +61,8 @@ const Categories = ({
   selectCategory,
 }) => {
   useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+    if (categories?.length === 0) getCategories();
+  }, [categories, categories.length, getCategories]);
 
   const onCategotyClick = (id, name) => {
     menu.current.style.display = 'none';

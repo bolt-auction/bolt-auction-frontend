@@ -1,6 +1,6 @@
 import { put, select } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
-import { takeEvery, takeLatest } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import * as api from '../lib/api';
 import createRequestSaga from '../lib/createRequestSaga';
 

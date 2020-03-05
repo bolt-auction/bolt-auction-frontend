@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import * as Styled from '../styles/Styled';
 import Colors from '../styles/Colors';
+import { useEffect } from 'react';
 
 const List = styled.ul``;
 
@@ -31,7 +32,11 @@ const ListItem = styled.li`
   }
 `;
 
-const ChatList = ({ list, enterRoom, closeList }) => {
+const ChatList = ({ list, enterRoom, closeList, loadList }) => {
+  useEffect(() => {
+    loadList();
+  }, [loadList]);
+
   return (
     <Styled.PopUp>
       <Styled.ChatNav style={{ borderBottom: `1.2px solid ${Colors.gray[1]}` }}>
@@ -41,18 +46,18 @@ const ChatList = ({ list, enterRoom, closeList }) => {
         </button>
       </Styled.ChatNav>
       <List>
-        {list.map(chat => (
+        {list?.map(chat => (
           <ListItem
             debug
-            key={`chat-${chat.id}`}
-            onClick={() => enterRoom(chat.id)}
+            key={`chat-${chat.chatRoomId}`}
+            onClick={() => enterRoom(chat.chatRoomId)}
           >
             <img
               src="https://img.icons8.com/cotton/2x/person-male--v2.png"
-              alt={chat.id}
+              alt={chat.chatRoomId}
             />
             <span>
-              {chat.id}: {chat.lastText}
+              {chat.chatRoomId}: {chat.chatRoomName}
             </span>
           </ListItem>
         ))}
