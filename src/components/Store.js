@@ -146,7 +146,7 @@ const Store = ({
                   ref={$name}
                 />
               ) : (
-                <h2>{info.name}</h2>
+                <h2>{info.storeName}</h2>
               )}{' '}
               {isMyStore ? (
                 !editMode ? (

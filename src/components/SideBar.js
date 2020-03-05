@@ -41,7 +41,7 @@ const ChatSidebar = styled.div`
 `;
 
 const SideBar = () => {
-  const [chatOpen, setChatOpen] = useState(true);
+  const [chatOpen, setChatOpen] = useState(false);
 
   const toggleChat = () => setChatOpen(!chatOpen);
 
