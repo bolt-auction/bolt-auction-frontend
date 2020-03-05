@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ChatRoom from '../components/ChatRoom';
 import ChatList from '../components/ChatList';
-import { enter, leave, post, loadList } from '../modules/chat';
+import { enter, leave, send, loadList } from '../modules/chat';
 
 const ChatContainer = ({
   user,
@@ -12,7 +12,7 @@ const ChatContainer = ({
   enter,
   leave,
   close,
-  post,
+  send,
   loadList,
 }) => {
   return activeRoom ? (
@@ -20,7 +20,7 @@ const ChatContainer = ({
       roomId={activeRoom}
       leaveRoom={leave}
       roomRecord={roomRecord}
-      postChat={post}
+      postChat={send}
     />
   ) : (
     <ChatList
@@ -42,7 +42,7 @@ export default connect(
   {
     enter,
     leave,
-    post,
+    send,
     loadList,
   },
 )(ChatContainer);
