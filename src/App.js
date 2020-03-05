@@ -2,10 +2,9 @@ import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import AuthRoute from './util/AuthRoute';
+import AuthRoute from './lib/AuthRoute';
 
 import Main from './components/Main';
-import SellProduct from './components/SellProduct';
 import Footer from './components/Footer';
 import SideBar from './components/SideBar';
 
@@ -16,6 +15,7 @@ import SearchResultContainer from './containers/SearchResultContainer';
 import ProductsDetailContainer from './containers/ProductsDetailContainer';
 import SigninContainer from './containers/auth/SigninContainer';
 import SignupContainer from './containers/auth/SignupContainer';
+import SellContainer from './containers/SellContainer';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -74,7 +74,7 @@ const App = () => {
           path="/categories/:category"
           component={CategoryResultContainer}
         />
-        <AuthRoute path="/sell" component={SellProduct} />
+        <AuthRoute path="/sell" component={SellContainer} />
         <AuthRoute path="/" exact component={Main} />
         <Route
           render={({ location }) => (

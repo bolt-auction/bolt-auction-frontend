@@ -28,12 +28,12 @@ const SIGNOUT = 'auth/SIGNOUT';
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
-    form, // signin , signup
-    key, // uid, passwd, passwdConfirm
+    form, // signin | signup
+    key, // uid | passwd | passwdConfirm
     value, // 실제 바꾸려는 값
   }),
 );
-export const initializeForm = createAction(INITIALIZE_FORM, form => form); // signin / signup
+export const initializeForm = createAction(INITIALIZE_FORM, form => form); // signin | signup
 
 export const signup = createAction(SIGNUP, ({ uid, passwd, name }) => ({
   uid,
@@ -53,7 +53,6 @@ export const signout = createAction(SIGNOUT);
 const signupSaga = createRequestSaga(SIGNUP, api.signup);
 const signinSaga = createRequestSaga(SIGNIN, api.signin);
 const checkSaga = createRequestSaga(CHECK, api.check);
-
 function signoutSaga() {
   try {
     localStorage.removeItem('user');

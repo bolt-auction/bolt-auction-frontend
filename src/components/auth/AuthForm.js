@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Colors from '../../styles/Colors';
 import Button from '../common/Button';
 import Modal from '../common/Modal';
+import Input from '../common/Input';
 
 const AuthFormBlock = styled.div`
   h3 {
@@ -13,24 +14,6 @@ const AuthFormBlock = styled.div`
   }
 `;
 
-// 스타일링된 input
-const StyledInput = styled.input`
-  font-size: 1rem;
-  border: none;
-  border-bottom: 1px solid ${Colors.gray[5]};
-  padding-bottom: 0.5rem;
-  outline: none;
-  width: 100%;
-  &:focus {
-    color: $oc-teal-7;
-    border-bottom: 1px solid ${Colors.gray[7]};
-  }
-  & + & {
-    margin-top: 1rem;
-  }
-`;
-
-// 폼 하단에 로그인 혹은 회원가입 링크를 보여줌
 const AuthFooter = styled.div`
   margin-top: 2rem;
   text-align: right;
@@ -62,6 +45,18 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
+// TODO: 카카오톡 로그인 기능 구현
+/**
+ * type으로 전달되는 signin, signout에 맞추어 랜더링 됩니다.
+ * @param {object} props
+ * @param {string} props.type - "signin" | "signup"
+ * @param {FormData} props.form -
+ *  - (type="signin") {uid, passwd}
+ *  - (type="signup") {uid, passwd, passwdConfirm, name}
+ * @param {event} props.onChange
+ * @param {event} props.onSubmit
+ * @param {?string} props.error 유저에게 보여지는 에러 메시지
+ */
 const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
   return (
@@ -69,37 +64,39 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
       <AuthFormBlock>
         <h3>{text}</h3>
         <form onSubmit={onSubmit}>
-          <StyledInput
-            autoComplete="uid"
+          <Input
             name="uid"
+            type="email"
+            icon="mail"
             placeholder="이메일"
+            autoComplete="uid"
             onChange={onChange}
             value={form.uid}
           />
-          <StyledInput
-            autoComplete="new-password"
+          <Input
             name="passwd"
-            placeholder="비밀번호"
             type="password"
+            placeholder="비밀번호"
+            autoComplete="new-password"
             onChange={onChange}
             value={form.passwd}
           />
           {type === 'signup' && (
-            <StyledInput
-              autoComplete="new-password"
+            <Input
               name="passwdConfirm"
-              placeholder="비밀번호 확인"
               type="password"
+              placeholder="비밀번호 확인"
+              autoComplete="new-password"
               onChange={onChange}
               value={form.passwdConfirm}
             />
           )}
           {type === 'signup' && (
-            <StyledInput
-              autoComplete="name"
+            <Input
               name="name"
-              placeholder="닉네임"
               type="text"
+              placeholder="닉네임"
+              autoComplete="name"
               onChange={onChange}
               value={form.name}
             />

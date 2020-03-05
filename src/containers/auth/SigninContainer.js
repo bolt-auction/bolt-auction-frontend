@@ -35,19 +35,21 @@ const SigninForm = withRouter(
       signin({ uid, passwd });
     };
 
-    // 컴포넌트가 처음 렌더링 될 때 form 을 초기화
     useEffect(() => {
       initializeForm('signin');
     }, [initializeForm]);
 
     useEffect(() => {
       if (authError) {
-        setError('로그인 실패');
+        if (authError.response.status === 403) {
+          setError('아이디 혹은 비밀번호가 잘못되었습니다.');
+          return;
+        }
         console.log(authError);
+        setError('로그인에 실패하였습니다.');
         return;
       }
       if (auth) {
-        console.log('로그인 성공');
         localStorage.setItem('token', auth.accessToken);
         check();
       }
