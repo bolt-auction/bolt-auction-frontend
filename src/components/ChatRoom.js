@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import * as Styled from '../styles/Styled';
 import Colors from '../styles/Colors';
 import { MdArrowBack } from 'react-icons/md';
+// import socket from '../lib/socket';
 import SockJsClient from 'react-stomp';
 
 const OppMessageBlock = styled.li`
@@ -128,22 +129,29 @@ const ChatRoom = ({ myId, roomId, leaveRoom, roomRecord, postChat }) => {
   const $input = useRef(null);
   const $client = useRef(null);
   const [message, setMessage] = useState('');
+  // const mySocket = socket();
 
   const onSubmit = e => {
     e.preventDefault();
     try {
       const msg = { content: message, chatRoomId: roomId };
 
-      $client.sendMessage('/chat.sendMessage', JSON.stringify(msg));
+      $client.current.sendMessage('/chat.sendMessage', JSON.stringify(msg));
 
       postChat(myId, msg);
       $input.current.value = '';
       setMessage('');
-      return true;
     } catch (e) {
-      return false;
+      console.log('채팅 보내기 에러', e);
     }
   };
+
+  useEffect(() => {
+    console.log($client.current);
+    $client.current.connect();
+  }, []);
+
+  // useEffect(mySocket.connect(roomId), []);
 
   return (
     <Styled.PopUp>
@@ -195,7 +203,12 @@ const ChatRoom = ({ myId, roomId, leaveRoom, roomRecord, postChat }) => {
       <SockJsClient
         url="http://18.190.79.25:8080/ws-stomp"
         topics={[`/topic/chatroom/${roomId}`]}
-        onConnect={() => console.log('socket connected successfully')}
+        onConnect={() => {
+          console.log('Socket Connected!');
+        }}
+        onDisconnect={() => {
+          console.log('Socket Disconnected!');
+        }}
         onMessage={msg => {
           console.log(msg);
         }}
