@@ -131,8 +131,9 @@ const ChatRoom = ({ roomId, leaveRoom, roomRecord, postChat }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(message);
-    postChat(myId, message);
+    const msg = { content: message, chatRoomId: roomId };
+
+    postChat(myId, msg);
     $input.current.value = '';
     setMessage('');
   };
