@@ -35,6 +35,7 @@ const Store = ({
   editImage,
   submitInfo,
   error,
+  createChatroom,
 }) => {
   const [activeTab, setActiveTab] = useState('');
   const [editMode, setEditMode] = useState(false);
@@ -142,7 +143,7 @@ const Store = ({
               {editMode ? (
                 <input
                   onChange={() => editName($name.current.value)}
-                  placeholder={info.name}
+                  placeholder={info.storeName}
                   ref={$name}
                 />
               ) : (
@@ -150,16 +151,6 @@ const Store = ({
               )}{' '}
               {isMyStore ? (
                 !editMode ? (
-                  // <MdModeEdit
-                  //   className="edit"
-                  //   onClick={() => setEditMode(true)}
-                  //   style={{
-                  //     color: 'rgba(0, 0, 0, 0.54)',
-                  //     float: 'right',
-                  //     cursor: 'pointer',
-                  //     width: 18,
-                  //   }}
-                  // />
                   <button className="submit" onClick={() => setEditMode(true)}>
                     수정
                   </button>
@@ -176,7 +167,16 @@ const Store = ({
                     </button>
                   </>
                 )
-              ) : null}
+              ) : (
+                <button
+                  className="submit"
+                  onClick={() => {
+                    createChatroom(`${info.storeName}과의 채팅`, 4, 3);
+                  }}
+                >
+                  채팅하기
+                </button>
+              )}
             </Col>
           </Row>
           <Row>
