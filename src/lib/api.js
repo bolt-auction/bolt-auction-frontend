@@ -78,3 +78,27 @@ export const putStoreInfo = ({ id, name, desc, image }) => {
     },
   });
 };
+
+// SECTION 채팅 API
+// 채팅방 생성
+export const postChatroom = ({ chatRoomName, itemId, recvMemberId }) => {
+  console.log({ chatRoomName, itemId, recvMemberId });
+  return axios.post(
+    `/api/chat/room`,
+    { chatRoomName, itemId, recvMemberId },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    },
+  );
+};
+
+// 채팅방 목록 가져오기
+export const getChatrooms = () =>
+  axios.get(`/api/chat/room`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });

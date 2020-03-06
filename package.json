@@ -18,6 +18,7 @@
   },
   "proxy": "http://18.190.79.25:8080",
   "dependencies": {
+    "@stomp/stompjs": "^5.4.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -32,11 +33,15 @@
     "react-responsive-carousel": "^3.1.51",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
+    "react-stomp": "^5.0.0",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^1.1.3"
+    "redux-saga": "^1.1.3",
+    "sockjs-client": "^1.4.0",
+    "stompjs": "^2.3.3",
+    "websocket": "^1.0.31"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.10.0",

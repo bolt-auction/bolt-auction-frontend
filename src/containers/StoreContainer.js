@@ -11,6 +11,7 @@ import {
   editImage,
   putInfo,
 } from '../modules/store';
+import { create } from '../modules/chat';
 
 const StoreContainer = ({
   match,
@@ -28,6 +29,7 @@ const StoreContainer = ({
   editImage,
   putInfo,
   error,
+  create,
 }) => {
   const { id } = match.params;
   const isMyStore = user.store?.id === +id;
@@ -37,6 +39,7 @@ const StoreContainer = ({
     <Store
       isMyStore={isMyStore}
       id={id}
+      user={user}
       info={info}
       products={products}
       reviews={reviews}
@@ -50,6 +53,7 @@ const StoreContainer = ({
       editImage={editImage}
       submitInfo={putInfo}
       error={error}
+      createChatroom={create}
     />
   );
 };
@@ -72,5 +76,6 @@ export default connect(
     editDesc,
     editImage,
     putInfo,
+    create,
   },
 )(StoreContainer);
