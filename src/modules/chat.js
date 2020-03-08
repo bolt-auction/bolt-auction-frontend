@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga from '../lib/createRequestSaga';
 import * as api from '../lib/api';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, takeEvery, put } from 'redux-saga/effects';
 
 // Action Type
 // 채팅방 목록 불러오기
@@ -11,6 +11,7 @@ const LOAD_LIST_SUCCESS = 'chat/LOAD_LIST_SUCCESS';
 
 // 채팅방 입장하기
 const ENTER = 'chat/ENTER';
+
 // 채팅방 떠나기
 const LEAVE = 'chat/LEAVE';
 
@@ -20,10 +21,16 @@ const CREATE_SUCCESS = 'chat/CREATE_SUCCESS';
 // const CREATE_FAILURE = 'chat/CREATE_FAILURE';
 
 const SEND = 'chat/SEND';
+const SEND_SUCCESS = 'chat/SEND_SUCCESS';
+const SEND_FAILURE = 'chat/SEND_FAILURE';
 // const WS_CONNECTED = 'chat/WS_CONNECTED';
 // const WS_DISCONNECTED = 'chat/WS_DISCONNECTED';
 // const WS_MESSAGE = 'chat/WS_MESSAGE';
 // const WS_SEND_MESSAGE = 'chat/WS_SEND_MESSAGE';
+
+// 채팅 기록 가져오기
+const LOAD_RECORDS = 'chat/LOAD_RECORDS';
+const LOAD_RECORDS_SUCCESS = 'chat/LOAD_RECORDS_SUCCESS';
 
 // Action Creators
 export const loadList = createAction(LOAD_LIST);
@@ -37,20 +44,33 @@ export const create = createAction(
     recvMemberId,
   }),
 );
-export const send = createAction(SEND, (content, chetRommId) => ({
-  content,
-  chetRommId,
+export const send = createAction(SEND, (socket, msg) => ({
+  socket,
+  msg,
 }));
+export const loadRecords = createAction(LOAD_RECORDS, chatRoomId => chatRoomId);
 
 // Action Sagas
 const loadListSaga = createRequestSaga(LOAD_LIST, api.getChatrooms);
 const createSaga = createRequestSaga(CREATE, api.postChatroom);
+const loadRecordsSaga = createRequestSaga(LOAD_RECORDS, api.getChatRecords);
+const postChatSaga = function*(action) {
+  const { socket, msg } = action.payload;
+  try {
+    socket.sendMessage('/app/chat.sendMessage', JSON.stringify(msg));
+    yield put({ type: SEND_SUCCESS });
+  } catch (e) {
+    yield put({ type: SEND_FAILURE, payload: e });
+  }
+};
 
 // rootSaga에 전달할 Saga
 export function* chatSaga() {
   yield takeLatest(LOAD_LIST, loadListSaga);
   yield takeLatest(CREATE, createSaga);
   yield takeLatest(CREATE_SUCCESS, loadListSaga);
+  yield takeLatest(LOAD_RECORDS, loadRecordsSaga);
+  yield takeEvery(SEND, postChatSaga);
 }
 
 // initialState
@@ -89,6 +109,10 @@ const chat = handleActions(
     [LOAD_LIST_SUCCESS]: (state, action) => ({
       ...state,
       list: action.payload['_embedded'].chatRoomList,
+    }),
+    [LOAD_RECORDS_SUCCESS]: (state, action) => ({
+      ...state,
+      roomRecord: [...state.roomRecord, action.payload],
     }),
   },
   initialState,

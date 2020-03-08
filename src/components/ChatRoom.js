@@ -125,31 +125,46 @@ const ChatRoomBlock = styled.div`
  * @param {* number} roomId - 채팅방 id
  * @param {* ActionFunction} leaveRoom - chat module의 leave function. 채팅방을 떠나서 state.chat.activeRoom을 null로 만듦
  */
-const ChatRoom = ({ myId, roomId, leaveRoom, roomRecord, postChat }) => {
+const ChatRoom = ({
+  myId,
+  roomId,
+  leaveRoom,
+  roomRecord,
+  postChat,
+  loadRecords,
+}) => {
   const $input = useRef(null);
   const $client = useRef(null);
   const [message, setMessage] = useState('');
+  const wsURL = 'http://18.190.79.25:8080/ws-stomp';
   // const mySocket = socket();
 
   const onSubmit = e => {
     e.preventDefault();
     try {
+      const socket = $client.current;
       const msg = { content: message, chatRoomId: roomId };
-
-      $client.current.sendMessage('/chat.sendMessage', JSON.stringify(msg));
-
-      postChat(myId, msg);
+      // $client.current.sendMessage('/app/chat.sendMessage', JSON.stringify(msg));
+      // socket.sendMessage('/app/chat.sendMessage', JSON.stringify(msg), {
+      //   Authorization: `Bearer ${localStorage.token}`,
+      // });
+      postChat(socket, msg);
       $input.current.value = '';
       setMessage('');
     } catch (e) {
-      console.log('채팅 보내기 에러', e);
+      console.log('채팅보내기 에러: ', e);
     }
   };
 
   useEffect(() => {
-    console.log($client.current);
-    $client.current.connect();
-  }, []);
+    // loadRecords(roomId);
+    const socket = $client.current;
+    console.log(socket);
+    // $client.current.connect();
+    return () => {
+      socket.disconnect();
+    };
+  }, [loadRecords, roomId]);
 
   // useEffect(mySocket.connect(roomId), []);
 
@@ -201,16 +216,19 @@ const ChatRoom = ({ myId, roomId, leaveRoom, roomRecord, postChat }) => {
         </form>
       </ChatRoomBlock>
       <SockJsClient
-        url="http://18.190.79.25:8080/ws-stomp"
-        topics={[`/topic/chatroom/${roomId}`]}
+        url={wsURL}
+        topics={[`/topic/chatroom.${roomId}`]}
         onConnect={() => {
           console.log('Socket Connected!');
         }}
         onDisconnect={() => {
           console.log('Socket Disconnected!');
         }}
-        onMessage={msg => {
-          console.log(msg);
+        onMessage={(msg, topic) => {
+          console.log(msg, topic);
+        }}
+        onConnectFailure={e => {
+          console.log(e, $client.current);
         }}
         ref={$client}
       />

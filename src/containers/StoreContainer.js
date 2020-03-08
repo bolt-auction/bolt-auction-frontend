@@ -58,24 +58,26 @@ const StoreContainer = ({
   );
 };
 
-export default connect(
-  ({ auth, store }) => ({
-    user: auth.user,
-    info: store.info,
-    products: store.products,
-    reviews: store.reviews,
-    editInfo: store.editInfo,
-    error: store.error,
-  }),
-  {
-    getProducts,
-    getInfo,
-    getReviews,
-    postReview,
-    editName,
-    editDesc,
-    editImage,
-    putInfo,
-    create,
-  },
-)(StoreContainer);
+export default React.memo(
+  connect(
+    ({ auth, store }) => ({
+      user: auth.user,
+      info: store.info,
+      products: store.products,
+      reviews: store.reviews,
+      editInfo: store.editInfo,
+      error: store.error,
+    }),
+    {
+      getProducts,
+      getInfo,
+      getReviews,
+      postReview,
+      editName,
+      editDesc,
+      editImage,
+      putInfo,
+      create,
+    },
+  )(StoreContainer),
+);

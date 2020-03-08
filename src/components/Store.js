@@ -171,7 +171,7 @@ const Store = ({
                 <button
                   className="submit"
                   onClick={() => {
-                    createChatroom(`${info.storeName}과의 채팅`, 4, 3);
+                    createChatroom(`${info.storeName}과의 채팅`, 6, 3);
                   }}
                 >
                   채팅하기
@@ -245,4 +245,4 @@ const Store = ({
   );
 };
 
-export default Store;
+export default React.memo(Store);

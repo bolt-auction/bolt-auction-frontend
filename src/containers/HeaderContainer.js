@@ -8,12 +8,14 @@ const HeaderContainer = ({ user, signout, getItems }) => {
   return <Header user={user} signout={signout} search={getItems} />;
 };
 
-export default connect(
-  ({ auth }) => ({
-    user: auth.user,
-  }),
-  {
-    signout,
-    getItems,
-  },
-)(HeaderContainer);
+export default React.memo(
+  connect(
+    ({ auth }) => ({
+      user: auth.user,
+    }),
+    {
+      signout,
+      getItems,
+    },
+  )(HeaderContainer),
+);
