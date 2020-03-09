@@ -52,8 +52,7 @@ export const deleteReview = createAction(DELETE_REVIEW, id => id);
 export const editName = createAction(EDIT_NAME, name => name);
 export const editDesc = createAction(EDIT_DESC, desc => desc);
 export const editImage = createAction(EDIT_IMAGE, image => image);
-export const putInfo = createAction(PUT_INFO, (id, name, desc, image) => ({
-  id,
+export const putInfo = createAction(PUT_INFO, (name, desc, image) => ({
   name,
   desc,
   image,
@@ -139,6 +138,7 @@ const store = handleActions(
     }),
     [PUT_INFO_SUCCESS]: (state, action) => ({
       ...state,
+      info: action.payload,
       error: null,
     }),
     [PUT_INFO_FAILURE]: (state, action) => ({

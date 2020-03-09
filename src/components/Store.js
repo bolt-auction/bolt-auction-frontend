@@ -60,7 +60,7 @@ const Store = ({
   }, [getInfo, getProducts, getReviews, id]);
 
   useEffect(() => {
-    editName(info.name);
+    editName(info.memberName);
     editDesc(info.description);
     editImage(info.imagePath);
   }, [
@@ -69,7 +69,7 @@ const Store = ({
     editName,
     info.description,
     info.imagePath,
-    info.name,
+    info.memberName,
   ]);
 
   const onImageClick = () => {
@@ -91,7 +91,7 @@ const Store = ({
 
   const onSubmit = () => {
     setEditMode(false);
-    submitInfo(id, editInfo.name, editInfo.description, editInfo.image);
+    submitInfo(editInfo.name, editInfo.description, editInfo.image);
   };
 
   return (
@@ -143,11 +143,11 @@ const Store = ({
               {editMode ? (
                 <input
                   onChange={() => editName($name.current.value)}
-                  placeholder={info.storeName}
+                  placeholder={info.memberName}
                   ref={$name}
                 />
               ) : (
-                <h2>{info.storeName}</h2>
+                <h2>{info.memberName}</h2>
               )}{' '}
               {isMyStore ? (
                 !editMode ? (
@@ -171,7 +171,7 @@ const Store = ({
                 <button
                   className="submit"
                   onClick={() => {
-                    createChatroom(`${info.storeName}과의 채팅`, 1, 3);
+                    createChatroom(`${info.memberName}과의 채팅`, 1, 3);
                   }}
                 >
                   채팅하기
