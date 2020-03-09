@@ -50,6 +50,14 @@ const ReviewBlock = styled.div`
     max-width: 810px;
     width: 100%;
     margin: 0 auto;
+
+    .no-reviews {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .review {
@@ -162,36 +170,38 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
         <Row>
           <ul className="review-list">
             <Col>
-              {reviews?.length > 0
-                ? reviews.map(review => (
-                    <li className="review" key={review.reviewId}>
-                      <img
-                        className="profile-image"
-                        src={
-                          review.register?.imagePath
-                            ? review.register.imagePath
-                            : defaultImg
-                        }
-                        alt="profile"
-                      />
+              {reviews?.length > 0 ? (
+                reviews.map(review => (
+                  <li className="review" key={review.reviewId}>
+                    <img
+                      className="profile-image"
+                      src={
+                        review.register?.imagePath
+                          ? review.register.imagePath
+                          : defaultImg
+                      }
+                      alt="profile"
+                    />
 
-                      <div className="content">
-                        <div>
-                          <h4 className="title">
-                            {review.register?.registerName}
-                          </h4>
-                          <p>{review.content}</p>
-                        </div>
-                        <span className="date">
-                          {moment(
-                            review.createDt,
-                            'YYYY-MM-DD[T]HH:mm:ss',
-                          ).fromNow()}
-                        </span>
+                    <div className="content">
+                      <div>
+                        <h4 className="title">
+                          {review.register?.registerName}
+                        </h4>
+                        <p>{review.content}</p>
                       </div>
-                    </li>
-                  ))
-                : '아직 작성된 리뷰가 없습니다 :D'}
+                      <span className="date">
+                        {moment(
+                          review.createDt,
+                          'YYYY-MM-DD[T]HH:mm:ss',
+                        ).fromNow()}
+                      </span>
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <div className="no-reviews">아직 작성된 리뷰가 없어요 XD !</div>
+              )}
             </Col>
           </ul>
         </Row>
