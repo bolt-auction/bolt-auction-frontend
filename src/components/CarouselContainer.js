@@ -43,13 +43,22 @@ const CarouselContainer = () => {
         showThumbs={false}
       >
         <div>
-          <img src={img1} alt="dd" />
+          <img
+            src="https://media.bunjang.co.kr/images/nocrop/433923859.jpg"
+            alt="dd"
+          />
         </div>
         <div>
-          <img src={img2} alt="dd" />
+          <img
+            src="https://media.bunjang.co.kr/images/nocrop/431881862.jpg"
+            alt="dd"
+          />
         </div>
         <div>
-          <img src={img3} alt="dd" />
+          <img
+            src="https://media.bunjang.co.kr/images/nocrop/415809298.jpg"
+            alt="dd"
+          />
         </div>
       </Carousel>
     </CarouselBlock>

@@ -222,7 +222,7 @@ const ChatRoom = ({
           console.log(e, $client.current);
         }}
         ref={$client}
-        debug={false}
+        debug={true}
       />
     </Styled.PopUp>
   );

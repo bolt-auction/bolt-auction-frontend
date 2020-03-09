@@ -33,9 +33,13 @@ const LOAD_RECORDS = 'chat/LOAD_RECORDS';
 const LOAD_RECORDS_SUCCESS = 'chat/LOAD_RECORDS_SUCCESS';
 
 // Action Creators
+// 채팅방 목록 가져오기
 export const loadList = createAction(LOAD_LIST);
+// 채팅방 입장
 export const enter = createAction(ENTER, id => id);
+// 채팅방 떠나기
 export const leave = createAction(LEAVE);
+// 채팅방 생성하기
 export const create = createAction(
   CREATE,
   (chatRoomName, itemId, recvMemberId) => ({
@@ -44,24 +48,26 @@ export const create = createAction(
     recvMemberId,
   }),
 );
+// 채팅 보내기
 export const send = createAction(SEND, (socket, msg) => ({
   socket,
   msg,
 }));
+// 채팅 기록 가져오기
 export const loadRecords = createAction(LOAD_RECORDS, chatRoomId => chatRoomId);
 
 // Action Sagas
+
+// 채팅방 목록 가져오기
 const loadListSaga = createRequestSaga(LOAD_LIST, api.getChatrooms);
+// 채팅방 생성
 const createSaga = createRequestSaga(CREATE, api.postChatroom);
+// 채팅 기록 가져오기
 const loadRecordsSaga = createRequestSaga(LOAD_RECORDS, api.getChatRecords);
 
 const postChatSaga = function*(action) {
   const { socket, msg } = action.payload;
   try {
-    console.log('채팅 보내기', `/chat.send.message.${msg.chatRoomId}`, {
-      content: msg.content,
-      senderId: msg.senderId,
-    });
     socket.sendMessage(
       `/chat.send.message.${msg.chatRoomId}`,
       JSON.stringify({ content: msg.content, senderId: msg.senderId }),
