@@ -32,7 +32,7 @@ const StoreContainer = ({
   create,
 }) => {
   const { id } = match.params;
-  const isMyStore = user.store?.id === +id;
+  const isMyStore = user.id === +id;
 
   // FIXME : id랑 name은 info로 대체될 수 있음
   return (

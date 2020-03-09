@@ -171,7 +171,7 @@ const Store = ({
                 <button
                   className="submit"
                   onClick={() => {
-                    createChatroom(`${info.storeName}과의 채팅`, 6, 3);
+                    createChatroom(`${info.storeName}과의 채팅`, 1, 3);
                   }}
                 >
                   채팅하기

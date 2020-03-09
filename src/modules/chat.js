@@ -54,10 +54,18 @@ export const loadRecords = createAction(LOAD_RECORDS, chatRoomId => chatRoomId);
 const loadListSaga = createRequestSaga(LOAD_LIST, api.getChatrooms);
 const createSaga = createRequestSaga(CREATE, api.postChatroom);
 const loadRecordsSaga = createRequestSaga(LOAD_RECORDS, api.getChatRecords);
+
 const postChatSaga = function*(action) {
   const { socket, msg } = action.payload;
   try {
-    socket.sendMessage('/app/chat.sendMessage', JSON.stringify(msg));
+    console.log('채팅 보내기', `/chat.send.message.${msg.chatRoomId}`, {
+      content: msg.content,
+      senderId: msg.senderId,
+    });
+    socket.sendMessage(
+      `/chat.send.message.${msg.chatRoomId}`,
+      JSON.stringify({ content: msg.content, senderId: msg.senderId }),
+    );
     yield put({ type: SEND_SUCCESS });
   } catch (e) {
     yield put({ type: SEND_FAILURE, payload: e });

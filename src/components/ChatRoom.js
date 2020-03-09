@@ -137,17 +137,12 @@ const ChatRoom = ({
   const $client = useRef(null);
   const [message, setMessage] = useState('');
   const wsURL = 'http://18.190.79.25:8080/ws-stomp';
-  // const mySocket = socket();
 
   const onSubmit = e => {
     e.preventDefault();
     try {
       const socket = $client.current;
-      const msg = { content: message, chatRoomId: roomId };
-      // $client.current.sendMessage('/app/chat.sendMessage', JSON.stringify(msg));
-      // socket.sendMessage('/app/chat.sendMessage', JSON.stringify(msg), {
-      //   Authorization: `Bearer ${localStorage.token}`,
-      // });
+      const msg = { content: message, chatRoomId: roomId, senderId: myId };
       postChat(socket, msg);
       $input.current.value = '';
       setMessage('');
@@ -157,16 +152,12 @@ const ChatRoom = ({
   };
 
   useEffect(() => {
-    // loadRecords(roomId);
     const socket = $client.current;
     console.log(socket);
-    // $client.current.connect();
     return () => {
       socket.disconnect();
     };
   }, [loadRecords, roomId]);
-
-  // useEffect(mySocket.connect(roomId), []);
 
   return (
     <Styled.PopUp>
@@ -225,12 +216,13 @@ const ChatRoom = ({
           console.log('Socket Disconnected!');
         }}
         onMessage={(msg, topic) => {
-          console.log(msg, topic);
+          console.log('메시지왔다: ', msg, topic);
         }}
         onConnectFailure={e => {
           console.log(e, $client.current);
         }}
         ref={$client}
+        debug={false}
       />
     </Styled.PopUp>
   );

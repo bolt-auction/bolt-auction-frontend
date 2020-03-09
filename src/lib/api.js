@@ -107,7 +107,7 @@ export const getChatrooms = () =>
 
 // 채팅 기록 가져오기
 export const getChatRecords = chatRoomId =>
-  axios.get(`/chat/message?chatRoomId=${chatRoomId}`, {
+  axios.get(`/api/chat/message?chatRoomId=${chatRoomId}`, {
     headers: {
       Authorization: `Bearer ${localStorage.token}`,
     },
