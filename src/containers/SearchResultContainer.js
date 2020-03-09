@@ -14,6 +14,6 @@ const SearchResultContainer = ({ location, items }) => {
   return <SearchResult keyword={keyword} items={items} order={order} />;
 };
 
-export default connect(({ item }) => ({ items: item.searchedItems }))(
-  SearchResultContainer,
+export default React.memo(
+  connect(({ item }) => ({ items: item.searchedItems }))(SearchResultContainer),
 );

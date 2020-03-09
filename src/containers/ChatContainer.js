@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ChatRoom from '../components/ChatRoom';
 import ChatList from '../components/ChatList';
-import { enter, leave, send, loadList } from '../modules/chat';
+import { enter, leave, send, loadList, loadRecords } from '../modules/chat';
 
 const ChatContainer = ({
   user,
@@ -14,6 +14,7 @@ const ChatContainer = ({
   close,
   send,
   loadList,
+  loadRecords,
 }) => {
   return activeRoom ? (
     <ChatRoom
@@ -22,6 +23,7 @@ const ChatContainer = ({
       roomRecord={roomRecord}
       postChat={send}
       myId={user?.id}
+      loadRecords={loadRecords}
     />
   ) : (
     <ChatList
@@ -33,17 +35,20 @@ const ChatContainer = ({
   );
 };
 
-export default connect(
-  ({ auth, chat }) => ({
-    user: auth.user,
-    list: chat.list,
-    activeRoom: chat.activeRoom,
-    roomRecord: chat.roomRecord,
-  }),
-  {
-    enter,
-    leave,
-    send,
-    loadList,
-  },
-)(ChatContainer);
+export default React.memo(
+  connect(
+    ({ auth, chat }) => ({
+      user: auth.user,
+      list: chat.list,
+      activeRoom: chat.activeRoom,
+      roomRecord: chat.roomRecord,
+    }),
+    {
+      enter,
+      leave,
+      send,
+      loadList,
+      loadRecords,
+    },
+  )(ChatContainer),
+);

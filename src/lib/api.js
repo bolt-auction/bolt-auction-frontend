@@ -2,6 +2,7 @@
   API request를 함수화한 library
 */
 import axios from 'axios';
+// const FormData = require('form-data');
 
 // .env.development에 저장된 BASE URL(REACT_APP_URL)
 // CORS 문제를 해결하기 위해서 package.json의 proxy 사용
@@ -71,12 +72,14 @@ export const putStoreInfo = ({ id, name, desc, image }) => {
   formData.append('description', desc);
   formData.append('image', image);
   formData.append('memberName', name);
-  return axios.put(`/api/store/${id}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${localStorage.token}`,
-    },
-  });
+  return axios
+    .put(`/api/store/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    })
+    .then(res => console.log(res));
 };
 
 // SECTION 채팅 API
@@ -98,7 +101,20 @@ export const postChatroom = ({ chatRoomName, itemId, recvMemberId }) => {
 export const getChatrooms = () =>
   axios.get(`/api/chat/room`, {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.token}`,
     },
   });
+
+// 채팅 기록 가져오기
+export const getChatRecords = chatRoomId =>
+  axios.get(`/api/chat/message?chatRoomId=${chatRoomId}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
+
+// // 채팅 보내기
+// export const postChat = (socket, msg) =>
+//   socket.sendMessage('/app/chat.sendMessage', JSON.stringify(msg), {
+//     Authorization: `Bearer ${localStorage.token}`,
+//   });
