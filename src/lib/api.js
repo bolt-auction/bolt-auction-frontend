@@ -104,12 +104,15 @@ export const getChatrooms = () =>
   });
 
 // 채팅 기록 가져오기
-export const getChatRecords = chatRoomId =>
-  axios.get(`/api/chat/message?chatRoomId=${chatRoomId}`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.token}`,
+export const getChatRecords = ({ chatRoomId, page, size }) =>
+  axios.get(
+    `/api/chat/message?chatRoomId=${chatRoomId}&page=${page}&size=${size}&sort=createDt,desc`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
     },
-  });
+  );
 
 // // 채팅 보내기
 // export const postChat = (socket, msg) =>

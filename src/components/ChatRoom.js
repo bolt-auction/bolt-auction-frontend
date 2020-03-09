@@ -1,34 +1,101 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import * as Styled from '../styles/Styled';
 import Colors from '../styles/Colors';
 import { MdArrowBack } from 'react-icons/md';
 // import socket from '../lib/socket';
 import SockJsClient from 'react-stomp';
+import Infinite from 'react-infinite';
 
-const OppMessageBlock = styled.li`
+const OppMessageBlock = styled.div`
   display: flex;
   width: 100%;
+  .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
 
-  .message {
-    padding: 4px 8px;
-    height: 30px;
-    background-color: #fff;
-    border-radius: 4px;
+  .text-box {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+
+    span {
+      text-align: left;
+    }
+    .message {
+      padding: 4px 8px;
+      height: 30px;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+
+    .message-wrapper {
+      position: relative;
+
+      .message-box.first::before {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: -2px;
+        left: -3px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        transform: rotate(-90deg);
+        border-right: 6px solid white;
+        border-radius: 1px;
+      }
+    }
   }
   margin-bottom: 3px;
 `;
 
-const MyMessageBlock = styled.li`
+const MyMessageBlock = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row-reverse;
+  .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
 
-  .message {
-    padding: 4px 8px;
-    height: 30px;
-    background-color: ${Colors.kakao[0]};
-    border-radius: 4px;
+  .text-box {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    span {
+      text-align: right;
+    }
+    .message {
+      padding: 4px 8px;
+      height: 30px;
+      background-color: ${Colors.kakao[0]};
+      border-radius: 4px;
+    }
+
+    .message-wrapper {
+      position: relative;
+
+      .message-box.first::after {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: -2px;
+        right: -3px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        transform: rotate(90deg);
+        border-left: 6px solid ${Colors.kakao[0]};
+        border-radius: 1px;
+      }
+    }
   }
   margin-bottom: 3px;
 `;
@@ -40,11 +107,32 @@ const ChatRoomBlock = styled.div`
   &::-webkit-scrollbar { 
     display: none !important; 
   } */
-
     .scroll-blind {
       width: 100%;
       overflow-y: auto;
+      position: relative;
       background-color: ${Colors.primaryPressed};
+
+      .item-wrapper {
+        width: 220px;
+        position: absolute;
+        /* right: -240px;  */
+
+          .item-link {
+          position: fixed;
+          top: calc(50% - 195px);
+
+          right: 8px;
+          opacity: 0.7;
+          z-index: 10;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+          }
+        }
+      }
 
       .chat-records {
           width: 100%;
@@ -55,32 +143,34 @@ const ChatRoomBlock = styled.div`
           align-items: flex-start;
           padding: 0 8px;
 
+          &>div {
+            width: 100%;
+          }
+
+              /* width */
+          ::-webkit-scrollbar {
+            width: 10px;
+          }
+
+          /* Track */
+          ::-webkit-scrollbar-track {
+            background: none;
+          }
+
+          /* Handle */
+          ::-webkit-scrollbar-thumb {
+            background: ${Colors.primaryMatte[1]};
+          }
+
+          /* Handle on hover */
+          ::-webkit-scrollbar-thumb:hover {
+            background:${Colors.primaryMatte[2]};
+          }
+
+
         }
-
       
-        /* width */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-
-      /* Track */
-      ::-webkit-scrollbar-track {
-        background: none;
-      }
-
-      /* Handle */
-      ::-webkit-scrollbar-thumb {
-        background: ${Colors.primaryMatte[1]};
-      }
-
-      /* Handle on hover */
-      ::-webkit-scrollbar-thumb:hover {
-        background:${Colors.primaryMatte[2]};
-      }
-
     }
-
-  
 
   .chat-form {
     height: 70px;
@@ -129,17 +219,23 @@ const ChatRoom = ({
   myId,
   roomId,
   leaveRoom,
+  room,
   roomRecord,
   postChat,
+  receiveChat,
   loadRecords,
 }) => {
   const $input = useRef(null);
   const $client = useRef(null);
+  const $records = useRef(null);
   const [message, setMessage] = useState('');
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(12);
   const wsURL = 'http://18.190.79.25:8080/ws-stomp';
 
   const onSubmit = e => {
     e.preventDefault();
+
     try {
       const socket = $client.current;
       const msg = { content: message, chatRoomId: roomId, senderId: myId };
@@ -151,13 +247,32 @@ const ChatRoom = ({
     }
   };
 
+  const onMessage = msg => {
+    // document.querySelector('.chat-records').scrollTop = document.querySelector(
+    //   '.chat-records',
+    // ).scrollHeight;
+    receiveChat(msg, $records.current);
+    // setTimeout(() => {
+    //   $records.current.scrollTop = $records.current.scrollHeight;
+    // }, 1000);
+  };
+
   useEffect(() => {
     const socket = $client.current;
-    console.log(socket);
+    loadRecords(roomId, page, size);
     return () => {
       socket.disconnect();
     };
-  }, [loadRecords, roomId]);
+  }, [loadRecords, page, roomId, size]);
+
+  const loadMoreRecords = () => {
+    setSize(size + 12); // 12개씩 채팅 기록 load
+    // if (size > 20) {
+    //   setPage(page + 1);
+    //   setSize(12);
+    // }
+    loadRecords(roomId, page, size);
+  };
 
   return (
     <Styled.PopUp>
@@ -169,21 +284,69 @@ const ChatRoom = ({
       </Styled.ChatNav>
       <ChatRoomBlock>
         <div className="scroll-blind">
-          <ul className="chat-records">
-            {roomRecord?.map(rec =>
-              rec.memberId === myId ? (
-                <MyMessageBlock key={rec.id}>
-                  <span>{rec.memberId}</span>
-                  <div className="message">{rec.text}</div>
+          <div className="item-wrapper">
+            <Link className="item-link" to={`/products/${room.item?.itemId}`}>
+              <img src={room.item?.itemImagePath} alt="아이템" />
+            </Link>
+          </div>
+
+          <Infinite
+            className="chat-records"
+            ref={$records}
+            containerHeight={380}
+            elementHeight={40}
+            infiniteLoadBeginEdgeOffset={10}
+            onInfiniteLoad={loadMoreRecords}
+            // isInfiniteLoading={false}
+            displayBottomUpwards
+          >
+            {roomRecord?.map((rec, idx, recs) => {
+              let isFirst = false;
+              if (
+                idx === 0 ||
+                (idx > 0 &&
+                  recs[idx - 1].sender.MemberId !== rec.sender.MemberId)
+              ) {
+                isFirst = true;
+              }
+              return rec.sender?.MemberId === myId ? (
+                <MyMessageBlock key={`me-${rec.chatMessageId}`}>
+                  <div className="text-box">
+                    {/* {isFirst ? <span>{rec.sender?.MemberName}</span> : null} */}
+                    <div className="message-wrapper">
+                      <div
+                        className={`message-box ${isFirst ? 'first' : null}`}
+                      >
+                        <div className="message">{rec.chatMessageContent}</div>
+                      </div>
+                    </div>
+                  </div>
                 </MyMessageBlock>
               ) : (
-                <OppMessageBlock key={rec.id}>
-                  <span>{rec.memberId}</span>
-                  <div className="message">{rec.text}</div>
+                <OppMessageBlock key={`opp-${rec.chatMessageId}`}>
+                  {isFirst ? (
+                    <img
+                      className="profile-image"
+                      src={room?.item?.itemImagePath}
+                      alt="me"
+                    />
+                  ) : (
+                    <div className="profile-image" />
+                  )}
+                  <div className="text-box">
+                    {isFirst ? <span>{rec.sender?.MemberName}</span> : null}
+                    <div className="message-wrapper">
+                      <div
+                        className={`message-box ${isFirst ? 'first' : null}`}
+                      >
+                        <div className="message">{rec.chatMessageContent}</div>
+                      </div>
+                    </div>
+                  </div>
                 </OppMessageBlock>
-              ),
-            )}
-          </ul>
+              );
+            })}
+          </Infinite>
         </div>
         <form className="chat-form" onSubmit={e => onSubmit(e)}>
           <textarea
@@ -208,16 +371,14 @@ const ChatRoom = ({
       </ChatRoomBlock>
       <SockJsClient
         url={wsURL}
-        topics={[`/topic/chatroom.${roomId}`]}
+        topics={[`/topic/chatRoom.${roomId}`]}
         onConnect={() => {
           console.log('Socket Connected!');
         }}
         onDisconnect={() => {
           console.log('Socket Disconnected!');
         }}
-        onMessage={(msg, topic) => {
-          console.log('메시지왔다: ', msg, topic);
-        }}
+        onMessage={msg => onMessage(msg)}
         onConnectFailure={e => {
           console.log(e, $client.current);
         }}

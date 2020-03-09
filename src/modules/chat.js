@@ -23,6 +23,9 @@ const CREATE_SUCCESS = 'chat/CREATE_SUCCESS';
 const SEND = 'chat/SEND';
 const SEND_SUCCESS = 'chat/SEND_SUCCESS';
 const SEND_FAILURE = 'chat/SEND_FAILURE';
+const RECEIVE = 'chat/RECEIVE';
+const RECEIVE_SUCCESS = 'chat/RECEIVE_SUCCESS';
+
 // const WS_CONNECTED = 'chat/WS_CONNECTED';
 // const WS_DISCONNECTED = 'chat/WS_DISCONNECTED';
 // const WS_MESSAGE = 'chat/WS_MESSAGE';
@@ -53,8 +56,20 @@ export const send = createAction(SEND, (socket, msg) => ({
   socket,
   msg,
 }));
+// 채팅 메시지 수신
+export const receive = createAction(RECEIVE, (msg, records) => ({
+  msg,
+  records,
+}));
 // 채팅 기록 가져오기
-export const loadRecords = createAction(LOAD_RECORDS, chatRoomId => chatRoomId);
+export const loadRecords = createAction(
+  LOAD_RECORDS,
+  (chatRoomId, page, size) => ({
+    chatRoomId,
+    page,
+    size,
+  }),
+);
 
 // Action Sagas
 
@@ -69,13 +84,24 @@ const postChatSaga = function*(action) {
   const { socket, msg } = action.payload;
   try {
     socket.sendMessage(
-      `/chat.send.message.${msg.chatRoomId}`,
+      `/app/chat.send.message.${msg.chatRoomId}`,
       JSON.stringify({ content: msg.content, senderId: msg.senderId }),
     );
     yield put({ type: SEND_SUCCESS });
   } catch (e) {
     yield put({ type: SEND_FAILURE, payload: e });
   }
+};
+
+const receiveChatSaga = function*(action) {
+  const { msg, records } = action.payload;
+
+  yield put({
+    type: RECEIVE_SUCCESS,
+    payload: msg,
+  });
+
+  records.scrollTop = records.scrollHeight;
 };
 
 // rootSaga에 전달할 Saga
@@ -85,6 +111,7 @@ export function* chatSaga() {
   yield takeLatest(CREATE_SUCCESS, loadListSaga);
   yield takeLatest(LOAD_RECORDS, loadRecordsSaga);
   yield takeEvery(SEND, postChatSaga);
+  yield takeEvery(RECEIVE, receiveChatSaga);
 }
 
 // initialState
@@ -108,25 +135,19 @@ const chat = handleActions(
     [LEAVE]: (state, action) => ({
       ...state,
       activeRoom: null,
+      roomRecord: [],
     }),
-    // [SEND]: (state, action) => ({
-    //   ...state,
-    //   roomRecord: [
-    //     ...state.roomRecord,
-    //     {
-    //       id: chatId++,
-    //       memberId: action.payload.memberId,
-    //       text: action.payload.text,
-    //     },
-    //   ],
-    // }),
+    [RECEIVE]: (state, action) => ({
+      ...state,
+      roomRecord: [...state.roomRecord, action.payload.msg],
+    }),
     [LOAD_LIST_SUCCESS]: (state, action) => ({
       ...state,
       list: action.payload['_embedded'].chatRoomList,
     }),
     [LOAD_RECORDS_SUCCESS]: (state, action) => ({
       ...state,
-      roomRecord: [...state.roomRecord, action.payload],
+      roomRecord: [...action.payload['_embedded'].chatMessageList.reverse()],
     }),
   },
   initialState,

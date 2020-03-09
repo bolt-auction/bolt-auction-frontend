@@ -50,7 +50,7 @@ const ChatList = ({ list, enterRoom, closeList, loadList }) => {
           <ListItem
             debug
             key={`chat-${chat.chatRoomId}`}
-            onClick={() => enterRoom(chat.chatRoomId)}
+            onClick={() => enterRoom(chat)}
           >
             <img
               src="https://img.icons8.com/cotton/2x/person-male--v2.png"

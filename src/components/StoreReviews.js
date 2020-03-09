@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Container, Row, Col } from 'react-awesome-styled-grid';
 import { useEffect } from 'react';
 import moment from 'moment';
+import Moment from 'react-moment';
+import 'moment-timezone';
 import 'moment/locale/ko';
 
 import Colors from '../styles/Colors';
@@ -139,6 +141,7 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
 
   useEffect(() => {
     moment.locale('ko');
+    moment.tz.setDefault('Asia/Seoul');
   }, []);
 
   return (
@@ -191,10 +194,22 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
                         <p>{review.content}</p>
                       </div>
                       <span className="date">
-                        {moment(
+                        {(function() {
+                          let dateFormat = moment(review.createDt)
+                            .tz('Asia/Seoul')
+                            .format('YYYY-MM-DD[T]HH:mm:ss');
+                          dateFormat = new Date(dateFormat);
+                          return (
+                            <Moment fromNow ago>
+                              {dateFormat}
+                            </Moment>
+                          );
+                        })()}
+                        {/* {moment(
                           review.createDt,
                           'YYYY-MM-DD[T]HH:mm:ss',
-                        ).fromNow()}
+                        ).fromNow()} */}
+                        {/* {console.log(review.createDt)} */}
                       </span>
                     </div>
                   </li>
