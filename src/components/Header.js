@@ -114,7 +114,7 @@ const LogOutButton = styled.button`
   font-size: 0.75em;
 `;
 
-const Header = withRouter(({ history, user, signout, search }) => {
+const Header = withRouter(({ history, user, signout }) => {
   const [keyword, setKeyword] = useState('');
   const [size, setSize] = useState(1024);
   const $input = useRef(null);
@@ -127,8 +127,7 @@ const Header = withRouter(({ history, user, signout, search }) => {
   const onSubmit = e => {
     e.preventDefault();
     if (!keyword.length) return;
-    search(keyword);
-    history.push(`/search?keyword=${keyword}&order=porpular`);
+    history.push(`/search?keyword=${keyword}&order=bidCount,asc`);
     $input.current.value = '';
   };
 

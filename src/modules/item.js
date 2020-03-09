@@ -10,7 +10,10 @@ const GET_ITEMS = 'item/GET_ITEMS';
 const GET_ITEMS_SUCCESS = 'item/GET_ITEMS_SUCCESS';
 
 // Action Creators
-export const getItems = createAction(GET_ITEMS, keyword => keyword);
+export const getItems = createAction(GET_ITEMS, (keyword, filter) => ({
+  keyword,
+  filter,
+}));
 
 // Action Saga
 const getItemsSaga = createRequestSaga(GET_ITEMS, api.serachItem);

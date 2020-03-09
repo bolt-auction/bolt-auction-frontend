@@ -10,20 +10,19 @@ const CategoryResult = ({ match, order, id, items, getItems }) => {
   const [activeTab, setActiveTab] = useState(order);
 
   useEffect(() => {
-    console.log('order', order);
-    getItems(id);
+    getItems(id, order);
   }, [getItems, id, order]);
 
   const filter = [
     {
       name: '인기순',
-      params: `/categories/${category}?order=popular`,
-      id: 'popular',
+      params: `/categories/${category}?order=bidCount,asc`,
+      id: 'bidCount,asc',
     },
     {
       name: '최신순',
-      params: `/categories/${category}?order=date`,
-      id: 'date',
+      params: `/categories/${category}?order=createDt,asc`,
+      id: 'createDt,asc',
     },
     {
       name: '마감 임박순',
@@ -32,13 +31,13 @@ const CategoryResult = ({ match, order, id, items, getItems }) => {
     },
     {
       name: '낮은 가격순',
-      params: `/categories/${category}?order=price_asc`,
-      id: 'price_asc',
+      params: `/categories/${category}?order=currentPrice,asc`,
+      id: 'currentPrice,asc',
     },
     {
       name: '높은 가격순',
-      params: `/categories/${category}?order=price_desc`,
-      id: 'price_desc',
+      params: `/categories/${category}?order=currentPrice,desc`,
+      id: 'currentPrice,desc',
     },
   ];
 

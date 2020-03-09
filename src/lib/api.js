@@ -36,11 +36,12 @@ export const productDetail = id => axios.get(`/api/item/${id}`);
 export const getCategories = () => axios.get(`/api/category`);
 
 // 카테고리로 아이템 조회
-export const getCategoryItems = id => axios.get(`/api/item/category/${id}`);
+export const getCategoryItems = ({ id, filter }) =>
+  axios.get(`/api/item/category/${id}?sort=${filter}`);
 
 // 아이템 검색
-export const serachItem = keyword =>
-  axios.get(`/api/item?filter=name&keyword=${keyword}`);
+export const serachItem = ({ keyword, filter }) =>
+  axios.get(`/api/item?filter=name&keyword=${keyword}&sort=${filter}`);
 
 // SECTION : 상점 API
 // 상점 id로 상점 정보 불러오기

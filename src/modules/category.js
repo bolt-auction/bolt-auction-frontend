@@ -28,7 +28,10 @@ export const selectCategory = createAction(SELECT_CATEGORY, (id, name) => ({
   id,
   name,
 }));
-export const getCategoryItems = createAction(GET_CATEGORY_ITEM, id => id);
+export const getCategoryItems = createAction(
+  GET_CATEGORY_ITEM,
+  (id, filter) => ({ id, filter }),
+);
 
 // Action Saga
 const getCatsSaga = createRequestSaga(GET_CATS, api.getCategories);
