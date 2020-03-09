@@ -68,19 +68,16 @@ export const deleteStoreReview = id => axios.delete(`/api/review/store/${id}`);
 // FIXME : parameter가 아니고 request body로 수정해야함 name도 수정할수있어야함
 // 상점 정보 수정
 export const putStoreInfo = ({ id, name, desc, image }) => {
-  // console.log(id, name, desc, image);
   const formData = new FormData();
   formData.append('description', desc);
   formData.append('image', image);
   formData.append('memberName', name);
-  return axios
-    .put(`/api/store/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${localStorage.token}`,
-      },
-    })
-    .then(res => console.log(res));
+  return axios.put(`/api/store/${id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
 };
 
 // SECTION 채팅 API
