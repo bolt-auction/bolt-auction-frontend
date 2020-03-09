@@ -22,7 +22,8 @@ const HeaderBlock = styled.nav`
   background-color: ${Colors.surface};
   z-index: 20;
 
-  .my-store {
+  .my-store,
+  .notice {
     ${Typography.button};
     font-size: 0.75em;
   }
@@ -201,7 +202,7 @@ const Header = withRouter(({ history, user, signout }) => {
             </Col>
 
             <Col md={1} offset={{ md: 6 }} align="flex-end">
-              알람
+              <div className="notice">알림</div>
             </Col>
 
             <Col md={1} align="flex-end">

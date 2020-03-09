@@ -32,6 +32,7 @@ const Store = ({
   editInfo,
   editName,
   editDesc,
+  editFile,
   editImage,
   submitInfo,
   error,
@@ -77,8 +78,6 @@ const Store = ({
   };
 
   const onImageUpload = e => {
-    console.log($image.current.value);
-    console.dir(e.target);
     const file = e.target.files[0];
     if (!file.type.match('image/.*')) {
       alert('이미지 확장자만 업로드 가능합니다.');
@@ -87,11 +86,12 @@ const Store = ({
     const reader = new FileReader();
     reader.onload = e => editImage(e.target.result);
     reader.readAsDataURL(file);
+    editFile($image.current?.files[0]);
   };
 
   const onSubmit = () => {
     setEditMode(false);
-    submitInfo(editInfo.name, editInfo.description, editInfo.image);
+    submitInfo(editInfo.name, editInfo.description, editInfo.file);
   };
 
   return (
