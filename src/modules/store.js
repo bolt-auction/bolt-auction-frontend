@@ -72,7 +72,7 @@ const deleteReviewSaga = createRequestSaga(
 const putInfoSaga = createRequestSaga(PUT_INFO, api.putStoreInfo);
 // get review after post successed
 const postReviewSuccessSaga = function*() {
-  const id = yield select(state => state.store.info.storeId);
+  const id = yield select(state => state.store.info.memberId);
   yield put({
     type: GET_REVIEWS,
     payload: id,

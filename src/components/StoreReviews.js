@@ -10,6 +10,7 @@ import Colors from '../styles/Colors';
 const ReviewBlock = styled.div`
   .review-form {
     display: flex;
+
     align-items: stretch;
     height: 150px;
     padding: 24px 0;
@@ -47,12 +48,13 @@ const ReviewBlock = styled.div`
 
   .review-list {
     max-width: 810px;
+    width: 100%;
     margin: 0 auto;
   }
 
   .review {
     display: flex;
-    /* width: 100%; */
+    width: 100%;
     flex-direction: row;
     padding: 16px;
 
@@ -95,7 +97,7 @@ const ReviewBlock = styled.div`
     &:not(:last-child) .content::after {
       content: '';
       position: absolute;
-      top: 73px;
+      bottom: -16px;
       width: 100%;
       height: 1.5px;
       background-color: rgba(33, 33, 33, 0.08);
