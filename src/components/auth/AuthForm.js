@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 import Colors from '../../styles/Colors';
 import Button from '../common/Button';
 import Modal from '../common/Modal';
-import Input from '../common/Input';
+import TextField from '../common/TextField';
+
+/**
+ * TODO:
+ *  []카카오톡 로그인 기능 구현
+ *  []개인정보 이용 동의, 약관 동의 체크 버튼 추가
+ */
 
 const AuthFormBlock = styled.div`
   h3 {
@@ -45,9 +51,8 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-// TODO: 카카오톡 로그인 기능 구현
 /**
- * type으로 전달되는 signin, signout에 맞추어 랜더링 됩니다.
+ * container에서 type으로 전달되는 signin, signout에 맞추어 랜더링 됩니다.
  * @param {object} props
  * @param {string} props.type - "signin" | "signup"
  * @param {FormData} props.form -
@@ -64,7 +69,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
       <AuthFormBlock>
         <h3>{text}</h3>
         <form onSubmit={onSubmit}>
-          <Input
+          <TextField
             name="uid"
             type="email"
             icon="mail"
@@ -73,18 +78,20 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             onChange={onChange}
             value={form.uid}
           />
-          <Input
+          <TextField
             name="passwd"
             type="password"
+            icon="lock"
             placeholder="비밀번호"
             autoComplete="new-password"
             onChange={onChange}
             value={form.passwd}
           />
           {type === 'signup' && (
-            <Input
+            <TextField
               name="passwdConfirm"
               type="password"
+              icon="lockCheck"
               placeholder="비밀번호 확인"
               autoComplete="new-password"
               onChange={onChange}
@@ -92,9 +99,10 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             />
           )}
           {type === 'signup' && (
-            <Input
+            <TextField
               name="name"
               type="text"
+              icon="person"
               placeholder="닉네임"
               autoComplete="name"
               onChange={onChange}
