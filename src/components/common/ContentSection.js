@@ -1,34 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
-import Elevation from '../../styles/Elevation';
+
 import Colors from '../../styles/Colors';
+import Elevation from '../../styles/Elevation';
+
+/**
+ * NOTE:
+ * ContentSectionBlock을 react-awesome-styled-grid의 Container로 확장해서 사용하려 했으나
+ * 다시 생각해보니 너무 의존성이 생기는것 같아 하지 않았다. 시간이 있을때 다시한번 고려해보기
+ */
 
 const ContentSectionBlock = styled.section`
-  margin: 1rem auto 0;
-  padding-top: 1.5rem;
-  max-width: 1024px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   box-shadow: ${Elevation.z4};
+  margin: 1rem auto 0;
+  max-width: 1024px;
+  padding-top: 1.5rem;
 `;
 
 const Title = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  justify-content: center;
   margin: 1rem auto 0;
   max-width: 1024px;
-  height: 100px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
   padding-left: 16px;
-
   & h1 {
-    width: 375px;
+    color: ${Colors.onSurfaceHigh};
     font-size: 48px;
     line-height: 48px;
-    color: ${Colors.onSurfaceHigh};
+    width: 375px;
   }
-
   & h2 {
     color: ${Colors.primary};
   }
@@ -39,7 +44,14 @@ const textMap = {
   search: '의 검색 결과입니다.',
 };
 
-const ContentSection = ({ type, title, children }) => {
+/**
+ * 메인 콘텐츠가 위치하는 영역을 랜더링합니다.
+ * @param {object} props
+ * @param {string} [props.title] - Title을 전달되는 값으로 랜더링합니다.
+ * @param {string} [props.type] - "category" | "search"
+ * @param {*} props.children
+ */
+const ContentSection = ({ title, type, children }) => {
   const text = textMap[type];
   return (
     <>

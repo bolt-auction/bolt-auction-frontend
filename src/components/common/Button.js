@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+
 import Colors from '../../styles/Colors';
 import Elevation from '../../styles/Elevation';
-import { Link } from 'react-router-dom';
 
+// TODO: text 스타일 버튼 추가
 const buttonStyle = css`
   font-size: 1rem;
   font-weight: 600;
@@ -27,6 +29,11 @@ const buttonStyle = css`
   &:visited {
     color: ${Colors.surface};
   }
+  &:disabled {
+    background: ${Colors.gray[1]};
+    color: ${Colors.gray[4]};
+    cursor: not-allowed;
+  }
   ${props =>
     props.roundShape &&
     css`
@@ -48,23 +55,18 @@ const buttonStyle = css`
         background: ${Colors.primaryMatte[5]};
       }
     `}
-    ${props =>
-      props.kakao &&
-      css`
-        background: ${Colors.kakao[0]};
-        &,
-        &:visited {
-          color: ${Colors.kakao[2]};
-        }
-        &:hover {
-          background: ${Colors.kakao[1]};
-        }
-      `}
-    &:disabled {
-    background: ${Colors.gray[1]};
-    color: ${Colors.gray[4]};
-    cursor: not-allowed;
-  }
+  ${props =>
+    props.kakao &&
+    css`
+      background: ${Colors.kakao[0]};
+      &,
+      &:visited {
+        color: ${Colors.kakao[2]};
+      }
+      &:hover {
+        background: ${Colors.kakao[1]};
+      }
+    `}
 `;
 
 const StyledButton = styled.button`
@@ -80,7 +82,7 @@ const Button = props => {
     <StyledLink
       {...props}
       primary={props.primary ? 1 : 0}
-      // kakao={props.kakao ? 1 : 0}
+      kakao={props.kakao ? 1 : 0}
     />
   ) : (
     <StyledButton {...props} />

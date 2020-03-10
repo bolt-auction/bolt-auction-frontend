@@ -1,12 +1,14 @@
 import React from 'react';
+import { Col, Row } from 'react-awesome-styled-grid';
 import styled from 'styled-components';
-import { Container, Row, Col } from 'react-awesome-styled-grid';
+
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
 import Button from '../common/Button';
 import Divider from '../common/Divider';
 
-const DetailDataBlock = styled(Container)`
+// FIXME: DetailDataBlock을 Container에서 <Col />로 변경 하기, 그에 따른 ProductDetail도 수정
+const DetailDataBlock = styled(Col)`
   padding: 0px !important;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -45,7 +47,7 @@ const DetailDataBlock = styled(Container)`
 
 const DetailData = ({ itemName, quickPrice, currentPrice, endDt }) => {
   return (
-    <DetailDataBlock>
+    <DetailDataBlock justify="center" xs={4} sm={5} md={7} lg={7}>
       <h2 className="product-title">{itemName}</h2>
       <Row>
         <Col className="current-price-label" xs={1} sm={2} md={4} lg={4}>
