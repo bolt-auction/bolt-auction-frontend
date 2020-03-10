@@ -81,7 +81,7 @@ const Categories = ({
                 onMouseLeave={deactivateId}
               >
                 <Link
-                  to={`/categories/${cat.name}?order=popular`}
+                  to={`/categories/${cat.name}?order=bidCount,asc`}
                   onClick={() => onCategotyClick(cat.id, cat.name)}
                 >
                   <FaHeart
@@ -100,7 +100,7 @@ const Categories = ({
                   {cat.subCategoryList.map(subCat => (
                     <li className="sub-category" key={subCat.id}>
                       <Link
-                        to={`/categories/${subCat.name}?order=popular`}
+                        to={`/categories/${subCat.name}?order=bidCount,asc`}
                         onClick={() => onCategotyClick(subCat.id, subCat.name)}
                       >
                         {subCat.name}
@@ -116,4 +116,4 @@ const Categories = ({
   );
 };
 
-export default Categories;
+export default React.memo(Categories);

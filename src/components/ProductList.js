@@ -34,11 +34,11 @@ const ProductList = ({ items }) => {
             key={`product-${item.id}`}
           >
             <ProductCard
-              id={item.id}
-              name={item.name}
+              id={item.itemId}
+              name={item.itemName}
               currentPrice={item.currentPrice}
-              owner={item.storeId}
-              imageArr={item.imagePath?.path}
+              owner={item.sellerId}
+              imageArr={item.imagePath}
             />
           </Col>
         ))}

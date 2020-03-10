@@ -22,7 +22,8 @@ const HeaderBlock = styled.nav`
   background-color: ${Colors.surface};
   z-index: 20;
 
-  .my-store {
+  .my-store,
+  .notice {
     ${Typography.button};
     font-size: 0.75em;
   }
@@ -114,7 +115,7 @@ const LogOutButton = styled.button`
   font-size: 0.75em;
 `;
 
-const Header = withRouter(({ history, user, signout, search }) => {
+const Header = withRouter(({ history, user, signout }) => {
   const [keyword, setKeyword] = useState('');
   const [size, setSize] = useState(1024);
   const $input = useRef(null);
@@ -127,8 +128,7 @@ const Header = withRouter(({ history, user, signout, search }) => {
   const onSubmit = e => {
     e.preventDefault();
     if (!keyword.length) return;
-    search(keyword);
-    history.push(`/search?keyword=${keyword}&order=porpular`);
+    history.push(`/search?keyword=${keyword}&order=bidCount,asc`);
     $input.current.value = '';
   };
 
@@ -202,13 +202,13 @@ const Header = withRouter(({ history, user, signout, search }) => {
             </Col>
 
             <Col md={1} offset={{ md: 6 }} align="flex-end">
-              알람
+              <div className="notice">알림</div>
             </Col>
 
             <Col md={1} align="flex-end">
               <div className="my-store">
                 {user ? (
-                  <Link to={`/store/${user.store?.id}`}>{user.name} 상점</Link>
+                  <Link to={`/store/${user.id}`}>{user.name} 상점</Link>
                 ) : (
                   <Link to="/">내 상점</Link>
                 )}

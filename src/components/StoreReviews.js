@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Container, Row, Col } from 'react-awesome-styled-grid';
 import { useEffect } from 'react';
 import moment from 'moment';
+import Moment from 'react-moment';
+import 'moment-timezone';
 import 'moment/locale/ko';
 
 import Colors from '../styles/Colors';
@@ -10,6 +12,7 @@ import Colors from '../styles/Colors';
 const ReviewBlock = styled.div`
   .review-form {
     display: flex;
+
     align-items: stretch;
     height: 150px;
     padding: 24px 0;
@@ -47,12 +50,21 @@ const ReviewBlock = styled.div`
 
   .review-list {
     max-width: 810px;
+    width: 100%;
     margin: 0 auto;
+
+    .no-reviews {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .review {
     display: flex;
-    /* width: 100%; */
+    width: 100%;
     flex-direction: row;
     padding: 16px;
 
@@ -95,7 +107,7 @@ const ReviewBlock = styled.div`
     &:not(:last-child) .content::after {
       content: '';
       position: absolute;
-      top: 73px;
+      bottom: -16px;
       width: 100%;
       height: 1.5px;
       background-color: rgba(33, 33, 33, 0.08);
@@ -129,6 +141,7 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
 
   useEffect(() => {
     moment.locale('ko');
+    moment.tz.setDefault('Asia/Seoul');
   }, []);
 
   return (
@@ -160,36 +173,50 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
         <Row>
           <ul className="review-list">
             <Col>
-              {reviews?.length > 0
-                ? reviews.map(review => (
-                    <li className="review" key={review.reviewId}>
-                      <img
-                        className="profile-image"
-                        src={
-                          review.register?.imagePath
-                            ? review.register.imagePath
-                            : defaultImg
-                        }
-                        alt="profile"
-                      />
+              {reviews?.length > 0 ? (
+                reviews.map(review => (
+                  <li className="review" key={review.reviewId}>
+                    <img
+                      className="profile-image"
+                      src={
+                        review.register?.imagePath
+                          ? review.register.imagePath
+                          : defaultImg
+                      }
+                      alt="profile"
+                    />
 
-                      <div className="content">
-                        <div>
-                          <h4 className="title">
-                            {review.register?.registerName}
-                          </h4>
-                          <p>{review.content}</p>
-                        </div>
-                        <span className="date">
-                          {moment(
-                            review.createDt,
-                            'YYYY-MM-DD[T]HH:mm:ss',
-                          ).fromNow()}
-                        </span>
+                    <div className="content">
+                      <div>
+                        <h4 className="title">
+                          {review.register?.registerName}
+                        </h4>
+                        <p>{review.content}</p>
                       </div>
-                    </li>
-                  ))
-                : '아직 작성된 리뷰가 없습니다 :D'}
+                      <span className="date">
+                        {(function() {
+                          let dateFormat = moment(review.createDt)
+                            .tz('Asia/Seoul')
+                            .format('YYYY-MM-DD[T]HH:mm:ss');
+                          dateFormat = new Date(dateFormat);
+                          return (
+                            <Moment fromNow ago>
+                              {dateFormat}
+                            </Moment>
+                          );
+                        })()}
+                        {/* {moment(
+                          review.createDt,
+                          'YYYY-MM-DD[T]HH:mm:ss',
+                        ).fromNow()} */}
+                        {/* {console.log(review.createDt)} */}
+                      </span>
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <div className="no-reviews">아직 작성된 리뷰가 없어요 XD !</div>
+              )}
             </Col>
           </ul>
         </Row>

@@ -26,14 +26,16 @@ const ProductsDetailContainer = withRouter(
   },
 );
 
-export default connect(
-  ({ product, loading }) => ({
-    detail: product.detail,
-    error: product.error,
-    loading: loading['product/PRODUCT_DETAIL'],
-  }),
-  {
-    productDetail,
-    unloadProductDetail,
-  },
-)(ProductsDetailContainer);
+export default React.memo(
+  connect(
+    ({ product, loading }) => ({
+      detail: product.detail,
+      error: product.error,
+      loading: loading['product/PRODUCT_DETAIL'],
+    }),
+    {
+      productDetail,
+      unloadProductDetail,
+    },
+  )(ProductsDetailContainer),
+);

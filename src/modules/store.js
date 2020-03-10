@@ -33,6 +33,7 @@ const DELETE_REVIEW_FAILURE = 'store/DELETE_REVIEW_FAILURE';
 // 수정 정보 상태 업데이트
 const EDIT_NAME = 'store/EDIT_NAME';
 const EDIT_DESC = 'store/EDIT_DESC';
+const EDIT_FILE = 'store/EDIT_FILE';
 const EDIT_IMAGE = 'store/EDIT_IMAGE';
 
 // 상점 정보 수정하기
@@ -51,12 +52,12 @@ export const postReview = createAction(POST_REVIEW, (id, content) => ({
 export const deleteReview = createAction(DELETE_REVIEW, id => id);
 export const editName = createAction(EDIT_NAME, name => name);
 export const editDesc = createAction(EDIT_DESC, desc => desc);
+export const editFile = createAction(EDIT_FILE, file => file);
 export const editImage = createAction(EDIT_IMAGE, image => image);
-export const putInfo = createAction(PUT_INFO, (id, name, desc, image) => ({
-  id,
+export const putInfo = createAction(PUT_INFO, (name, desc, file) => ({
   name,
   desc,
-  image,
+  file,
 }));
 
 //SECTION Action Saga
@@ -71,7 +72,7 @@ const deleteReviewSaga = createRequestSaga(
 const putInfoSaga = createRequestSaga(PUT_INFO, api.putStoreInfo);
 // get review after post successed
 const postReviewSuccessSaga = function*() {
-  const id = yield select(state => state.store.info.storeId);
+  const id = yield select(state => state.store.info.memberId);
   yield put({
     type: GET_REVIEWS,
     payload: id,
@@ -94,7 +95,7 @@ const initialState = {
   info: [],
   products: [],
   reviews: [],
-  editInfo: { name: '', description: '', image: null },
+  editInfo: { name: '', description: '', file: null, show: null },
   error: null,
 };
 
@@ -133,12 +134,17 @@ const store = handleActions(
       ...state,
       editInfo: { ...state.editInfo, description: action.payload },
     }),
+    [EDIT_FILE]: (state, action) => ({
+      ...state,
+      editInfo: { ...state.editInfo, file: action.payload },
+    }),
     [EDIT_IMAGE]: (state, action) => ({
       ...state,
       editInfo: { ...state.editInfo, image: action.payload },
     }),
     [PUT_INFO_SUCCESS]: (state, action) => ({
       ...state,
+      info: action.payload,
       error: null,
     }),
     [PUT_INFO_FAILURE]: (state, action) => ({

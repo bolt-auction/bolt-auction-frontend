@@ -27,12 +27,14 @@ const CategoryResultContainer = ({
   );
 };
 
-export default connect(
-  ({ category }) => ({
-    selectedCategory: category.selectedCategory,
-    categoryItems: category.categoryItems,
-  }),
-  {
-    getCategoryItems,
-  },
-)(CategoryResultContainer);
+export default React.memo(
+  connect(
+    ({ category }) => ({
+      selectedCategory: category.selectedCategory,
+      categoryItems: category.categoryItems,
+    }),
+    {
+      getCategoryItems,
+    },
+  )(CategoryResultContainer),
+);

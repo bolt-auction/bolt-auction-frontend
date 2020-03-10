@@ -10,6 +10,7 @@ import {
   editDesc,
   editImage,
   putInfo,
+  editFile,
 } from '../modules/store';
 import { create } from '../modules/chat';
 
@@ -26,13 +27,14 @@ const StoreContainer = ({
   editInfo,
   editName,
   editDesc,
+  editFile,
   editImage,
   putInfo,
   error,
   create,
 }) => {
   const { id } = match.params;
-  const isMyStore = user.store?.id === +id;
+  const isMyStore = user.id === +id;
 
   // FIXME : id랑 name은 info로 대체될 수 있음
   return (
@@ -50,6 +52,7 @@ const StoreContainer = ({
       editInfo={editInfo}
       editName={editName}
       editDesc={editDesc}
+      editFile={editFile}
       editImage={editImage}
       submitInfo={putInfo}
       error={error}
@@ -58,24 +61,27 @@ const StoreContainer = ({
   );
 };
 
-export default connect(
-  ({ auth, store }) => ({
-    user: auth.user,
-    info: store.info,
-    products: store.products,
-    reviews: store.reviews,
-    editInfo: store.editInfo,
-    error: store.error,
-  }),
-  {
-    getProducts,
-    getInfo,
-    getReviews,
-    postReview,
-    editName,
-    editDesc,
-    editImage,
-    putInfo,
-    create,
-  },
-)(StoreContainer);
+export default React.memo(
+  connect(
+    ({ auth, store }) => ({
+      user: auth.user,
+      info: store.info,
+      products: store.products,
+      reviews: store.reviews,
+      editInfo: store.editInfo,
+      error: store.error,
+    }),
+    {
+      getProducts,
+      getInfo,
+      getReviews,
+      postReview,
+      editName,
+      editDesc,
+      editFile,
+      editImage,
+      putInfo,
+      create,
+    },
+  )(StoreContainer),
+);
