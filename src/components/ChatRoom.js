@@ -258,11 +258,8 @@ const ChatRoom = ({
   };
 
   useEffect(() => {
-    const socket = $client.current;
+    // const socket = $client.current;
     loadRecords(roomId, page, size);
-    return () => {
-      socket.disconnect();
-    };
   }, [loadRecords, page, roomId, size]);
 
   const loadMoreRecords = () => {
@@ -277,7 +274,7 @@ const ChatRoom = ({
   return (
     <Styled.PopUp>
       <Styled.ChatNav style={{ backgroundColor: Colors.primaryFocused }}>
-        <button className="back-btn" onClick={leaveRoom}>
+        <button className="back-btn" onClick={() => leaveRoom($client.current)}>
           <MdArrowBack style={{ width: 30, height: 20, marginLeft: -10 }} />
         </button>
         <h4>{roomId}번 채팅룸</h4>
