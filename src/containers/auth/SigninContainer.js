@@ -29,6 +29,7 @@ const SigninForm = withRouter(
     };
 
     // 폼 등록 이벤트 핸들러
+    // FIXME: 서버에 요청을 조금이라도 줄이기 위해서 로그인 요청 보내기 전에 입력하지 않은 폼 확인하고 에러 메시지 출력
     const onSubmit = e => {
       e.preventDefault();
       const { uid, passwd } = form;

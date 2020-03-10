@@ -32,7 +32,7 @@ const SignupForm = withRouter(
         return;
       }
       if (validation('password', passwd)) {
-        setError('비밀번호는 문자, 숫자를 조합한 6~12자리 이어야합니다.');
+        setError('비밀번호는 문자 또는 숫자 6~12자리 이어야합니다.');
         changeField({
           form: 'signup',
           key: 'passwd',
@@ -59,7 +59,7 @@ const SignupForm = withRouter(
         });
         return;
       }
-      if (name.length < 2) {
+      if (name.length < 3) {
         setError('닉네임은 세 자리 이상이어야 합니다.');
         changeField({
           form: 'signup',
@@ -80,6 +80,7 @@ const SignupForm = withRouter(
       initializeForm('signup');
     }, [initializeForm]);
 
+    // TODO: 개인정보 이용 동의, 약관 동의 체크 버튼 추가 후 동의 여부 밸리데이션
     // TODO: 회원가입 성공 후 로그인 페이지로 이동하기 전 성공했다는 메시지 보여주기
     // NOTE: 회원가입 API response에 토큰이 없어 성공시에 로그인 페이지로 이동 시킴
     useEffect(() => {
