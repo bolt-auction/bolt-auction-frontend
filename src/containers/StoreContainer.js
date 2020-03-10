@@ -10,6 +10,7 @@ import {
   editDesc,
   editImage,
   putInfo,
+  editFile,
 } from '../modules/store';
 import { create } from '../modules/chat';
 
@@ -26,6 +27,7 @@ const StoreContainer = ({
   editInfo,
   editName,
   editDesc,
+  editFile,
   editImage,
   putInfo,
   error,
@@ -50,6 +52,7 @@ const StoreContainer = ({
       editInfo={editInfo}
       editName={editName}
       editDesc={editDesc}
+      editFile={editFile}
       editImage={editImage}
       submitInfo={putInfo}
       error={error}
@@ -75,6 +78,7 @@ export default React.memo(
       postReview,
       editName,
       editDesc,
+      editFile,
       editImage,
       putInfo,
       create,

@@ -32,6 +32,7 @@ const Store = ({
   editInfo,
   editName,
   editDesc,
+  editFile,
   editImage,
   submitInfo,
   error,
@@ -60,7 +61,7 @@ const Store = ({
   }, [getInfo, getProducts, getReviews, id]);
 
   useEffect(() => {
-    editName(info.name);
+    editName(info.memberName);
     editDesc(info.description);
     editImage(info.imagePath);
   }, [
@@ -69,7 +70,7 @@ const Store = ({
     editName,
     info.description,
     info.imagePath,
-    info.name,
+    info.memberName,
   ]);
 
   const onImageClick = () => {
@@ -77,8 +78,6 @@ const Store = ({
   };
 
   const onImageUpload = e => {
-    console.log($image.current.value);
-    console.dir(e.target);
     const file = e.target.files[0];
     if (!file.type.match('image/.*')) {
       alert('이미지 확장자만 업로드 가능합니다.');
@@ -87,11 +86,12 @@ const Store = ({
     const reader = new FileReader();
     reader.onload = e => editImage(e.target.result);
     reader.readAsDataURL(file);
+    editFile($image.current?.files[0]);
   };
 
   const onSubmit = () => {
     setEditMode(false);
-    submitInfo(id, editInfo.name, editInfo.description, editInfo.image);
+    submitInfo(editInfo.name, editInfo.description, editInfo.file);
   };
 
   return (
@@ -143,11 +143,11 @@ const Store = ({
               {editMode ? (
                 <input
                   onChange={() => editName($name.current.value)}
-                  placeholder={info.storeName}
+                  placeholder={info.memberName}
                   ref={$name}
                 />
               ) : (
-                <h2>{info.storeName}</h2>
+                <h2>{info.memberName}</h2>
               )}{' '}
               {isMyStore ? (
                 !editMode ? (
@@ -171,7 +171,7 @@ const Store = ({
                 <button
                   className="submit"
                   onClick={() => {
-                    createChatroom(`${info.storeName}과의 채팅`, 1, 3);
+                    createChatroom(`${info.memberName}과의 채팅`, 1, 3);
                   }}
                 >
                   채팅하기

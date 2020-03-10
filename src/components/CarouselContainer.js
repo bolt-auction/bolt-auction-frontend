@@ -2,9 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import img1 from '../imgs/1.png';
-import img2 from '../imgs/2.png';
-import img3 from '../imgs/3.png';
 import Colors from '../styles/Colors';
 
 const CarouselBlock = styled.div`
@@ -43,13 +40,22 @@ const CarouselContainer = () => {
         showThumbs={false}
       >
         <div>
-          <img src={img1} alt="dd" />
+          <img
+            src="https://media.bunjang.co.kr/images/nocrop/433923859.jpg"
+            alt="dd"
+          />
         </div>
         <div>
-          <img src={img2} alt="dd" />
+          <img
+            src="https://media.bunjang.co.kr/images/nocrop/431881862.jpg"
+            alt="dd"
+          />
         </div>
         <div>
-          <img src={img3} alt="dd" />
+          <img
+            src="https://media.bunjang.co.kr/images/nocrop/415809298.jpg"
+            alt="dd"
+          />
         </div>
       </Carousel>
     </CarouselBlock>
