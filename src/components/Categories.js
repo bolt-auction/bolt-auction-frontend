@@ -77,8 +77,14 @@ const Categories = ({
               <li
                 className="category"
                 key={cat.id}
-                onMouseEnter={() => activateId(cat.id)}
-                onMouseLeave={deactivateId}
+                onMouseEnter={e => {
+                  e.persist();
+                  activateId(cat.id);
+                }}
+                onMouseLeave={e => {
+                  e.persist();
+                  deactivateId();
+                }}
               >
                 <Link
                   to={`/categories/${cat.name}?order=bidCount,asc`}
