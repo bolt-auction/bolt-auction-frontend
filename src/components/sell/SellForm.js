@@ -21,59 +21,93 @@ const RowWithMarginTop = styled(Row)`
   margin-top: 1rem;
 `;
 
-const SellForm = () => {
+const SellForm = ({ product, sell, onChange }) => {
   return (
     <>
       <RowWithMarginTop>
         <Col xs="2" sm="2" md="3">
-          <Select>
-            <option selected disabled>
-              카테고리
-            </option>
-            <option>카테고리 1</option>
-            <option>카테고리 2</option>
-            <option>카테고리 3</option>
+          <Select
+            name="categoryId"
+            onChange={onChange}
+            value={product.categoryId}
+          >
+            <option>카테고리</option>
+            <option value="1">카테고리 1</option>
+            <option value="2">카테고리 2</option>
+            <option value="3">카테고리 3</option>
+            <option value="4">카테고리 4</option>
+            <option value="5">카테고리 5</option>
+            <option value="6">카테고리 6</option>
           </Select>
         </Col>
       </RowWithMarginTop>
       <RowWithMarginTop>
         <Col md="12">
-          <TextField placeholder="상품명" />
+          <TextField
+            name="name"
+            autoComplete="name"
+            placeholder="상품명"
+            type="text"
+            onChange={onChange}
+            value={product.name}
+          />
         </Col>
       </RowWithMarginTop>
       <RowWithMarginTop>
         <Col md="3">
-          <TextField placeholder="즉시 구매가" />
+          <TextField
+            name="quickPrice"
+            autoComplete="quickPrice"
+            placeholder="즉시 구매가"
+            type="number"
+            onChange={onChange}
+            value={product.quickPrice}
+          />
         </Col>
         <Col md="3">
-          <TextField placeholder="경매 시작가" />
+          <TextField
+            name="startPrice"
+            autoComplete="startPrice"
+            placeholder="경매 시작가"
+            type="number"
+            onChange={onChange}
+            value={product.startPrice}
+          />
         </Col>
         <Col md="3">
-          <Select>
-            <option selected disabled>
-              최소 입찰단위
-            </option>
-            <option>100원</option>
-            <option>1,000원</option>
-            <option>5,000원</option>
-            <option>10,000원</option>
+          <Select
+            name="minBidPrice"
+            onChange={onChange}
+            value={product.minBidPrice}
+          >
+            <option>최소 입찰단위</option>
+            <option value="100">100원</option>
+            <option value="1000">1,000원</option>
+            <option value="5000">5,000원</option>
+            <option value="10000">10,000원</option>
           </Select>
         </Col>
         <Col md="3">
           {/* <TextField type="date" placeholder="경매 진행기간" /> */}
-          <Select>
-            <option selected disabled>
-              경매 진행기간
-            </option>
-            <option>3일</option>
-            <option>5일</option>
-            <option>7일</option>
+          <Select name="endDt" onChange={onChange} value={product.endDt}>
+            <option>경매 진행기간</option>
+            <option value="3">3일</option>
+            <option value="5">5일</option>
+            <option value="7">7일</option>
           </Select>
         </Col>
       </RowWithMarginTop>
       <RowWithMarginTop>
         <Col>
-          <TextField isTextarea placeholder="상품설명" />
+          <TextField
+            isTextarea
+            name="description"
+            autoComplete="description"
+            placeholder="상품설명"
+            type="text"
+            onChange={onChange}
+            value={product.description}
+          />
         </Col>
       </RowWithMarginTop>
     </>

@@ -4,7 +4,14 @@ import * as api from '../lib/api';
 import createRequestSaga from '../lib/createRequestSaga';
 import produce from 'immer';
 
-// Action Types
+/**
+ * NOTE:
+ * 처음 user를 분리해서 구현했었지만 인증 절차에서 받아오는 정보이니
+ * 분리할 필요까지 없는것 같다는 의견을 수렴해서 한번에 구현했으나
+ * user를 다시 분리하는 것을 고려해봐야 할 것 같다.
+ */
+
+// SECTION : Action Types
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
@@ -24,7 +31,7 @@ const CHECK_FAILURE = 'auth/CHECK_FAILURE';
 
 const SIGNOUT = 'auth/SIGNOUT';
 
-// Action Creators
+// SECTION : Action Creators
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
@@ -49,7 +56,7 @@ export const tempSetUser = createAction(TEMP_SET_USER, user => user);
 export const check = createAction(CHECK);
 export const signout = createAction(SIGNOUT);
 
-// 각 action에 대한 saga
+// SECTION : 각 action에 대한 saga
 const signupSaga = createRequestSaga(SIGNUP, api.signup);
 const signinSaga = createRequestSaga(SIGNIN, api.signin);
 const checkSaga = createRequestSaga(CHECK, api.check);
@@ -62,7 +69,7 @@ function signoutSaga() {
   }
 }
 
-// rootSaga에 전달할 각 action에 대한 saga
+// SECTION : rootSaga에 전달할 각 action에 대한 saga
 export function* authSaga() {
   yield takeLatest(SIGNUP, signupSaga);
   yield takeLatest(SIGNIN, signinSaga);
@@ -71,7 +78,7 @@ export function* authSaga() {
   yield takeLatest(SIGNOUT, signoutSaga);
 }
 
-// Initial State
+// SECTION : Initial State
 const initialState = {
   signup: {
     uid: '',
@@ -89,7 +96,7 @@ const initialState = {
   checkError: null,
 };
 
-// Reducer
+// SECTION : Reducer
 const auth = handleActions(
   {
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>

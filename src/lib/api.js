@@ -12,7 +12,12 @@ import axios from 'axios';
 // axios.defaults.headers.common['Authorization'] = token;
 
 // SECTION : 회원 인증 API
-// 로그인
+/**
+ * uid와 passwd로 로그인 요청
+ * @param {object} body
+ * @param {string} body.uid - 유저 이메일(유저 아이디)
+ * @param {string} body.passwd - 비밀번호
+ */
 export const signin = ({ uid, passwd }) =>
   axios.post('/api/auth/login', { uid, passwd });
 
@@ -28,8 +33,11 @@ export const check = () =>
     },
   });
 
+// SECTION : item API
 // 상품정보 조회
 export const productDetail = id => axios.get(`/api/item/${id}`);
+
+export const uploadProduct = () => axios.post(`/api/item/`);
 
 // SECTION : 카테고리 API
 // 카테고리 받아오기

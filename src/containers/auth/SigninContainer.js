@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { changeField, initializeForm, signin, check } from '../../modules/auth';
-import AuthForm from '../../components/auth/AuthForm';
 import { withRouter } from 'react-router-dom';
+
+import AuthForm from '../../components/auth/AuthForm';
+import { changeField, check, initializeForm, signin } from '../../modules/auth';
 
 const SigninForm = withRouter(
   ({

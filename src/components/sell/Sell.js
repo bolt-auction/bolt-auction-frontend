@@ -7,16 +7,17 @@ import Divider from '../common/Divider';
 import SellForm from './SellForm';
 
 // TODO: 이미지 업로드 기능 추가, 업로드용 input 컴포넌트 작성
-const Sell = () => {
+const Sell = ({ product, sell, onChange, onSubmit }) => {
+  const { images } = product;
   return (
     <ContentSection title="판매하기">
       <Container style={{ padding: '6rem' }}>
         <Row>
           <Col>
-            <h3>이미지 등록 0/4</h3>
+            <h3>이미지 등록 {images.length}/4</h3>
           </Col>
         </Row>
-        <from>
+        <form onSubmit={onSubmit}>
           <Row>
             <Col>
               <img
@@ -44,7 +45,7 @@ const Sell = () => {
             </Col>
           </Row>
           <Divider margin="2rem" />
-          <SellForm />
+          <SellForm product={product} sell={sell} onChange={onChange} />
           <Divider thick="1px" />
           <Row>
             <Col>
@@ -54,7 +55,7 @@ const Sell = () => {
               <Button>등록</Button>
             </Col>
           </Row>
-        </from>
+        </form>
       </Container>
     </ContentSection>
   );

@@ -3,31 +3,31 @@ import createRequestSaga from '../lib/createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 import * as api from '../lib/api';
 
-// Action Types
+// SECTION : Action Types
 const PRODUCT_DETAIL = 'product/PRODUCT_DETAIL';
 const PRODUCT_DETAIL_SUCCESS = 'product/PRODUCT_DETAIL_SUCCESS';
 const PRODUCT_DETAIL_FAILURE = 'product/PRODUCT_DETAIL_FAILURE';
 const UNLOAD_PRODUCT_DETAIL = 'product/UNLOAD_PRODUCT_DETAIL';
 
-// Action Creators
+// SECTION : Action Creators
 export const productDetail = createAction(PRODUCT_DETAIL, id => id);
 export const unloadProductDetail = createAction(UNLOAD_PRODUCT_DETAIL);
 
-// 각 action에 대한 saga
+// SECTION : 각 action에 대한 saga
 const productDetailSaga = createRequestSaga(PRODUCT_DETAIL, api.productDetail);
 
-// rootSaga에 전달할 각 action에 대한 saga
+// SECTION : rootSaga에 전달할 각 action에 대한 saga
 export function* productSaga() {
   yield takeLatest(PRODUCT_DETAIL, productDetailSaga);
 }
 
-// Initial State
+// SECTION : Initial State
 const initialState = {
   detail: null,
   error: null,
 };
 
-// Reducer
+// SECTION : Reducer
 const product = handleActions(
   {
     [PRODUCT_DETAIL_SUCCESS]: (state, { payload: detail }) => ({

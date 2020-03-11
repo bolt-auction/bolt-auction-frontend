@@ -7,6 +7,7 @@ import item, { itemSaga } from './item';
 import store, { storeSaga } from './store';
 import product, { productSaga } from './product';
 import loading from './loading';
+import sell, { sellSaga } from './sell';
 
 const rootReducer = combineReducers({
   auth,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   store,
   product,
   loading,
+  sell,
 });
 
 export function* rootSaga() {
@@ -26,6 +28,7 @@ export function* rootSaga() {
     storeSaga(),
     productSaga(),
     chatSaga(),
+    sellSaga(),
   ]);
 }
 
