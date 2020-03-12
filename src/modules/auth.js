@@ -1,13 +1,13 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
-import * as api from '../lib/api';
+import * as API from '../lib/api/index';
 import createRequestSaga from '../lib/createRequestSaga';
 import produce from 'immer';
 
 /**
  * NOTE:
  * 처음 user를 분리해서 구현했었지만 인증 절차에서 받아오는 정보이니
- * 분리할 필요까지 없는것 같다는 의견을 수렴해서 한번에 구현했으나
+ * 분리할 필요까지 없는것 같다는 의견을 수렴해 auth하나로 구현했으나
  * user를 다시 분리하는 것을 고려해봐야 할 것 같다.
  */
 
@@ -57,9 +57,9 @@ export const check = createAction(CHECK);
 export const signout = createAction(SIGNOUT);
 
 // SECTION : 각 action에 대한 saga
-const signupSaga = createRequestSaga(SIGNUP, api.signup);
-const signinSaga = createRequestSaga(SIGNIN, api.signin);
-const checkSaga = createRequestSaga(CHECK, api.check);
+const signupSaga = createRequestSaga(SIGNUP, API.signup);
+const signinSaga = createRequestSaga(SIGNIN, API.signin);
+const checkSaga = createRequestSaga(CHECK, API.check);
 function signoutSaga() {
   try {
     localStorage.removeItem('user');

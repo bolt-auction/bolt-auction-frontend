@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga from '../lib/createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 import produce from 'immer';
-import * as api from '../lib/api';
+import * as API from '../lib/api/index';
 
 // SECTION : Action Types
 const CHANGE_FIELD = 'sell/CHANGE_FIELD';
@@ -43,7 +43,7 @@ export const sellProduct = createAction(
 );
 
 // SECTION : 각 action에 대한 saga
-const uploadProductSaga = createRequestSaga(SELL_PRODUCT, api.uploadProduct);
+const uploadProductSaga = createRequestSaga(SELL_PRODUCT, API.uploadProduct);
 
 // SECTION : rootSaga에 전달할 각 action에 대한 saga
 export function* sellSaga() {
@@ -52,7 +52,7 @@ export function* sellSaga() {
 
 // SECTION : Initial State
 const initialState = {
-  product: {
+  sellForm: {
     categoryId: '',
     name: '',
     quickPrice: '',
@@ -62,8 +62,7 @@ const initialState = {
     endDt: '',
     images: [],
   },
-  sell: null,
-  sellError: null,
+  error: null,
 };
 
 // SECTION : Reducer
@@ -71,12 +70,12 @@ const sell = handleActions(
   {
     [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
       produce(state, draft => {
-        draft.product[key] = value;
+        draft.sellForm[key] = value;
       }),
     [INITIALIZE_FORM]: state => initialState, // initialState를 넣으면 초기상태로 바뀜
-    [SELL_PRODUCT_SUCCESS]: (state, { payload: sell }) => ({
+    [SELL_PRODUCT_SUCCESS]: (state, { payload: sellForm }) => ({
       ...state,
-      sell,
+      sellForm,
     }),
     [SELL_PRODUCT_FAILURE]: (state, { payload: error }) => ({
       ...state,

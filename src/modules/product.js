@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga from '../lib/createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
-import * as api from '../lib/api';
+import * as API from '../lib/api/index';
 
 // SECTION : Action Types
 const PRODUCT_DETAIL = 'product/PRODUCT_DETAIL';
@@ -14,7 +14,7 @@ export const productDetail = createAction(PRODUCT_DETAIL, id => id);
 export const unloadProductDetail = createAction(UNLOAD_PRODUCT_DETAIL);
 
 // SECTION : 각 action에 대한 saga
-const productDetailSaga = createRequestSaga(PRODUCT_DETAIL, api.productDetail);
+const productDetailSaga = createRequestSaga(PRODUCT_DETAIL, API.productDetail);
 
 // SECTION : rootSaga에 전달할 각 action에 대한 saga
 export function* productSaga() {

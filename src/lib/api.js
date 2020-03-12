@@ -8,37 +8,6 @@ import axios from 'axios';
 // CORS 문제를 해결하기 위해서 package.json의 proxy 사용
 // const apiUrl = process.env.REACT_APP_URL;
 
-// const token = `Bearer ${localStorage.token}`;
-// axios.defaults.headers.common['Authorization'] = token;
-
-// SECTION : 회원 인증 API
-/**
- * uid와 passwd로 로그인 요청
- * @param {object} body
- * @param {string} body.uid - 유저 이메일(유저 아이디)
- * @param {string} body.passwd - 비밀번호
- */
-export const signin = ({ uid, passwd }) =>
-  axios.post('/api/auth/login', { uid, passwd });
-
-// 회원가입
-export const signup = ({ uid, passwd, name }) =>
-  axios.post('/api/member', { uid, passwd, name });
-
-// 회원정보 조회
-export const check = () =>
-  axios.get('/api/member', {
-    headers: {
-      Authorization: `Bearer ${localStorage.token}`,
-    },
-  });
-
-// SECTION : item API
-// 상품정보 조회
-export const productDetail = id => axios.get(`/api/item/${id}`);
-
-export const uploadProduct = () => axios.post(`/api/item/`);
-
 // SECTION : 카테고리 API
 // 카테고리 받아오기
 export const getCategories = () => axios.get(`/api/category`);
