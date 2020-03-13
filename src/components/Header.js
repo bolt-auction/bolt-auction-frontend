@@ -69,8 +69,10 @@ const HeaderBlock = styled.nav`
       ${Typography.Button};
       color: ${Colors.surface};
       font-weight: 500;
-      height: 16px;
-      width: 64px;
+      width: 100%;
+      height: 100%;
+      padding: 8px 24px;
+      cursor: pointer;
     }
   }
 
