@@ -28,7 +28,7 @@ const CarouselBlock = styled.div`
   }
 `;
 
-const CarouselContainer = () => {
+const MainCarousel = () => {
   return (
     <CarouselBlock>
       <Carousel
@@ -62,4 +62,4 @@ const CarouselContainer = () => {
   );
 };
 
-export default CarouselContainer;
+export default MainCarousel;
