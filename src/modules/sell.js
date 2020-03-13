@@ -3,6 +3,18 @@ import createRequestSaga from '../lib/createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 import produce from 'immer';
 import * as API from '../lib/api/index';
+import moment from 'moment';
+
+/**
+ * 현재 시간으로 부터 day의 값만큼 더한 날의 수를 반환
+ * @param {number} day - 날의 수
+ * @returns {string} 'YYYY-MM-DD[T]HH:mm:ss'
+ * @example calEndTime(3); // 2020-03-16T17:00:00
+ */
+const calEndTime = day =>
+  moment()
+    .add(day, 'days')
+    .format('YYYY-MM-DD[T]HH:mm:ss');
 
 // SECTION : Action Types
 const CHANGE_FIELD = 'sell/CHANGE_FIELD';
@@ -37,7 +49,7 @@ export const sellProduct = createAction(
     quickPrice,
     minBidPrice,
     description,
-    endDt,
+    endDt: calEndTime(endDt),
     images,
   }),
 );
@@ -62,6 +74,7 @@ const initialState = {
     endDt: '',
     images: [],
   },
+  itemId: null,
   error: null,
 };
 
@@ -72,10 +85,14 @@ const sell = handleActions(
       produce(state, draft => {
         draft.sellForm[key] = value;
       }),
-    [INITIALIZE_FORM]: state => initialState, // initialState를 넣으면 초기상태로 바뀜
-    [SELL_PRODUCT_SUCCESS]: (state, { payload: sellForm }) => ({
+    [INITIALIZE_FORM]: state => initialState,
+    // [SELL_PRODUCT]: (state, { payload: { sellForm: endDt } }) => ({
+    //   ...state,
+    //   endDt: calEndTime(endDt),
+    // }),
+    [SELL_PRODUCT_SUCCESS]: (state, { payload: { itemId } }) => ({
       ...state,
-      sellForm,
+      itemId,
     }),
     [SELL_PRODUCT_FAILURE]: (state, { payload: error }) => ({
       ...state,

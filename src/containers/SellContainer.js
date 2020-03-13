@@ -6,9 +6,14 @@ import Sell from '../components/sell/Sell';
 import { changeField, initializeForm, sellProduct } from '../modules/sell';
 
 const SellContainer = withRouter(
-  ({ product, sell, changeField, initializeForm, sellProduct }) => {
+  ({ sellForm, changeField, initializeForm, sellProduct, error }) => {
     const onChange = e => {
-      const { value, name } = e.target;
+      const { value, name, files } = e.target;
+      if (files)
+        return changeField({
+          key: name,
+          value: [...files],
+        });
       changeField({
         key: name,
         value,
@@ -26,7 +31,7 @@ const SellContainer = withRouter(
         description,
         endDt,
         images,
-      } = product;
+      } = sellForm;
       sellProduct({
         categoryId,
         name,
@@ -43,20 +48,21 @@ const SellContainer = withRouter(
       initializeForm();
     }, [initializeForm]);
 
-    return (
-      <Sell
-        product={product}
-        sell={sell}
-        onChange={onChange}
-        onSubmit={onSubmit}
-      />
-    );
+    useEffect(() => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+    }, [error]);
+
+    return <Sell sellForm={sellForm} onChange={onChange} onSubmit={onSubmit} />;
   },
 );
 
 export default connect(
   ({ sell }) => ({
-    product: sell.product,
+    sellForm: sell.sellForm,
+    error: sell.error,
   }),
   {
     changeField,

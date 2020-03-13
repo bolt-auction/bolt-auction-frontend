@@ -19,6 +19,7 @@ const SignupForm = withRouter(
       });
     };
 
+    // NOTE: 에러 핸들링 hook 알아보기
     // 폼 등록 이벤트 핸들러
     const onSubmit = e => {
       e.preventDefault();

@@ -1,5 +1,4 @@
 import client from './client';
-import qs from 'qs';
 
 /**
  * 해당 상품아이디의 정보조회
@@ -20,17 +19,16 @@ export const uploadProduct = ({
   endDt,
   images,
 }) => {
-  const sellFormQueryString = qs.stringify({
-    categoryId,
-    name,
-    startPrice,
-    quickPrice,
-    minBidPrice,
-    description,
-    endDt,
-    images,
-  });
-  return client.post(`/api/item/`, sellFormQueryString, {
+  const formData = new FormData();
+  formData.append('categoryId', categoryId);
+  formData.append('name', name);
+  formData.append('startPrice', startPrice);
+  formData.append('quickPrice', quickPrice);
+  formData.append('minBidPrice', minBidPrice);
+  formData.append('description', description);
+  formData.append('endDt', endDt);
+  images.forEach(image => formData.append('images', image));
+  return client.post(`/api/item/`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

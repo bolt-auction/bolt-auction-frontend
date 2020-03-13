@@ -21,17 +21,22 @@ const RowWithMarginTop = styled(Row)`
   margin-top: 1rem;
 `;
 
-const SellForm = ({ product, sell, onChange }) => {
+const SellForm = ({
+  categoryId,
+  name,
+  quickPrice,
+  startPrice,
+  minBidPrice,
+  description,
+  endDt,
+  onChange,
+}) => {
   return (
     <>
       <RowWithMarginTop>
         <Col xs="2" sm="2" md="3">
-          <Select
-            name="categoryId"
-            onChange={onChange}
-            value={product.categoryId}
-          >
-            <option>카테고리</option>
+          <Select name="categoryId" onChange={onChange} value={categoryId}>
+            <option value="">카테고리</option>
             <option value="1">카테고리 1</option>
             <option value="2">카테고리 2</option>
             <option value="3">카테고리 3</option>
@@ -49,7 +54,7 @@ const SellForm = ({ product, sell, onChange }) => {
             placeholder="상품명"
             type="text"
             onChange={onChange}
-            value={product.name}
+            value={name}
           />
         </Col>
       </RowWithMarginTop>
@@ -61,7 +66,7 @@ const SellForm = ({ product, sell, onChange }) => {
             placeholder="즉시 구매가"
             type="number"
             onChange={onChange}
-            value={product.quickPrice}
+            value={quickPrice}
           />
         </Col>
         <Col md="3">
@@ -71,16 +76,12 @@ const SellForm = ({ product, sell, onChange }) => {
             placeholder="경매 시작가"
             type="number"
             onChange={onChange}
-            value={product.startPrice}
+            value={startPrice}
           />
         </Col>
         <Col md="3">
-          <Select
-            name="minBidPrice"
-            onChange={onChange}
-            value={product.minBidPrice}
-          >
-            <option>최소 입찰단위</option>
+          <Select name="minBidPrice" onChange={onChange} value={minBidPrice}>
+            <option value="">최소 입찰단위</option>
             <option value="100">100원</option>
             <option value="1000">1,000원</option>
             <option value="5000">5,000원</option>
@@ -89,8 +90,8 @@ const SellForm = ({ product, sell, onChange }) => {
         </Col>
         <Col md="3">
           {/* <TextField type="date" placeholder="경매 진행기간" /> */}
-          <Select name="endDt" onChange={onChange} value={product.endDt}>
-            <option>경매 진행기간</option>
+          <Select name="endDt" onChange={onChange} value={endDt}>
+            <option value="">경매 진행기간</option>
             <option value="3">3일</option>
             <option value="5">5일</option>
             <option value="7">7일</option>
@@ -100,13 +101,12 @@ const SellForm = ({ product, sell, onChange }) => {
       <RowWithMarginTop>
         <Col>
           <TextField
-            isTextarea
             name="description"
             autoComplete="description"
             placeholder="상품설명"
-            type="text"
+            type="textarea"
             onChange={onChange}
-            value={product.description}
+            value={description}
           />
         </Col>
       </RowWithMarginTop>
