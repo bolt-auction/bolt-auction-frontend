@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { changeField, initializeForm, signup } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
 import { withRouter } from 'react-router-dom';
-import validation from '../../lib/validation';
+import { validation } from '../../lib/util';
 
 const SignupForm = withRouter(
   ({ history, form, auth, authError, changeField, initializeForm, signup }) => {
@@ -81,8 +81,8 @@ const SignupForm = withRouter(
       initializeForm('signup');
     }, [initializeForm]);
 
-    // TODO: 개인정보 이용 동의, 약관 동의 체크 버튼 추가 후 동의 여부 밸리데이션
-    // TODO: 회원가입 성공 후 로그인 페이지로 이동하기 전 성공했다는 메시지 보여주기
+    // TODO: []개인정보 이용 동의, 약관 동의 체크 버튼 추가 후 동의 여부 밸리데이션
+    // TODO: []회원가입 성공 후 로그인 페이지로 이동하기 전 성공했다는 메시지 보여주기
     // NOTE: 회원가입 API response에 토큰이 없어 성공시에 로그인 페이지로 이동 시킴
     useEffect(() => {
       if (authError) {

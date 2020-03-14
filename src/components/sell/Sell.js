@@ -8,7 +8,7 @@ import SellForm from './SellForm';
 import TextField from '../common/TextField';
 
 // TODO: 이미지 업로드 기능 추가, 업로드용 input 컴포넌트 작성
-const Sell = ({ sellForm, onChange, onSubmit }) => {
+const Sell = ({ sellForm, categoryList, onChange, onSubmit }) => {
   const {
     categoryId,
     name,
@@ -49,6 +49,7 @@ const Sell = ({ sellForm, onChange, onSubmit }) => {
           </Row> */}
           <Divider margin="2rem" />
           <SellForm
+            categoryList={categoryList}
             categoryId={categoryId}
             name={name}
             quickPrice={quickPrice}
@@ -64,7 +65,7 @@ const Sell = ({ sellForm, onChange, onSubmit }) => {
               <Button to="/">취소</Button>
             </Col>
             <Col>
-              <Button>등록</Button>
+              <Button primary>등록</Button>
             </Col>
           </Row>
         </form>

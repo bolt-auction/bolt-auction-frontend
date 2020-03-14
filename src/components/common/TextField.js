@@ -40,7 +40,7 @@ const textFieldStyle = css`
   }
   svg {
     font-size: 1.5rem;
-    color: ${Colors.onSurfaceMedium};
+    color: ${Colors.onSurfaceLow};
   }
   /* focus될때 아웃라인의 색과 두께를 조절  */
   /* NOTE: border 두께를 변경하면 크기가 바뀌면서 밀리는 현상을 없애기 위해 배경색상과 padding으로 아웃라인 처럼 보이게 만듬 */
@@ -50,6 +50,9 @@ const textFieldStyle = css`
     .out-line:focus-within {
       border-radius: 2px;
       padding: 13px;
+    }
+    svg {
+      color: ${Colors.onSurfaceMedium};
     }
   }
 `;

@@ -6,11 +6,6 @@ import Select from '../common/Select';
 import TextField from '../common/TextField';
 
 /**
- * TODO:
- *  []밸리데이션 추가
- *    []숫자만 존재하는지
- *    []문자열 길이
- *    []모든 양식이 채워졌는지
  * FIXME:
  *  []경매 진행기간 선택 캘린더(피커)로 전환 (현재 일로부터 최대 일주일)
  * NOTE:
@@ -22,6 +17,7 @@ const RowWithMarginTop = styled(Row)`
 `;
 
 const SellForm = ({
+  categoryList,
   categoryId,
   name,
   quickPrice,
@@ -37,12 +33,10 @@ const SellForm = ({
         <Col xs="2" sm="2" md="3">
           <Select name="categoryId" onChange={onChange} value={categoryId}>
             <option value="">카테고리</option>
-            <option value="1">카테고리 1</option>
-            <option value="2">카테고리 2</option>
-            <option value="3">카테고리 3</option>
-            <option value="4">카테고리 4</option>
-            <option value="5">카테고리 5</option>
-            <option value="6">카테고리 6</option>
+            {categoryList &&
+              categoryList.map(cat => (
+                <option value={cat.id}>{cat.name}</option>
+              ))}
           </Select>
         </Col>
       </RowWithMarginTop>
@@ -67,6 +61,7 @@ const SellForm = ({
             type="number"
             onChange={onChange}
             value={quickPrice}
+            icon="won"
           />
         </Col>
         <Col md="3">
@@ -77,6 +72,8 @@ const SellForm = ({
             type="number"
             onChange={onChange}
             value={startPrice}
+            icon="won"
+            min="100"
           />
         </Col>
         <Col md="3">

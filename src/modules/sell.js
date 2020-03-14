@@ -3,18 +3,6 @@ import createRequestSaga from '../lib/createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 import produce from 'immer';
 import * as API from '../lib/api';
-import moment from 'moment';
-
-/**
- * 현재 시간으로 부터 day의 값만큼 더한 날의 수를 반환
- * @param {number} day - 날의 수
- * @returns {string} 'YYYY-MM-DD[T]HH:mm:ss'
- * @example calEndTime(3); // 2020-03-16T17:00:00
- */
-const calEndTime = day =>
-  moment()
-    .add(day, 'days')
-    .format('YYYY-MM-DD[T]HH:mm:ss');
 
 // SECTION : Action Types
 const CHANGE_FIELD = 'sell/CHANGE_FIELD';
@@ -31,6 +19,7 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
 }));
 export const initializeForm = createAction(INITIALIZE_FORM);
 
+// FIXME: calEndTime() 어디서 실행 해야하는지 다시 고려하기
 export const sellProduct = createAction(
   SELL_PRODUCT,
   ({
@@ -49,7 +38,7 @@ export const sellProduct = createAction(
     quickPrice,
     minBidPrice,
     description,
-    endDt: calEndTime(endDt),
+    endDt,
     images,
   }),
 );
