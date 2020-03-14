@@ -23,9 +23,16 @@ const HeaderBlock = styled.nav`
   z-index: 20;
 
   .my-store,
-  .notice {
+  .notice,
+  .logout,
+  .login {
     ${Typography.button};
-    font-size: 0.75em;
+    color: ${Colors.onSurfaceMedium};
+    cursor: pointer;
+
+    :hover {
+      color: ${Colors.primary};
+    }
   }
 
   .logo-img {
@@ -62,8 +69,10 @@ const HeaderBlock = styled.nav`
       ${Typography.Button};
       color: ${Colors.surface};
       font-weight: 500;
-      height: 16px;
-      width: 64px;
+      width: 100%;
+      height: 100%;
+      padding: 8px 24px;
+      cursor: pointer;
     }
   }
 
@@ -112,7 +121,8 @@ const Menu = styled.div`
 `;
 
 const LogOutButton = styled.button`
-  font-size: 0.75em;
+  /* font-size: 0.75em; */
+  background: none;
 `;
 
 const Header = withRouter(({ history, user, signout }) => {
@@ -201,25 +211,38 @@ const Header = withRouter(({ history, user, signout }) => {
               </Menu>
             </Col>
 
-            <Col md={1} offset={{ md: 6 }} align="flex-end">
+            <Col
+              md={1}
+              offset={{ md: 6 }}
+              justify="center"
+              align={{ md: 'center', lg: 'flex-end' }}
+            >
               <div className="notice">알림</div>
             </Col>
 
-            <Col md={1} align="flex-end">
+            <Col
+              md={1.5}
+              justify="center"
+              align={{ md: 'center', lg: 'flex-end' }}
+            >
               <div className="my-store">
-                {user ? (
-                  <Link to={`/store/${user.id}`}>{user.name} 상점</Link>
-                ) : (
-                  <Link to="/">내 상점</Link>
-                )}
+                <Link to="/">내 상점</Link>
               </div>
             </Col>
 
-            <Col md={1} align="center">
+            <Col
+              md={1.5}
+              justify="center"
+              align={{ md: 'center', lg: 'flex-end' }}
+            >
               {user ? (
-                <LogOutButton onClick={signout}>로그아웃</LogOutButton>
+                <LogOutButton className="logout" onClick={signout}>
+                  로그아웃
+                </LogOutButton>
               ) : (
-                <LogOutButton to="/signin">로그인</LogOutButton>
+                <LogOutButton className="login" to="/signin">
+                  로그인
+                </LogOutButton>
               )}
             </Col>
           </Row>

@@ -41,7 +41,7 @@ export const loadList = createAction(LOAD_LIST);
 // 채팅방 입장
 export const enter = createAction(ENTER, id => id);
 // 채팅방 떠나기
-export const leave = createAction(LEAVE);
+export const leave = createAction(LEAVE, socket => socket);
 // 채팅방 생성하기
 export const create = createAction(
   CREATE,
@@ -132,11 +132,14 @@ const chat = handleActions(
       ...state,
       activeRoom: action.payload,
     }),
-    [LEAVE]: (state, action) => ({
-      ...state,
-      activeRoom: null,
-      roomRecord: [],
-    }),
+    [LEAVE]: (state, action) => {
+      action.payload.disconnect();
+      return {
+        ...state,
+        activeRoom: null,
+        roomRecord: [],
+      };
+    },
     [RECEIVE]: (state, action) => ({
       ...state,
       roomRecord: [...state.roomRecord, action.payload.msg],
