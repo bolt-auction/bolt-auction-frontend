@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga from '../lib/createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
-import * as API from '../lib/api/index';
+import * as API from '../lib/api';
 
 // SECTION : Action Types
 const PRODUCT_DETAIL = 'product/PRODUCT_DETAIL';

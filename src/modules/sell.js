@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga from '../lib/createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 import produce from 'immer';
-import * as API from '../lib/api/index';
+import * as API from '../lib/api';
 import moment from 'moment';
 
 /**

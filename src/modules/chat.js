@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga from '../lib/createRequestSaga';
-import * as api from '../lib/api';
+import * as API from '../lib/api';
 import { takeLatest, takeEvery, put } from 'redux-saga/effects';
 
 // Action Type
@@ -74,11 +74,11 @@ export const loadRecords = createAction(
 // Action Sagas
 
 // 채팅방 목록 가져오기
-const loadListSaga = createRequestSaga(LOAD_LIST, api.getChatrooms);
+const loadListSaga = createRequestSaga(LOAD_LIST, API.getChatrooms);
 // 채팅방 생성
-const createSaga = createRequestSaga(CREATE, api.postChatroom);
+const createSaga = createRequestSaga(CREATE, API.postChatroom);
 // 채팅 기록 가져오기
-const loadRecordsSaga = createRequestSaga(LOAD_RECORDS, api.getChatRecords);
+const loadRecordsSaga = createRequestSaga(LOAD_RECORDS, API.getChatRecords);
 
 const postChatSaga = function*(action) {
   const { socket, msg } = action.payload;
