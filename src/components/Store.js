@@ -167,16 +167,18 @@ const Store = ({
                     </button>
                   </>
                 )
-              ) : (
-                <button
-                  className="submit"
-                  onClick={() => {
-                    createChatroom(`${info.memberName}과의 채팅`, 1, 3);
-                  }}
-                >
-                  채팅하기
-                </button>
-              )}
+              ) : null
+              // (
+              //   <button
+              //     className="submit"
+              //     onClick={() => {
+              //       createChatroom(`${info.memberName}과의 채팅`, 1, 3);
+              //     }}
+              //   >
+              //     채팅하기
+              //   </button>,
+              // )
+              }
             </Col>
           </Row>
           <Row>
