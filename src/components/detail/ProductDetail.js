@@ -43,6 +43,7 @@ const ProductDetail = ({ detail, error, loading }) => {
     category,
     description,
     imagePath,
+    bidCount,
   } = detail;
 
   return (
@@ -69,6 +70,7 @@ const ProductDetail = ({ detail, error, loading }) => {
             quickPrice={quickPrice}
             currentPrice={currentPrice}
             endDt={endDt}
+            bidCount={bidCount}
           />
         </Row>
         <Row>

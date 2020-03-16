@@ -1,13 +1,14 @@
 import React from 'react';
 import { Col, Row } from 'react-awesome-styled-grid';
 import styled from 'styled-components';
+import Moment from 'react-moment';
 
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
 import Button from '../common/Button';
 import Divider from '../common/Divider';
 
-// FIXME: DetailDataBlock을 Container에서 <Col />로 변경 하기, 그에 따른 ProductDetail도 수정
+// FIXME: [x]DetailDataBlock을 Container에서 <Col />로 변경 하기, 그에 따른 ProductDetail도 수정
 const DetailDataBlock = styled(Col)`
   padding: 0px !important;
   margin-top: 1rem;
@@ -45,7 +46,13 @@ const DetailDataBlock = styled(Col)`
   }
 `;
 
-const DetailData = ({ itemName, quickPrice, currentPrice, endDt }) => {
+const DetailData = ({
+  itemName,
+  quickPrice,
+  currentPrice,
+  endDt,
+  bidCount,
+}) => {
   return (
     <DetailDataBlock justify="center" xs={4} sm={5} md={7} lg={7}>
       <h2 className="product-title">{itemName}</h2>
@@ -64,13 +71,13 @@ const DetailData = ({ itemName, quickPrice, currentPrice, endDt }) => {
       </Row>
       <Row>
         <Col className="label" xs={1} sm={2} md={4} lg={4}>
-          남은시간
+          경매 종료
         </Col>
         <Col>
-          {endDt}
-          {/* TODO: moment.js 사용해서 포맷팅 하기
-          0일 00시간 간 00분 00초 (종료: 00-00-00 00:00)
-          */}
+          <div>
+            <Moment date={endDt} toNow />
+            <Moment date={endDt} format="[(]YYYY-MM-DD HH:mm[)]" />
+          </div>
         </Col>
       </Row>
       <Row>
@@ -79,7 +86,7 @@ const DetailData = ({ itemName, quickPrice, currentPrice, endDt }) => {
         </Col>
         <Col>
           {/* TODO: 해당 아이템의 입찰 횟수 조회해야함 */}
-          <p>25회</p>
+          <p>{bidCount}</p>
         </Col>
       </Row>
       <Divider thick="1px" />
