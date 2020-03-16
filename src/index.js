@@ -14,7 +14,9 @@ import dotenv from 'dotenv';
 import { tempSetUser, check } from './modules/auth';
 
 dotenv.config();
-const logger = createLogger();
+const logger = createLogger({
+  collapsed: (getState, action, logEntry) => !logEntry.error,
+});
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,

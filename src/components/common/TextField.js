@@ -40,7 +40,7 @@ const textFieldStyle = css`
   }
   svg {
     font-size: 1.5rem;
-    color: ${Colors.onSurfaceMedium};
+    color: ${Colors.onSurfaceLow};
   }
   /* focus될때 아웃라인의 색과 두께를 조절  */
   /* NOTE: border 두께를 변경하면 크기가 바뀌면서 밀리는 현상을 없애기 위해 배경색상과 padding으로 아웃라인 처럼 보이게 만듬 */
@@ -50,6 +50,9 @@ const textFieldStyle = css`
     .out-line:focus-within {
       border-radius: 2px;
       padding: 13px;
+    }
+    svg {
+      color: ${Colors.onSurfaceMedium};
     }
   }
 `;
@@ -98,14 +101,13 @@ const StyledTextareaBlock = styled.div`
  * @param {string} props.autoComplete - TextField autoComplete
  * @param {string} props.name - TextField name
  * @param {string} props.placeholder - TextField placeholder
- * @param {string} props.type - TextField type
+ * @param {string} props.type - TextField type (값이 "textarea"라면 <textarea>로 랜더링)
  * @param {string|string[]|number} props.value - TextField value
  * @param {event} props.onChange - TextField onChange
  * @param {string} [props.icon] - input에서 아이콘 사용 ( "mail" | "lock"| "lockCheck" | "person" | "won" )
  */
 const TextField = props => {
   const {
-    isTextarea,
     autoComplete,
     name,
     placeholder,
@@ -115,7 +117,7 @@ const TextField = props => {
     icon,
   } = props;
 
-  return isTextarea ? (
+  return type === 'textarea' ? (
     <StyledTextareaBlock>
       <div className="out-line">
         <textarea
@@ -126,7 +128,6 @@ const TextField = props => {
           value={value}
           maxLength="255"
           rows="8"
-          {...props}
         ></textarea>
       </div>
     </StyledTextareaBlock>

@@ -8,8 +8,10 @@ import TextField from '../common/TextField';
 
 /**
  * TODO:
+ *  []로그인 페이지일때 상단에 안내 메시지, 이미지 추가
+ *  []회원가입 할때 개인정보 이용 동의, 약관 동의 체크 버튼 추가
+ *  []에러 메시지 출력될때 흔들리는 애니메이션 추가
  *  []카카오톡 로그인 기능 구현
- *  []개인정보 이용 동의, 약관 동의 체크 버튼 추가
  */
 
 const AuthFormBlock = styled.div`

@@ -5,56 +5,70 @@ import Button from '../common/Button';
 import ContentSection from '../common/ContentSection';
 import Divider from '../common/Divider';
 import SellForm from './SellForm';
+import TextField from '../common/TextField';
 
 // TODO: 이미지 업로드 기능 추가, 업로드용 input 컴포넌트 작성
-const Sell = () => {
+const Sell = ({ sellForm, categoryList, onChange, onSubmit }) => {
+  const {
+    categoryId,
+    name,
+    quickPrice,
+    startPrice,
+    minBidPrice,
+    description,
+    endDt,
+    images,
+  } = sellForm;
   return (
     <ContentSection title="판매하기">
       <Container style={{ padding: '6rem' }}>
         <Row>
           <Col>
-            <h3>이미지 등록 0/4</h3>
+            <h3>이미지 등록 {images.length}/4</h3>
           </Col>
         </Row>
-        <from>
+        <form onSubmit={onSubmit}>
           <Row>
             <Col>
-              <img
-                src="https://via.placeholder.com/190x190"
-                alt="상품 이미지"
-              />
-            </Col>
-            <Col>
-              <img
-                src="https://via.placeholder.com/190x190"
-                alt="상품 이미지"
-              />
-            </Col>
-            <Col>
-              <img
-                src="https://via.placeholder.com/190x190"
-                alt="상품 이미지"
-              />
-            </Col>
-            <Col>
-              <img
-                src="https://via.placeholder.com/190x190"
-                alt="상품 이미지"
+              <TextField
+                name="images"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={onChange}
               />
             </Col>
           </Row>
+          {/* <Row>
+            <Col>
+              <img
+                src="https://via.placeholder.com/190x190"
+                alt="상품 이미지"
+              />
+            </Col>
+          </Row> */}
           <Divider margin="2rem" />
-          <SellForm />
+          <SellForm
+            categoryList={categoryList}
+            categoryId={categoryId}
+            name={name}
+            quickPrice={quickPrice}
+            startPrice={startPrice}
+            minBidPrice={minBidPrice}
+            description={description}
+            endDt={endDt}
+            onChange={onChange}
+          />
           <Divider thick="1px" />
           <Row>
             <Col>
               <Button to="/">취소</Button>
             </Col>
             <Col>
-              <Button>등록</Button>
+              <Button primary>등록</Button>
             </Col>
           </Row>
-        </from>
+        </form>
       </Container>
     </ContentSection>
   );

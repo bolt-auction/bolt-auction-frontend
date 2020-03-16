@@ -6,11 +6,6 @@ import Select from '../common/Select';
 import TextField from '../common/TextField';
 
 /**
- * TODO:
- *  []밸리데이션 추가
- *    []숫자만 존재하는지
- *    []문자열 길이
- *    []모든 양식이 채워졌는지
  * FIXME:
  *  []경매 진행기간 선택 캘린더(피커)로 전환 (현재 일로부터 최대 일주일)
  * NOTE:
@@ -21,59 +16,95 @@ const RowWithMarginTop = styled(Row)`
   margin-top: 1rem;
 `;
 
-const SellForm = () => {
+const SellForm = ({
+  categoryList,
+  categoryId,
+  name,
+  quickPrice,
+  startPrice,
+  minBidPrice,
+  description,
+  endDt,
+  onChange,
+}) => {
   return (
     <>
       <RowWithMarginTop>
         <Col xs="2" sm="2" md="3">
-          <Select>
-            <option selected disabled>
-              카테고리
-            </option>
-            <option>카테고리 1</option>
-            <option>카테고리 2</option>
-            <option>카테고리 3</option>
+          <Select name="categoryId" onChange={onChange} value={categoryId}>
+            <option value="">카테고리</option>
+            {categoryList &&
+              categoryList.map(cat => (
+                <option value={cat.id}>{cat.name}</option>
+              ))}
           </Select>
         </Col>
       </RowWithMarginTop>
       <RowWithMarginTop>
         <Col md="12">
-          <TextField placeholder="상품명" />
+          <TextField
+            name="name"
+            autoComplete="name"
+            placeholder="상품명"
+            type="text"
+            onChange={onChange}
+            value={name}
+          />
         </Col>
       </RowWithMarginTop>
       <RowWithMarginTop>
         <Col md="3">
-          <TextField placeholder="즉시 구매가" />
+          <TextField
+            name="quickPrice"
+            autoComplete="quickPrice"
+            placeholder="즉시 구매가"
+            type="number"
+            onChange={onChange}
+            value={quickPrice}
+            icon="won"
+          />
         </Col>
         <Col md="3">
-          <TextField placeholder="경매 시작가" />
+          <TextField
+            name="startPrice"
+            autoComplete="startPrice"
+            placeholder="경매 시작가"
+            type="number"
+            onChange={onChange}
+            value={startPrice}
+            icon="won"
+            min="100"
+          />
         </Col>
         <Col md="3">
-          <Select>
-            <option selected disabled>
-              최소 입찰단위
-            </option>
-            <option>100원</option>
-            <option>1,000원</option>
-            <option>5,000원</option>
-            <option>10,000원</option>
+          <Select name="minBidPrice" onChange={onChange} value={minBidPrice}>
+            <option value="">최소 입찰단위</option>
+            <option value="100">100원</option>
+            <option value="1000">1,000원</option>
+            <option value="5000">5,000원</option>
+            <option value="10000">10,000원</option>
           </Select>
         </Col>
         <Col md="3">
           {/* <TextField type="date" placeholder="경매 진행기간" /> */}
-          <Select>
-            <option selected disabled>
-              경매 진행기간
-            </option>
-            <option>3일</option>
-            <option>5일</option>
-            <option>7일</option>
+          <Select name="endDt" onChange={onChange} value={endDt}>
+            <option value="">경매 진행기간</option>
+            <option value="3">3일</option>
+            <option value="5">5일</option>
+            <option value="7">7일</option>
           </Select>
         </Col>
       </RowWithMarginTop>
       <RowWithMarginTop>
         <Col>
-          <TextField isTextarea placeholder="상품설명" />
+          <TextField
+            name="description"
+            autoComplete="description"
+            placeholder="상품설명"
+            type="textarea"
+            onChange={onChange}
+            value={description}
+          />
         </Col>
       </RowWithMarginTop>
     </>

@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
-import * as api from '../lib/api';
+import * as API from '../lib/api';
 import createRequestSaga from '../lib/createRequestSaga';
 
 // Action Types
@@ -16,7 +16,7 @@ export const getItems = createAction(GET_ITEMS, (keyword, filter) => ({
 }));
 
 // Action Saga
-const getItemsSaga = createRequestSaga(GET_ITEMS, api.serachItem);
+const getItemsSaga = createRequestSaga(GET_ITEMS, API.searchItem);
 
 //rootSagaㅇ에 전달할 Saga
 export function* itemSaga() {

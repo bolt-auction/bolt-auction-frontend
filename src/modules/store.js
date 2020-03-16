@@ -1,7 +1,7 @@
 import { put, select } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
-import * as api from '../lib/api';
+import * as API from '../lib/api';
 import createRequestSaga from '../lib/createRequestSaga';
 
 // SECTION Action Types
@@ -61,15 +61,15 @@ export const putInfo = createAction(PUT_INFO, (name, desc, file) => ({
 }));
 
 //SECTION Action Saga
-const getInfoSaga = createRequestSaga(GET_INFO, api.getStoreInfo);
-const getProductsSaga = createRequestSaga(GET_PRODUCTS, api.getStoreProducts);
-const getReviewsSaga = createRequestSaga(GET_REVIEWS, api.getStoreReviews);
-const postReviewSaga = createRequestSaga(POST_REVIEW, api.postStoreReview);
+const getInfoSaga = createRequestSaga(GET_INFO, API.getStoreInfo);
+const getProductsSaga = createRequestSaga(GET_PRODUCTS, API.getStoreProducts);
+const getReviewsSaga = createRequestSaga(GET_REVIEWS, API.getStoreReviews);
+const postReviewSaga = createRequestSaga(POST_REVIEW, API.postStoreReview);
 const deleteReviewSaga = createRequestSaga(
   DELETE_REVIEW,
-  api.deleteStoreReview,
+  API.deleteStoreReview,
 );
-const putInfoSaga = createRequestSaga(PUT_INFO, api.putStoreInfo);
+const putInfoSaga = createRequestSaga(PUT_INFO, API.putStoreInfo);
 // get review after post successed
 const postReviewSuccessSaga = function*() {
   const id = yield select(state => state.store.info.memberId);

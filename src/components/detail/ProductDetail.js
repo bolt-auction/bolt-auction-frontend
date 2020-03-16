@@ -60,9 +60,9 @@ const ProductDetail = ({ detail, error, loading }) => {
         <Divider />
         <Row>
           <Col className="carousel" xs={4} sm={3} md={5} lg={5}>
-            <img src="https://via.placeholder.com/520x520" alt="상품 이미지" />
+            {/* <img src="https://via.placeholder.com/520x520" alt="상품 이미지" /> */}
             {/* TODO: 캐로샐 적용하고 imagePath에서 이미지 가지고 오기 */}
-            {/* <img src={imagePath} alt="상품 이미지" /> */}
+            <img src={imagePath[0]} alt="상품 이미지" />
           </Col>
           <DetailData
             itemName={itemName}

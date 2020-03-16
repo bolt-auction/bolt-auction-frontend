@@ -52,11 +52,13 @@ const StyledSelectBlock = styled.div`
   }
 `;
 
-const Select = ({ selectProps, children }) => {
+const Select = ({ name, onChange, value, children }) => {
   return (
     <StyledSelectBlock>
       <div className="out-line">
-        <select {...selectProps}>{children}</select>
+        <select name={name} onChange={onChange} value={value}>
+          {children}
+        </select>
         <MdArrowDropDown />
       </div>
     </StyledSelectBlock>

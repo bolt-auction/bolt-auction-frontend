@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeEvery, takeLatest } from 'redux-saga/effects';
-import * as api from '../lib/api';
+import * as API from '../lib/api';
 import createRequestSaga from '../lib/createRequestSaga';
 
 // Action Types
@@ -11,7 +11,7 @@ const GET_CATS_FAILURE = 'category/GET_CATS_FAILURE';
 
 // Sub 카테고리 활성화
 const ACTIVATE_SUB = 'category/ACTIVE_SUB';
-const DEACTIVATE_SUB = 'categoty/DEACTIVATE_SUB';
+const DEACTIVATE_SUB = 'category/DEACTIVATE_SUB';
 
 // 카테고리 선택
 const SELECT_CATEGORY = 'category/SELECT_CATEGORY';
@@ -34,10 +34,10 @@ export const getCategoryItems = createAction(
 );
 
 // Action Saga
-const getCatsSaga = createRequestSaga(GET_CATS, api.getCategories);
+const getCatsSaga = createRequestSaga(GET_CATS, API.getCategories);
 const getCategoryItemSaga = createRequestSaga(
   GET_CATEGORY_ITEM,
-  api.getCategoryItems,
+  API.getCategoryItems,
 );
 
 // rootSaga에 전달할 Saga
