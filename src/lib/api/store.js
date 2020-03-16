@@ -30,8 +30,8 @@ export const postStoreReview = ({ id, content }) =>
     },
   });
 
-// // 상점 리뷰 삭제하기 ?? 리뷰를 다 삭제한다는 거임?
-// export const deleteStoreReview = id => client.delete(`/api/review/store/${id}`);
+// 상점 리뷰 삭제하기 ?? 리뷰를 다 삭제한다는 거임?
+export const deleteStoreReview = id => client.delete(`/api/review/store/${id}`);
 
 /**
  * 상점 정보 수정

@@ -229,7 +229,7 @@ const ChatRoom = ({
   const $client = useRef(null);
   const $records = useRef(null);
   const [message, setMessage] = useState('');
-  const [page, setPage] = useState(0);
+  const page = 0;
   const [size, setSize] = useState(12);
   const wsURL = 'http://18.190.79.25:8080/ws-stomp';
 
