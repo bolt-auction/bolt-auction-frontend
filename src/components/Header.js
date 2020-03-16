@@ -226,7 +226,7 @@ const Header = withRouter(({ history, user, signout }) => {
               align={{ md: 'center', lg: 'flex-end' }}
             >
               <div className="my-store">
-                <Link to="/">내 상점</Link>
+                <Link to={`/store/${user?.id}`}>내 상점</Link>
               </div>
             </Col>
 
