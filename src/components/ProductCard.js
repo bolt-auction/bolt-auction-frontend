@@ -16,6 +16,8 @@ const ProductCardBlock = styled.div`
     img {
       border-radius: 4px 4px 0 0;
       display: block;
+      min-width: 225px;
+      min-height: 225px;
       object-fit: cover;
     }
   }

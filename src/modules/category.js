@@ -30,7 +30,7 @@ export const selectCategory = createAction(SELECT_CATEGORY, (id, name) => ({
 }));
 export const getCategoryItems = createAction(
   GET_CATEGORY_ITEM,
-  (id, filter) => ({ id, filter }),
+  (id, filter = null) => ({ id, filter }),
 );
 
 // Action Saga

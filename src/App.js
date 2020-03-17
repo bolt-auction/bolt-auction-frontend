@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import AuthRoute from './lib/AuthRoute';
 
-import Main from './components/Main';
 import Footer from './components/Footer';
 import SideBar from './components/SideBar';
 
@@ -16,6 +15,7 @@ import ProductsDetailContainer from './containers/ProductsDetailContainer';
 import SigninContainer from './containers/auth/SigninContainer';
 import SignupContainer from './containers/auth/SignupContainer';
 import SellContainer from './containers/SellContainer';
+import MainContainer from './containers/MainContainer';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -75,7 +75,7 @@ const App = () => {
           component={CategoryResultContainer}
         />
         <AuthRoute path="/sell" component={SellContainer} />
-        <AuthRoute path="/" exact component={Main} />
+        <AuthRoute path="/" exact component={MainContainer} />
         <Route
           render={({ location }) => (
             <div>

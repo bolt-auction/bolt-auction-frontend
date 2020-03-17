@@ -10,8 +10,10 @@ export const getCategories = () => client.get(`/api/category`);
  * @param {number} id - 카테고리 아이디
  * @param {string} filter - 정렬 파라미터
  */
-export const getCategoryItems = ({ id, filter }) =>
-  client.get(`/api/item/category/${id}?sort=${filter}`);
+export const getCategoryItems = ({ id, filter }) => {
+  if (!filter) return client.get(`/api/item/category/${id}`);
+  else return client.get(`/api/item/category/${id}?sort=${filter}`);
+};
 
 /**
  * 아이템 검색
