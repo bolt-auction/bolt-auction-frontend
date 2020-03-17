@@ -1,13 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Col, Container, Row } from 'react-awesome-styled-grid';
+import { Carousel } from 'react-responsive-carousel';
 
+// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
 import ContentSection from '../common/ContentSection';
 import Divider from '../common/Divider';
 import DetailData from './DetailData';
 import { MdMoreVert } from 'react-icons/md';
+
+/*
+ * TODO:
+ *  [x]상품삭제 메뉴 추가 (상품 판매자에게만 보여야 함)
+ *  []상품삭제 기능 추가
+ */
 
 const ProductDetailBlock = styled(Container)`
   .category-name {
@@ -16,14 +24,25 @@ const ProductDetailBlock = styled(Container)`
   }
 
   .sub-title {
-    margin-top: 1rem;
+    margin-top: 2rem;
+    /* padding-left: 8rem;
+    padding-right: 8rem; */
+  }
+
+  .product-img {
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
 
   .product-description {
+    height: 128px;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 `;
 
-const ProductDetail = ({ detail, error, loading }) => {
+const ProductDetail = ({ detail, userId, error, loading }) => {
   if (error) {
     if (error.response && error.response.status === 404) {
       return <ContentSection>존재하지 않는 상품입니다.</ContentSection>;
@@ -44,6 +63,7 @@ const ProductDetail = ({ detail, error, loading }) => {
     description,
     imagePath,
     bidCount,
+    seller,
   } = detail;
 
   return (
@@ -54,16 +74,27 @@ const ProductDetail = ({ detail, error, loading }) => {
             {category.name}
           </Col>
           <Col justify="center" xs={1} sm={1} md={1} lg={1}>
-            {/* TODO: 상품수정, 상품삭제 기능 메뉴 추가 상품 판매자에게만 보여야 함*/}
-            <MdMoreVert style={{ marginLeft: 'auto' }} />
+            {seller.memberId === userId && (
+              <MdMoreVert style={{ marginLeft: 'auto', cursor: 'pointer' }} />
+            )}
           </Col>
         </Row>
         <Divider />
         <Row>
-          <Col className="carousel" xs={4} sm={3} md={5} lg={5}>
-            {/* <img src="https://via.placeholder.com/520x520" alt="상품 이미지" /> */}
-            {/* TODO: 캐로샐 적용하고 imagePath에서 이미지 가지고 오기 */}
-            <img src={imagePath[0]} alt="상품 이미지" />
+          <Col xs={4} sm={3} md={5} lg={5}>
+            <Carousel
+              showThumbs={false}
+              showStatus={false}
+              infiniteLoop={true}
+              emulateTouch={true}
+            >
+              {imagePath &&
+                imagePath.map(image => (
+                  <div className="product-img">
+                    <img alt="상품 이미지" src={image} />
+                  </div>
+                ))}
+            </Carousel>
           </Col>
           <DetailData
             itemName={itemName}
@@ -71,11 +102,12 @@ const ProductDetail = ({ detail, error, loading }) => {
             currentPrice={currentPrice}
             endDt={endDt}
             bidCount={bidCount}
+            seller={seller}
           />
         </Row>
         <Row>
           <Col className="sub-title">
-            <h3>상품정보</h3>
+            <h2>상품정보</h2>
           </Col>
           <Divider thick="1px" margin="0.75rem" />
         </Row>
@@ -84,7 +116,7 @@ const ProductDetail = ({ detail, error, loading }) => {
         </Row>
         <Row>
           <Col className="sub-title">
-            <h3>연관상품</h3>
+            <h2>연관상품</h2>
           </Col>
           <Divider />
         </Row>

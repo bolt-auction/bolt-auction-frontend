@@ -10,6 +10,7 @@ const ProductsDetailContainer = withRouter(
     history,
     detail,
     error,
+    userId,
     loading,
     productDetail,
     unloadProductDetail,
@@ -22,15 +23,23 @@ const ProductsDetailContainer = withRouter(
       };
     }, [productDetail, itemId, unloadProductDetail]);
 
-    return <ProductDetail detail={detail} error={error} loading={loading} />;
+    return (
+      <ProductDetail
+        detail={detail}
+        userId={userId}
+        error={error}
+        loading={loading}
+      />
+    );
   },
 );
 
 export default React.memo(
   connect(
-    ({ product, loading }) => ({
+    ({ product, auth, loading }) => ({
       detail: product.detail,
       error: product.error,
+      userId: auth.user.id,
       loading: loading['product/PRODUCT_DETAIL'],
     }),
     {

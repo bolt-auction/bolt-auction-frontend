@@ -31,6 +31,14 @@ export const calEndTime = days =>
     .add(days, 'days')
     .format('YYYY-MM-DD[T]HH:mm:ss');
 
+// NOTE: 정규표현식 사용해서 변환해보자
+/**
+ * price로 전달받은 인자를 한국통화 포멧으로 반환
+ * @param {number} price - 가격
+ */
+export const priceFormat = price =>
+  new Intl.NumberFormat('ko-KR').format(price);
+
 /**
  * 이메일과 비밀번호의 유효성 검사
  * @param {string} name - 'email' | 'password'

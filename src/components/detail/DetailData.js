@@ -2,17 +2,26 @@ import React from 'react';
 import { Col, Row } from 'react-awesome-styled-grid';
 import styled from 'styled-components';
 import Moment from 'react-moment';
+import { priceFormat } from '../../lib/util';
 
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
 import Button from '../common/Button';
 import Divider from '../common/Divider';
 
-// FIXME: [x]DetailDataBlock을 Container에서 <Col />로 변경 하기, 그에 따른 ProductDetail도 수정
+/*
+ * FIXME:
+ *  [x]DetailDataBlock을 Container에서 <Col />로 변경 하기, 그에 따른 ProductDetail도 수정
+ * TODO:
+ *  [x]가격 포맷팅 기능 추가 (예: 25,000원)
+ *  [x]유저 네임 가져오기, auth.seller.memberName
+ *  []유저 이미지 가져오기, auth.seller.imagePath
+ */
+
 const DetailDataBlock = styled(Col)`
-  padding: 0px !important;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  width: 480px;
 
   .product {
     &-title {
@@ -44,6 +53,18 @@ const DetailDataBlock = styled(Col)`
     color: ${Colors.onSurfaceMedium};
     margin-bottom: 1rem;
   }
+
+  .seller {
+    /* width: 100%; */
+    min-width: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    img {
+      border-radius: 50%;
+    }
+  }
 `;
 
 const DetailData = ({
@@ -52,22 +73,39 @@ const DetailData = ({
   currentPrice,
   endDt,
   bidCount,
+  seller,
 }) => {
   return (
     <DetailDataBlock justify="center" xs={4} sm={5} md={7} lg={7}>
-      <h2 className="product-title">{itemName}</h2>
+      <Row align="center">
+        <Col xs={1} sm={2} md={4} lg={4}>
+          <div className="seller">
+            <img
+              src="https://via.placeholder.com/40x40"
+              alt="프로필 이미지"
+              style={{ width: '48px' }}
+            />
+            <p>{seller.memberName}</p>
+          </div>
+        </Col>
+      </Row>
+      <Divider thick="1px" />
+      <Row>
+        <Col>
+          <h2 className="product-title">{itemName}</h2>
+        </Col>
+      </Row>
       <Row>
         <Col className="current-price-label" xs={1} sm={2} md={4} lg={4}>
           현재가
         </Col>
-        {/* TODO: 가격 포맷팅 기능 추가 (예: 25,000원) */}
-        <Col className="current-price">{currentPrice}원</Col>
+        <Col className="current-price">{priceFormat(currentPrice)}원</Col>
       </Row>
       <Row>
         <Col className="label" xs={1} sm={2} md={4} lg={4}>
           즉시 낙찰가
         </Col>
-        <Col className="quick-price">{quickPrice}원</Col>
+        <Col className="quick-price">{priceFormat(quickPrice)}원</Col>
       </Row>
       <Row>
         <Col className="label" xs={1} sm={2} md={4} lg={4}>
@@ -75,7 +113,7 @@ const DetailData = ({
         </Col>
         <Col>
           <div>
-            <Moment date={endDt} toNow />
+            <Moment date={endDt} toNow />{' '}
             <Moment date={endDt} format="[(]YYYY-MM-DD HH:mm[)]" />
           </div>
         </Col>
@@ -84,33 +122,19 @@ const DetailData = ({
         <Col className="label" xs={1} sm={2} md={4} lg={4}>
           입찰수
         </Col>
-        <Col>
-          {/* TODO: 해당 아이템의 입찰 횟수 조회해야함 */}
-          <p>{bidCount}</p>
+        <Col xs={1} sm={1} md={1} lg={1}>
+          <p>{bidCount}회</p>
+        </Col>
+        <Col xs={1} sm={2} md={2} lg={2}>
+          <Button outLine>입찰기록</Button>
         </Col>
       </Row>
       <Divider thick="1px" />
-      {/* 
-      TODO: 유저 이미지 가져오기, auth.user.store.imagePath
-      TODO: 유저 네임 가져오기, auth.user.name
-      <Row>
-        <Col>
-          <div>
-            <img
-              src="https://via.placeholder.com/40x40"
-              alt="프로필 이미지"
-              style={{ width: '40px' }}
-            />
-            판매자 아이디
-          </div>
+      <Row justify="center" align="center">
+        <Col xs={2} sm={3} md={6} lg={6}>
+          <Button disabled>즉시낙찰</Button>
         </Col>
-      </Row> 
-      */}
-      <Row>
-        <Col>
-          <Button primary>즉시낙찰</Button>
-        </Col>
-        <Col>
+        <Col xs={2} sm={3} md={6} lg={6}>
           <Button primary>입찰하기</Button>
         </Col>
       </Row>
