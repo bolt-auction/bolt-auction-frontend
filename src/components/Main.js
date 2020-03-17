@@ -5,6 +5,7 @@ import MainCarousel from './MainCarousel';
 
 import Colors from '../styles/Colors';
 import Elevation from '../styles/Elevation';
+import { useEffect } from 'react';
 
 const MainContentBlock = styled.section`
   margin: 0 auto;
@@ -26,15 +27,22 @@ const Divider = styled.div`
   background-color: rgba(33, 33, 33, 0.08);
 `;
 
-const Main = () => {
+const Main = ({ items, getItems }) => {
+  useEffect(() => {
+    getItems(0);
+  }, [getItems]);
+
+  useEffect(() => {
+    console.log(items);
+  }, [items]);
+
   return (
     <>
       <MainCarousel />
       <MainContentBlock>
         <h2 className="content-title">경매장터 인기상품</h2>
         <Divider />
-        <ProductList />
-        <ProductList />
+        <ProductList items={items['_embedded']?.itemDtoList} />
       </MainContentBlock>
     </>
   );
