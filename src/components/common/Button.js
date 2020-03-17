@@ -33,6 +33,9 @@ const buttonStyle = css`
     background: ${Colors.gray[1]};
     color: ${Colors.gray[4]};
     cursor: not-allowed;
+    &, &:hover {
+    box-shadow: none;
+  }
   }
   ${props =>
     props.roundShape &&
@@ -67,6 +70,37 @@ const buttonStyle = css`
         background: ${Colors.kakao[1]};
       }
     `}
+    ${props =>
+      props.outLine &&
+      css`
+        background: ${Colors.surface};
+        border: 1px solid ${Colors.primary};
+        min-height: 24px;
+        padding: 0rem 1rem;
+        &,
+        &:hover,
+        &:visited {
+          box-shadow: none;
+          color: ${Colors.primary};
+        }
+        &:hover {
+          background: ${Colors.primaryHover};
+        }
+      `}
+      ${props =>
+        props.textStyle &&
+        css`
+          background: ${Colors.surface};
+          &,
+          &:hover,
+          &:visited {
+            box-shadow: none;
+            color: ${Colors.primary};
+          }
+          &:hover {
+            background: ${Colors.primaryHover};
+          }
+        `}
 `;
 
 const StyledButton = styled.button`
@@ -83,6 +117,8 @@ const Button = props => {
       {...props}
       primary={props.primary ? 1 : 0}
       kakao={props.kakao ? 1 : 0}
+      outLine={props.outLine ? 1 : 0}
+      textStyle={props.textStyle ? 1 : 0}
     />
   ) : (
     <StyledButton {...props} />
