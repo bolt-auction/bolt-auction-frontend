@@ -248,13 +248,7 @@ const ChatRoom = ({
   };
 
   const onMessage = msg => {
-    // document.querySelector('.chat-records').scrollTop = document.querySelector(
-    //   '.chat-records',
-    // ).scrollHeight;
     receiveChat(msg, $records.current);
-    // setTimeout(() => {
-    //   $records.current.scrollTop = $records.current.scrollHeight;
-    // }, 1000);
   };
 
   useEffect(() => {
@@ -264,10 +258,6 @@ const ChatRoom = ({
 
   const loadMoreRecords = () => {
     setSize(size + 12); // 12개씩 채팅 기록 load
-    // if (size > 20) {
-    //   setPage(page + 1);
-    //   setSize(12);
-    // }
     loadRecords(roomId, page, size);
   };
 
@@ -294,7 +284,6 @@ const ChatRoom = ({
             elementHeight={40}
             infiniteLoadBeginEdgeOffset={10}
             onInfiniteLoad={loadMoreRecords}
-            // isInfiniteLoading={false}
             displayBottomUpwards
           >
             {roomRecord?.map((rec, idx, recs) => {
@@ -302,11 +291,11 @@ const ChatRoom = ({
               if (
                 idx === 0 ||
                 (idx > 0 &&
-                  recs[idx - 1].sender.MemberId !== rec.sender.MemberId)
+                  recs[idx - 1].sender.memberId !== rec.sender.memberId)
               ) {
                 isFirst = true;
               }
-              return rec.sender?.MemberId === myId ? (
+              return rec.sender?.memberId === myId ? (
                 <MyMessageBlock key={`me-${rec.chatMessageId}`}>
                   <div className="text-box">
                     {/* {isFirst ? <span>{rec.sender?.MemberName}</span> : null} */}
@@ -331,7 +320,7 @@ const ChatRoom = ({
                     <div className="profile-image" />
                   )}
                   <div className="text-box">
-                    {isFirst ? <span>{rec.sender?.MemberName}</span> : null}
+                    {isFirst ? <span>{rec.sender?.memberName}</span> : null}
                     <div className="message-wrapper">
                       <div
                         className={`message-box ${isFirst ? 'first' : null}`}
