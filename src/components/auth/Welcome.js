@@ -6,11 +6,12 @@ import Colors from '../../styles/Colors';
 import catWithBox from '../../imgs/ginger-cat-741.png';
 
 const WelcomeBlock = styled.div`
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 2rem;
+  /* overflow: hidden; */
   color: ${Colors.onSurfaceMedium};
   img {
     width: 75%;

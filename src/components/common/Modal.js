@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { MdChevronLeft, MdClose } from 'react-icons/md';
 import Colors from '../../styles/Colors';
 import Elevation from '../../styles/Elevation';
 
@@ -38,12 +40,24 @@ const ModalBlock = styled.div`
 
 const ModalTitle = styled.div`
   height: 56px;
+  padding: 0.75rem 1rem;
   display: flex;
-  justify-content: center;
   align-items: center;
   border-bottom: 1px solid ${Colors.blackDragged};
   h3 {
     color: ${Colors.primary};
+    margin-left: auto;
+    margin-right: auto;
+  }
+  svg {
+    color: ${Colors.onSurfaceLow};
+    cursor: pointer;
+  }
+  .back {
+    font-size: 1.75rem;
+  }
+  .close {
+    font-size: 1.5rem;
   }
 `;
 
@@ -52,19 +66,22 @@ const ModalBody = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  overflow: hidden;
+  /* justify-content: space-around; */
+  /* align-items: center; */
+  overflow: scroll;
 `;
 
-const Modal = ({ randomBg, title, children }) => {
+const Modal = ({ randomBg, title, children, handleModal }) => {
   return (
     <>
       {randomBg && <BgBlock />}
+      {/* <ModalOverlay onClick={handleModal ? handleModal : false}> */}
       <ModalOverlay>
         <ModalBlock>
           <ModalTitle>
+            {/* <MdChevronLeft className="back" /> */}
             <h3>{title}</h3>
+            {handleModal && <MdClose className="close" onClick={handleModal} />}
           </ModalTitle>
           <ModalBody>{children}</ModalBody>
         </ModalBlock>

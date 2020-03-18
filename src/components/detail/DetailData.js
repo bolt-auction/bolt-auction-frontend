@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row } from 'react-awesome-styled-grid';
 import styled from 'styled-components';
 import Moment from 'react-moment';
+
 import { priceFormat } from '../../lib/util';
 
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
 import Button from '../common/Button';
 import Divider from '../common/Divider';
+import ModalPortal from '../common/ModalPortal';
+import BidModal from './BidModal';
 
 /*
  * FIXME:
@@ -75,6 +78,20 @@ const DetailData = ({
   bidCount,
   seller,
 }) => {
+  const [modal, setModal] = useState(false);
+  const handleModal = () => {
+    const rootStyle = document.getElementById('root').style;
+    if (!modal) {
+      setModal(true);
+      rootStyle.width = '100%';
+      rootStyle.position = 'fixed';
+    } else {
+      setModal(false);
+      rootStyle.width = '';
+      rootStyle.position = '';
+    }
+  };
+
   return (
     <DetailDataBlock justify="center" xs={4} sm={5} md={7} lg={7}>
       <Row align="center">
@@ -126,7 +143,14 @@ const DetailData = ({
           <p>{bidCount}회</p>
         </Col>
         <Col xs={1} sm={2} md={2} lg={2}>
-          <Button outLine>입찰기록</Button>
+          <Button outLine onClick={handleModal}>
+            입찰기록
+          </Button>
+          {modal && (
+            <ModalPortal>
+              <BidModal handleModal={handleModal}></BidModal>
+            </ModalPortal>
+          )}
         </Col>
       </Row>
       <Divider thick="1px" />
