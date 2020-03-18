@@ -33,28 +33,41 @@ const ModalBlock = styled.div`
   background-color: ${Colors.surface};
   box-shadow: ${Elevation.z24};
   border-radius: 4px;
-  padding: 1rem;
   z-index: 40;
-
-  /* .modal-header {
-    height: 56px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-bottom: 1px solid ${Colors.blackDragged};
-    h3 {
-      color: ${Colors.primary};
-    }
-  } */
 `;
 
-const Modal = ({ children, randomBg }) => {
+const ModalTitle = styled.div`
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid ${Colors.blackDragged};
+  h3 {
+    color: ${Colors.primary};
+  }
+`;
+
+const ModalBody = styled.div`
+  height: 584px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+`;
+
+const Modal = ({ randomBg, title, children }) => {
   return (
     <>
       {randomBg && <BgBlock />}
       <ModalOverlay>
-        <ModalBlock>{children}</ModalBlock>
+        <ModalBlock>
+          <ModalTitle>
+            <h3>{title}</h3>
+          </ModalTitle>
+          <ModalBody>{children}</ModalBody>
+        </ModalBlock>
       </ModalOverlay>
     </>
   );

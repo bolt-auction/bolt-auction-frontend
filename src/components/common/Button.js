@@ -35,6 +35,7 @@ const buttonStyle = css`
     cursor: not-allowed;
     &, &:hover {
     box-shadow: none;
+    background: ${Colors.gray[1]};
   }
   }
   ${props =>
