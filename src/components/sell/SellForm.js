@@ -16,6 +16,10 @@ const RowWithMarginTop = styled(Row)`
   margin-top: 1rem;
 `;
 
+const ColWithMarginTop = styled(Col)`
+  margin-top: 1rem;
+`;
+
 const SellForm = ({
   categoryList,
   categoryId,
@@ -35,7 +39,9 @@ const SellForm = ({
             <option value="">카테고리</option>
             {categoryList &&
               categoryList.map(cat => (
-                <option value={cat.id}>{cat.name}</option>
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
               ))}
           </Select>
         </Col>
@@ -52,8 +58,8 @@ const SellForm = ({
           />
         </Col>
       </RowWithMarginTop>
-      <RowWithMarginTop>
-        <Col md="3">
+      <Row>
+        <ColWithMarginTop xs="4" sm="4" md="3" lg="3">
           <TextField
             name="quickPrice"
             autoComplete="quickPrice"
@@ -62,9 +68,11 @@ const SellForm = ({
             onChange={onChange}
             value={quickPrice}
             icon="won"
+            min="100"
+            step="100"
           />
-        </Col>
-        <Col md="3">
+        </ColWithMarginTop>
+        <ColWithMarginTop xs="4" sm="4" md="3" lg="3">
           <TextField
             name="startPrice"
             autoComplete="startPrice"
@@ -74,9 +82,10 @@ const SellForm = ({
             value={startPrice}
             icon="won"
             min="100"
+            step="100"
           />
-        </Col>
-        <Col md="3">
+        </ColWithMarginTop>
+        <ColWithMarginTop xs="4" sm="4" md="3" lg="3">
           <Select name="minBidPrice" onChange={onChange} value={minBidPrice}>
             <option value="">최소 입찰단위</option>
             <option value="100">100원</option>
@@ -84,17 +93,16 @@ const SellForm = ({
             <option value="5000">5,000원</option>
             <option value="10000">10,000원</option>
           </Select>
-        </Col>
-        <Col md="3">
-          {/* <TextField type="date" placeholder="경매 진행기간" /> */}
+        </ColWithMarginTop>
+        <ColWithMarginTop xs="4" sm="4" md="3" lg="3">
           <Select name="endDt" onChange={onChange} value={endDt}>
             <option value="">경매 진행기간</option>
             <option value="3">3일</option>
             <option value="5">5일</option>
             <option value="7">7일</option>
           </Select>
-        </Col>
-      </RowWithMarginTop>
+        </ColWithMarginTop>
+      </Row>
       <RowWithMarginTop>
         <Col>
           <TextField
