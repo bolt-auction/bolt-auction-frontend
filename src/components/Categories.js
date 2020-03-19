@@ -90,12 +90,12 @@ const Categories = ({
                   to={`/categories/${cat.name}?order=bidCount,asc`}
                   onClick={() => onCategotyClick(cat.id, cat.name)}
                 >
-                  <FaHeart
+                  {/* <FaHeart
                     className="category-icon"
                     style={{
                       width: '20px',
                     }}
-                  />
+                  /> */}
                   {cat.name}
                 </Link>
                 <ul
