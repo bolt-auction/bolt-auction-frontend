@@ -32,10 +32,6 @@ const Main = ({ items, getItems }) => {
     getItems(0);
   }, [getItems]);
 
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
-
   return (
     <>
       <MainCarousel />

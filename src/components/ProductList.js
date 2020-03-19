@@ -33,13 +33,7 @@ const ProductList = ({ items }) => {
             align="center"
             key={`product-${item.itemId}`}
           >
-            <ProductCard
-              id={item.itemId}
-              name={item.itemName}
-              currentPrice={item.currentPrice}
-              owner={item.sellerId}
-              imageArr={item.imagePath}
-            />
+            <ProductCard item={item} />
           </Col>
         ))}
       </Row>
