@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { MdChevronLeft, MdClose } from 'react-icons/md';
+import { MdClose } from 'react-icons/md';
 import Colors from '../../styles/Colors';
 import Elevation from '../../styles/Elevation';
 
@@ -66,9 +66,9 @@ const ModalBody = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
   /* justify-content: space-around; */
   /* align-items: center; */
-  overflow: scroll;
 `;
 
 const Modal = ({ randomBg, title, children, handleModal }) => {

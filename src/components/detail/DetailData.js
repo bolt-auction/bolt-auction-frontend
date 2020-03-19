@@ -10,6 +10,7 @@ import Typography from '../../styles/Typography';
 import Button from '../common/Button';
 import Divider from '../common/Divider';
 import ModalPortal from '../common/ModalPortal';
+import BidListModal from './BidListModal';
 import BidModal from './BidModal';
 
 /*
@@ -61,9 +62,9 @@ const DetailDataBlock = styled(Col)`
     /* width: 100%; */
     min-width: 128px;
     display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
-    justify-content: space-around;
-
     img {
       border-radius: 50%;
     }
@@ -84,10 +85,12 @@ const DetailData = ({
     if (!modal) {
       setModal(true);
       rootStyle.width = '100%';
+      rootStyle.height = '100%';
       rootStyle.position = 'fixed';
     } else {
       setModal(false);
       rootStyle.width = '';
+      rootStyle.height = '';
       rootStyle.position = '';
     }
   };
@@ -143,12 +146,13 @@ const DetailData = ({
           <p>{bidCount}회</p>
         </Col>
         <Col xs={1} sm={2} md={2} lg={2}>
-          <Button outLine onClick={handleModal}>
+          <Button outline>입찰기록</Button>
+          <Button outline onClick={handleModal}>
             입찰기록
           </Button>
           {modal && (
             <ModalPortal>
-              <BidModal handleModal={handleModal}></BidModal>
+              <BidListModal handleModal={handleModal} />
             </ModalPortal>
           )}
         </Col>
@@ -159,7 +163,14 @@ const DetailData = ({
           <Button disabled>즉시낙찰</Button>
         </Col>
         <Col xs={2} sm={3} md={6} lg={6}>
-          <Button primary>입찰하기</Button>
+          <Button primary onClick={handleModal}>
+            입찰하기
+          </Button>
+          {/* {modal && (
+            <ModalPortal>
+              <BidModal handleModal={handleModal} />
+            </ModalPortal>
+          )} */}
         </Col>
       </Row>
     </DetailDataBlock>

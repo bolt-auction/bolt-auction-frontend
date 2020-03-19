@@ -41,7 +41,7 @@ const BidListItem = () => {
           style={{ width: '48px' }}
         />
         <div>
-          <p className="bid-user">사용자 아이디</p>
+          <h4 className="bid-user">사용자 아이디</h4>
           <Moment className="bid-date" format="YYYY-MM-DD HH:mm.ss" />
         </div>
         <p className="bid-price">{priceFormat(10000)}원</p>
