@@ -10,11 +10,11 @@ const PRODUCT_DETAIL_FAILURE = 'product/PRODUCT_DETAIL_FAILURE';
 const UNLOAD_PRODUCT_DETAIL = 'product/UNLOAD_PRODUCT_DETAIL';
 
 // SECTION : Action Creators
-export const productDetail = createAction(PRODUCT_DETAIL, id => id);
+export const productDetail = createAction(PRODUCT_DETAIL, itemId => itemId);
 export const unloadProductDetail = createAction(UNLOAD_PRODUCT_DETAIL);
 
 // SECTION : 각 action에 대한 saga
-const productDetailSaga = createRequestSaga(PRODUCT_DETAIL, API.productDetail);
+const productDetailSaga = createRequestSaga(PRODUCT_DETAIL, API.getItemDetail);
 
 // SECTION : rootSaga에 전달할 각 action에 대한 saga
 export function* productSaga() {
