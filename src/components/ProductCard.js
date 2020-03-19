@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Elevation from '../styles/Elevation';
 import Colors from '../styles/Colors';
+import Moment from 'react-moment';
 
 const ProductCardBlock = styled.div`
   border-radius: 4px;
@@ -42,29 +43,32 @@ const ProductCardBlock = styled.div`
   }
 `;
 
-const ProductCard = ({ id, owner, name, currentPrice, imageArr }) => {
+const ProductCard = ({ item }) => {
   return (
     <ProductCardBlock>
-      <Link to={`/products/${id}?owner=${owner}`}>
+      <Link to={`/products/${item?.itemId}?owner=${item?.seller?.memberId}`}>
         <div className="product-img">
           <img
             src={`${
-              imageArr?.length > 0
-                ? imageArr[0]
+              item?.imagePath?.length > 0
+                ? item?.imagePath[0]
                 : 'https://www.yokogawa.com/public/img/default_image.png'
             }`}
             alt="이미지"
           />
         </div>
         <div className="product-data">
-          <h5 className="product-title">{name}</h5>
+          <h5 className="product-title">{item.itemName}</h5>
           <div className="auction-data">
             <div className="price">
               <h6>현재 가격</h6>
-              <h5>{currentPrice}</h5>
+              <h5>{item?.currentPrice}</h5>
             </div>
             <div className="limit-time">
-              <h6>0d 00h 00m</h6>
+              <h6>
+                <Moment date={item?.endDt} tz="Asia/Seoul" fromNow /> 종료{' '}
+              </h6>
+              {/* {item?.endDt} */}
             </div>
           </div>
         </div>

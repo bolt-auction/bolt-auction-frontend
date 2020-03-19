@@ -200,7 +200,7 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
                             .format('YYYY-MM-DD[T]HH:mm:ss');
                           dateFormat = new Date(dateFormat);
                           return (
-                            <Moment fromNow ago>
+                            <Moment fromNow ago tz="Asia/Seoul">
                               {dateFormat}
                             </Moment>
                           );
