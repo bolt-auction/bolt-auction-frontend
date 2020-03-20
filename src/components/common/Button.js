@@ -106,14 +106,23 @@ const StyledButton = styled.button`
 const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
-
+/**
+ * <Button /> 랜더링 (default: text style)
+ * @param {object} props
+ * @param {string} [props.to] - to가 존재 하는경우 StyledLink로 반환합니다.
+ * @param {boolean} [props.roundShape] - 둥근 모양의 버튼으로 랜더링합니다.
+ * @param {boolean} [props.fullWidth] - 버튼의 크기를 최대 넓이로 랜더링합니다.
+ * @param {boolean} [props.primary] - 버튼을 primary색으로 랜더링합니다.
+ * @param {boolean} [props.kakao] - 버튼을 카카오색으로 랜더링합니다.
+ * @param {boolean} [props.outline] - 버튼을 아웃라인 스타일로 랜더링합니다.
+ */
 const Button = props => {
   return props.to ? (
     <StyledLink
       {...props}
-      // primary={props.primary ? 1 : 0}
-      // kakao={props.kakao ? 1 : 0}
-      // outline={props.outline ? 1 : 0}
+      primary={props.primary ? 1 : 0}
+      kakao={props.kakao ? 1 : 0}
+      outline={props.outline ? 1 : 0}
     />
   ) : (
     <StyledButton

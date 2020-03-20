@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { productDetail, unloadProductDetail } from '../modules/product';
+import {
+  getProductDetail,
+  getBidList,
+  unloadProductDetail,
+} from '../modules/product';
 import ProductDetail from '../components/detail/ProductDetail';
 import { deleteItem } from '../lib/api';
 
@@ -10,19 +14,27 @@ const ProductsDetailContainer = withRouter(
     match,
     history,
     detail,
-    error,
+    detailError,
+    bidList,
+    bidListError,
     userId,
     loading,
-    productDetail,
+    getProductDetail,
+    getBidList,
     unloadProductDetail,
   }) => {
     const { itemId } = match.params;
+
     useEffect(() => {
-      productDetail(itemId);
+      getProductDetail(itemId);
       return () => {
         unloadProductDetail();
       };
-    }, [productDetail, itemId, unloadProductDetail]);
+    }, [itemId, getProductDetail, unloadProductDetail]);
+
+    useEffect(() => {
+      getBidList(itemId);
+    }, [itemId, getBidList]);
 
     const onRemoveProduct = async () => {
       try {
@@ -40,7 +52,9 @@ const ProductsDetailContainer = withRouter(
     return (
       <ProductDetail
         detail={detail}
-        error={error}
+        detailError={detailError}
+        bidList={bidList}
+        bidListError={bidListError}
         loading={loading}
         onRemoveProduct={ownProduct && onRemoveProduct}
       />
@@ -52,12 +66,15 @@ export default React.memo(
   connect(
     ({ product, auth, loading }) => ({
       detail: product.detail,
-      error: product.error,
+      detailError: product.detailError,
+      bidList: product.bidList,
+      bidListError: product.bidListError,
       userId: auth.user.id,
       loading: loading['product/PRODUCT_DETAIL'],
     }),
     {
-      productDetail,
+      getProductDetail,
+      getBidList,
       unloadProductDetail,
     },
   )(ProductsDetailContainer),
