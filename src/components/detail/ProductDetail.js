@@ -67,11 +67,17 @@ const DropdownMenu = styled.div`
   }
 `;
 
-const ProductDetail = ({ detail, error, loading, onRemoveProduct }) => {
+const ProductDetail = ({
+  detail,
+  detailError,
+  bidList,
+  loading,
+  onRemoveProduct,
+}) => {
   const menuEl = useRef(null);
 
-  if (error) {
-    if (error.response && error.response.status === 404) {
+  if (detailError) {
+    if (detailError.response && detailError.response.status === 404) {
       return <ContentSection>존재하지 않는 상품입니다.</ContentSection>;
     }
     return <ContentSection>오류가 발생했어요 ㅠㅠ</ContentSection>;
@@ -85,6 +91,7 @@ const ProductDetail = ({ detail, error, loading, onRemoveProduct }) => {
     itemName,
     quickPrice,
     currentPrice,
+    createDt,
     endDt,
     category,
     description,
@@ -152,6 +159,8 @@ const ProductDetail = ({ detail, error, loading, onRemoveProduct }) => {
             endDt={endDt}
             bidCount={bidCount}
             seller={seller}
+            createDt={createDt}
+            bidList={bidList}
           />
         </Row>
         <Row>
@@ -161,7 +170,9 @@ const ProductDetail = ({ detail, error, loading, onRemoveProduct }) => {
           <Divider thick="1px" margin="0.75rem" />
         </Row>
         <Row>
-          <Col className="product-description">{description}</Col>
+          <Col className="product-description">
+            <p>{description}</p>
+          </Col>
         </Row>
         <Row>
           <Col className="sub-title">

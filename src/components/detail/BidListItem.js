@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 
-import { priceFormat } from '../../lib/util';
-
 import Typography from '../../styles/Typography';
 import Colors from '../../styles/Colors';
+import PriceFormat from '../common/PriceFormat';
 import Divider from '../common/Divider';
 
 const BidListItemBlock = styled.div`
@@ -31,20 +30,24 @@ const BidListItemBlock = styled.div`
   }
 `;
 
-const BidListItem = () => {
+const BidListItem = ({ member, price, createDt }) => {
   return (
     <>
       <BidListItemBlock>
         <img
-          src="https://via.placeholder.com/48x48"
+          src="https://via.placeholder.com/48x48?text=USER"
           alt="프로필 이미지"
           style={{ width: '48px' }}
         />
         <div>
-          <h4 className="bid-user">사용자 아이디</h4>
-          <Moment className="bid-date" format="YYYY-MM-DD HH:mm.ss" />
+          <h4 className="bid-user">{member.memberName}</h4>
+          <Moment
+            className="bid-date"
+            date={createDt}
+            format="YYYY-MM-DD HH:mm.ss"
+          />
         </div>
-        <p className="bid-price">{priceFormat(10000)}원</p>
+        <PriceFormat className="bid-price" price={price} />
       </BidListItemBlock>
       <Divider thick="1px" />
     </>

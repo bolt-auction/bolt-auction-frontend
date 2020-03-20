@@ -8,7 +8,7 @@ import StoreReviews from './StoreReviews';
 import * as Styled from '../styles/Styled';
 // import Colors from '../styles/Colors';
 
-import { Container, Row, Col, ScreenBadge } from 'react-awesome-styled-grid';
+import { Container, Row, Col } from 'react-awesome-styled-grid';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -101,7 +101,6 @@ const Store = ({
       </Styled.Title>
       <Styled.ContentsBox>
         <Container className="profile">
-          <ScreenBadge />
           <Row style={{ height: 200, marginBottom: 25 }}>
             <Col
               align="center"

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { FaHeart } from 'react-icons/fa';
 import Colors from '../styles/Colors';
+// import { FaHeart } from 'react-icons/fa';
 
 const CategoriesBlock = styled.div`
   .category,
