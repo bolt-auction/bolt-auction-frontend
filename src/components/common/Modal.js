@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { MdClose } from 'react-icons/md';
@@ -38,7 +38,7 @@ const ModalBlock = styled.div`
   z-index: 40;
 `;
 
-const ModalTitle = styled.div`
+const ModalHeader = styled.div`
   height: 56px;
   padding: 0.75rem 1rem;
   display: flex;
@@ -71,18 +71,41 @@ const ModalBody = styled.div`
   /* align-items: center; */
 `;
 
-const Modal = ({ randomBg, title, children, handleModal }) => {
+/*
+ * FIXME:
+ *  모달이 랜더링 될때 root의 position을 fixed해서 스크롤링을 막았으나
+ *  fixed하기 때문에 위치를 잃어 버리고 최상단으로 이동한다. 때문에 구현방식을 바꿔야함
+ */
+/**
+ * 모달을 랜더링 합니다.
+ * @param {object} props
+ * @param {string} props.title - 모달 타이틀
+ * @param {boolean} [props.randomBg] - 랜덤 배경 이미지 사용
+ * @param {function} [props.handleModal] - 모달 랜더링 핸들러
+ */
+const Modal = ({ children, title, handleModal, randomBg }) => {
+  useEffect(() => {
+    const rootStyle = document.getElementById('root').style;
+    rootStyle.width = '100%';
+    rootStyle.height = '100%';
+    rootStyle.position = 'fixed';
+    return () => {
+      rootStyle.width = '';
+      rootStyle.height = '';
+      rootStyle.position = '';
+    };
+  }, []);
   return (
     <>
       {randomBg && <BgBlock />}
       {/* <ModalOverlay onClick={handleModal ? handleModal : false}> */}
       <ModalOverlay>
         <ModalBlock>
-          <ModalTitle>
+          <ModalHeader>
             {/* <MdChevronLeft className="back" /> */}
             <h3>{title}</h3>
             {handleModal && <MdClose className="close" onClick={handleModal} />}
-          </ModalTitle>
+          </ModalHeader>
           <ModalBody>{children}</ModalBody>
         </ModalBlock>
       </ModalOverlay>
