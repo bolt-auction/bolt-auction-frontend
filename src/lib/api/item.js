@@ -1,10 +1,10 @@
 import client from './client';
 
 /**
- * 해당 상품아이디의 정보조회
+ * 해당 아이디의 상품정보 조회
  * @param {number} itemId - 상품 아이디
  */
-export const productDetail = itemId => client.get(`/api/item/${itemId}`);
+export const getItemDetail = itemId => client.get(`/api/item/${itemId}`);
 
 /**
  * 상품등록 (authorization)
@@ -34,3 +34,9 @@ export const uploadProduct = ({
     },
   });
 };
+
+/**
+ * 해당 아이디의 상품 삭제
+ * @param {number} itemId - 상품 아이디
+ */
+export const deleteItem = itemId => client.delete(`/api/item/${itemId}`);

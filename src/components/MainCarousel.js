@@ -6,24 +6,31 @@ import Colors from '../styles/Colors';
 
 const CarouselBlock = styled.div`
   width: 100%;
-  height: 384px;
-  background-color: #a9a9a9;
-  background-size: contain;
-  /* overflow: hidden; */
-
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   .carousel {
+    max-width: 1088px;
+    max-height: 300px;
     .control-arrow {
-      width: 36px;
+      width: 32px;
+      &:hover {
+        background-color: transparent;
+      }
     }
-    .control-arrow:hover {
-      background: ${Colors.primaryFocused};
+    & .control-next.control-arrow:before {
+      border-left: 8px solid ${Colors.onSurfaceMedium};
+    }
+    & .control-prev.control-arrow:before {
+      border-right: 8px solid ${Colors.onSurfaceMedium};
     }
     .slide {
-      background-color: #fff;
+      background-color: transparent;
     }
     img {
       max-width: 1024px;
-      height: 384px;
+      max-height: 300px;
     }
   }
 `;
@@ -34,27 +41,51 @@ const MainCarousel = () => {
       <Carousel
         showArrows={true}
         infiniteLoop={true}
-        showStatus={false}
         autoPlay={true}
         emulateTouch={true}
+        showStatus={false}
         showThumbs={false}
       >
         <div>
           <img
+            src="https://via.placeholder.com/1024x300/FFFAFA/000000?text=1024x300+Carousel+1"
+            alt="Carousel 1"
+          />
+        </div>
+        <div>
+          <img
+            src="https://via.placeholder.com/1024x300/F0FFF0/000000?text=1024x300+Carousel+2"
+            alt="Carousel 2"
+          />
+        </div>
+        <div>
+          <img
+            src="https://via.placeholder.com/1024x300/F5FFFA/000000?text=1024x300+Carousel+3"
+            alt="Carousel 3"
+          />
+        </div>
+        <div>
+          <img
+            src="https://via.placeholder.com/1024x300/F0FFFF/000000?text=1024x300+Carousel+4"
+            alt="Carousel 4"
+          />
+        </div>
+        <div>
+          <img
             src="https://media.bunjang.co.kr/images/nocrop/433923859.jpg"
-            alt="dd"
+            alt="Carousel 5"
           />
         </div>
         <div>
           <img
             src="https://media.bunjang.co.kr/images/nocrop/431881862.jpg"
-            alt="dd"
+            alt="Carousel 6"
           />
         </div>
         <div>
           <img
             src="https://media.bunjang.co.kr/images/nocrop/415809298.jpg"
-            alt="dd"
+            alt="Carousel 7"
           />
         </div>
       </Carousel>

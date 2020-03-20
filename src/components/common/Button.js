@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import Colors from '../../styles/Colors';
 import Elevation from '../../styles/Elevation';
 
-// TODO: text 스타일 버튼 추가
+// TODO: [x]text 스타일 버튼 추가
 const buttonStyle = css`
   font-size: 1rem;
   font-weight: 600;
@@ -18,22 +18,19 @@ const buttonStyle = css`
   min-width: 96px;
   outline: none;
   cursor: pointer;
-  background: ${Colors.gray[7]};
-  box-shadow: ${Elevation.z2};
-  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
-    background: ${Colors.gray[6]};
-    box-shadow: ${Elevation.z4};
+    background-color: ${Colors.primaryHover};
   }
   &,
   &:visited {
-    color: ${Colors.surface};
+    color: ${Colors.primary};
   }
   &:disabled {
-    background: ${Colors.gray[1]};
+    &,
+    &:hover {
     color: ${Colors.gray[4]};
+    background-color: ${Colors.gray[1]};
     cursor: not-allowed;
-    &, &:hover {
     box-shadow: none;
   }
   }
@@ -51,56 +48,55 @@ const buttonStyle = css`
       font-size: 1.125rem;
     `}
   ${props =>
+    (props.primary || props.kakao) &&
+    css`
+      box-shadow: ${Elevation.z2};
+      transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+      &:hover {
+        box-shadow: ${Elevation.z4};
+      }
+    `}
+  ${props =>
     props.primary &&
     css`
-      background: ${Colors.primary};
+      background-color: ${Colors.primary};
+      &,
+      &:visited {
+        color: ${Colors.surface};
+      }
       &:hover {
-        background: ${Colors.primaryMatte[5]};
+        background-color: ${Colors.primaryMatte[5]};
       }
     `}
   ${props =>
     props.kakao &&
     css`
-      background: ${Colors.kakao[0]};
+      background-color: ${Colors.kakao[0]};
       &,
       &:visited {
         color: ${Colors.kakao[2]};
       }
       &:hover {
-        background: ${Colors.kakao[1]};
+        background-color: ${Colors.kakao[1]};
       }
     `}
-    ${props =>
-      props.outLine &&
-      css`
-        background: ${Colors.surface};
-        border: 1px solid ${Colors.primary};
-        min-height: 24px;
-        padding: 0rem 1rem;
-        &,
-        &:hover,
-        &:visited {
-          box-shadow: none;
-          color: ${Colors.primary};
-        }
-        &:hover {
-          background: ${Colors.primaryHover};
-        }
-      `}
-      ${props =>
-        props.textStyle &&
-        css`
-          background: ${Colors.surface};
-          &,
-          &:hover,
-          &:visited {
-            box-shadow: none;
-            color: ${Colors.primary};
-          }
-          &:hover {
-            background: ${Colors.primaryHover};
-          }
-        `}
+  ${props =>
+    props.outline &&
+    css`
+      background-color: ${Colors.surface};
+      border: 1px solid ${Colors.primary};
+      min-height: 24px;
+      padding: 0rem 1rem;
+      &,
+      &:hover,
+      &:visited {
+        box-shadow: none;
+        color: ${Colors.primary};
+      }
+      &:hover {
+        background-color: ${Colors.primaryHover};
+      }
+    `}
 `;
 
 const StyledButton = styled.button`
@@ -115,13 +111,17 @@ const Button = props => {
   return props.to ? (
     <StyledLink
       {...props}
-      primary={props.primary ? 1 : 0}
-      kakao={props.kakao ? 1 : 0}
-      outLine={props.outLine ? 1 : 0}
-      textStyle={props.textStyle ? 1 : 0}
+      // primary={props.primary ? 1 : 0}
+      // kakao={props.kakao ? 1 : 0}
+      // outline={props.outline ? 1 : 0}
     />
   ) : (
-    <StyledButton {...props} />
+    <StyledButton
+      {...props}
+      // primary={props.primary ? 1 : 0}
+      // kakao={props.kakao ? 1 : 0}
+      // outline={props.outline ? 1 : 0}
+    />
   );
 };
 

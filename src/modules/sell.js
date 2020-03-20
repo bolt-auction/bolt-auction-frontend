@@ -75,10 +75,6 @@ const sell = handleActions(
         draft.sellForm[key] = value;
       }),
     [INITIALIZE_FORM]: state => initialState,
-    // [SELL_PRODUCT]: (state, { payload: { sellForm: endDt } }) => ({
-    //   ...state,
-    //   endDt: calEndTime(endDt),
-    // }),
     [SELL_PRODUCT_SUCCESS]: (state, { payload: { itemId } }) => ({
       ...state,
       itemId,

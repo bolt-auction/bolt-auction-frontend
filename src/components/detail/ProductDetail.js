@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Col, Container, Row } from 'react-awesome-styled-grid';
 import { Carousel } from 'react-responsive-carousel';
 
-// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
+import Elevation from '../../styles/Elevation';
 import ContentSection from '../common/ContentSection';
 import Divider from '../common/Divider';
 import DetailData from './DetailData';
@@ -22,27 +22,54 @@ const ProductDetailBlock = styled(Container)`
     ${Typography.Headline6};
     color: ${Colors.onSurfaceMedium};
   }
-
   .sub-title {
     margin-top: 2rem;
-    /* padding-left: 8rem;
-    padding-right: 8rem; */
   }
-
   .product-img {
     height: 100%;
     display: flex;
     align-items: center;
   }
-
   .product-description {
     height: 128px;
     padding-left: 2rem;
     padding-right: 2rem;
   }
+  .dropdown-menu {
+    margin-left: auto;
+    cursor: pointer;
+    color: ${Colors.onSurfaceMedium};
+  }
 `;
 
-const ProductDetail = ({ detail, userId, error, loading }) => {
+const DropdownMenu = styled.div`
+  width: 112px;
+  padding: 8px 1px;
+  z-index: 50;
+  position: absolute;
+  display: none;
+  top: 1.5rem;
+  left: -2rem;
+  border-radius: 4px;
+  background-color: ${Colors.surface};
+  box-shadow: ${Elevation.z8};
+  .menu-item {
+    height: 2rem;
+    padding: 0rem 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: ${Colors.onSurfaceHigh};
+    &:hover {
+      color: ${Colors.primary};
+      background-color: ${Colors.primarySelect};
+    }
+  }
+`;
+
+const ProductDetail = ({ detail, error, loading, onRemoveProduct }) => {
+  const menuEl = useRef(null);
+
   if (error) {
     if (error.response && error.response.status === 404) {
       return <ContentSection>존재하지 않는 상품입니다.</ContentSection>;
@@ -73,11 +100,33 @@ const ProductDetail = ({ detail, userId, error, loading }) => {
           <Col className="category-name" xs={1} sm={1} md={2} lg={2}>
             {category.name}
           </Col>
-          <Col justify="center" xs={1} sm={1} md={1} lg={1}>
-            {seller.memberId === userId && (
-              <MdMoreVert style={{ marginLeft: 'auto', cursor: 'pointer' }} />
-            )}
-          </Col>
+          {onRemoveProduct && (
+            <Col
+              justify="center"
+              xs={1}
+              sm={1}
+              md={1}
+              lg={1}
+              style={{ position: 'relative' }}
+            >
+              <MdMoreVert
+                className="dropdown-menu"
+                onClick={() => {
+                  menuEl.current.style.display = 'block';
+                }}
+              />
+              <DropdownMenu
+                ref={menuEl}
+                onMouseLeave={() => {
+                  menuEl.current.style.display = 'none';
+                }}
+              >
+                <div className="menu-item" onClick={onRemoveProduct}>
+                  삭제
+                </div>
+              </DropdownMenu>
+            </Col>
+          )}
         </Row>
         <Divider />
         <Row>
@@ -89,9 +138,9 @@ const ProductDetail = ({ detail, userId, error, loading }) => {
               emulateTouch={true}
             >
               {imagePath &&
-                imagePath.map(image => (
-                  <div className="product-img">
-                    <img alt="상품 이미지" src={image} />
+                imagePath.map((image, i) => (
+                  <div className="product-img" key={i}>
+                    <img alt={`상품 이미지 ${i}`} src={image} />
                   </div>
                 ))}
             </Carousel>

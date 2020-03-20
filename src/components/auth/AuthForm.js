@@ -5,8 +5,9 @@ import Colors from '../../styles/Colors';
 import Button from '../common/Button';
 import Modal from '../common/Modal';
 import TextField from '../common/TextField';
+import Welcome from './Welcome';
 
-/**
+/*
  * TODO:
  *  []로그인 페이지일때 상단에 안내 메시지, 이미지 추가
  *  []회원가입 할때 개인정보 이용 동의, 약관 동의 체크 버튼 추가
@@ -15,6 +16,7 @@ import TextField from '../common/TextField';
  */
 
 const AuthFormBlock = styled.div`
+  width: 100%;
   h3 {
     margin: 0;
     color: ${Colors.gray[8]};
@@ -67,9 +69,9 @@ const ErrorMessage = styled.div`
 const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
   return (
-    <Modal randomBg>
+    <Modal randomBg title={text}>
+      {type === 'signin' && <Welcome />}
       <AuthFormBlock>
-        <h3>{text}</h3>
         <form onSubmit={onSubmit}>
           <TextField
             name="uid"
@@ -117,7 +119,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           </ButtonWithMarginTop>
         </form>
         {type === 'signin' && (
-          <ButtonWithMarginTop kakao fullWidth>
+          <ButtonWithMarginTop kakao fullWidth disabled>
             카카오톡으로 로그인
           </ButtonWithMarginTop>
         )}

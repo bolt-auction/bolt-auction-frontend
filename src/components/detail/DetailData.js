@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row } from 'react-awesome-styled-grid';
 import styled from 'styled-components';
 import Moment from 'react-moment';
+
 import { priceFormat } from '../../lib/util';
 
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
 import Button from '../common/Button';
 import Divider from '../common/Divider';
+import ModalPortal from '../common/ModalPortal';
+import BidListModal from './BidListModal';
+import BidModal from './BidModal';
 
 /*
  * FIXME:
@@ -58,9 +62,9 @@ const DetailDataBlock = styled(Col)`
     /* width: 100%; */
     min-width: 128px;
     display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
-    justify-content: space-around;
-
     img {
       border-radius: 50%;
     }
@@ -75,6 +79,22 @@ const DetailData = ({
   bidCount,
   seller,
 }) => {
+  const [modal, setModal] = useState(false);
+  const handleModal = () => {
+    const rootStyle = document.getElementById('root').style;
+    if (!modal) {
+      setModal(true);
+      rootStyle.width = '100%';
+      rootStyle.height = '100%';
+      rootStyle.position = 'fixed';
+    } else {
+      setModal(false);
+      rootStyle.width = '';
+      rootStyle.height = '';
+      rootStyle.position = '';
+    }
+  };
+
   return (
     <DetailDataBlock justify="center" xs={4} sm={5} md={7} lg={7}>
       <Row align="center">
@@ -126,7 +146,15 @@ const DetailData = ({
           <p>{bidCount}회</p>
         </Col>
         <Col xs={1} sm={2} md={2} lg={2}>
-          <Button outLine>입찰기록</Button>
+          <Button outline>입찰기록</Button>
+          <Button outline onClick={handleModal}>
+            입찰기록
+          </Button>
+          {modal && (
+            <ModalPortal>
+              <BidListModal handleModal={handleModal} />
+            </ModalPortal>
+          )}
         </Col>
       </Row>
       <Divider thick="1px" />
@@ -135,7 +163,14 @@ const DetailData = ({
           <Button disabled>즉시낙찰</Button>
         </Col>
         <Col xs={2} sm={3} md={6} lg={6}>
-          <Button primary>입찰하기</Button>
+          <Button primary onClick={handleModal}>
+            입찰하기
+          </Button>
+          {/* {modal && (
+            <ModalPortal>
+              <BidModal handleModal={handleModal} />
+            </ModalPortal>
+          )} */}
         </Col>
       </Row>
     </DetailDataBlock>
