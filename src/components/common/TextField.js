@@ -126,7 +126,7 @@ const TextField = props => {
           autoComplete={autoComplete}
           onChange={onChange}
           value={value}
-          maxLength="255"
+          maxLength="500"
           rows="8"
         ></textarea>
       </div>

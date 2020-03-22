@@ -6,7 +6,7 @@ import Sell from '../components/sell/Sell';
 import { changeField, initializeForm, sellProduct } from '../modules/sell';
 import { calEndTime } from '../lib/util';
 
-/**
+/*
  * TODO:
  *  [x]카테고리 리스트 받아오기
  *  [x]제출성공 후 해당 상품 페이지로 이동
@@ -18,6 +18,7 @@ import { calEndTime } from '../lib/util';
  *    [x]모든 양식이 채워졌는지
  *  []에러 메시지 랜더링
  */
+
 /**
  * Sell Container
  */

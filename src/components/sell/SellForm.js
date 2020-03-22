@@ -53,6 +53,7 @@ const SellForm = ({
             autoComplete="name"
             placeholder="상품명"
             type="text"
+            maxLength="64"
             onChange={onChange}
             value={name}
           />

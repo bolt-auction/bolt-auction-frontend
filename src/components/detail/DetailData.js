@@ -8,8 +8,8 @@ import Typography from '../../styles/Typography';
 import PriceFormat from '../common/PriceFormat';
 import Button from '../common/Button';
 import Divider from '../common/Divider';
-import ModalPortal from '../common/ModalPortal';
 import BidModal from './BidModal';
+// import ModalPortal from '../common/ModalPortal';
 
 /*
  * FIXME:
@@ -57,7 +57,7 @@ const DetailDataBlock = styled(Col)`
   }
 
   .seller {
-    min-width: 128px;
+    min-width: 144px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -69,14 +69,17 @@ const DetailDataBlock = styled(Col)`
 `;
 
 const DetailData = ({
+  seller,
   itemName,
-  quickPrice,
   currentPrice,
+  quickPrice,
+  minBidPrice,
   endDt,
   bidCount,
-  seller,
-  createDt,
+  bidPrice,
   bidList,
+  onChangeBidField,
+  onSubmitBid,
 }) => {
   const [bidModal, setBidModal] = useState(false);
   const [bidListModal, setBidListModal] = useState(false);
@@ -87,7 +90,11 @@ const DetailData = ({
         <Col xs={1} sm={2} md={4} lg={4}>
           <div className="seller">
             <img
-              src="https://via.placeholder.com/48x48?text=USER"
+              src={
+                seller.memberImagePath
+                  ? seller.memberImagePath
+                  : `https://avatars.dicebear.com/v2/identicon/${seller.memberName}${seller.memberId}.svg`
+              }
               alt={seller.memberName}
               style={{ width: '48px' }}
             />
@@ -140,14 +147,12 @@ const DetailData = ({
             입찰기록
           </Button>
           {bidListModal && (
-            <ModalPortal>
-              <BidModal
-                type="bidList"
-                isVisible={bidListModal}
-                setIsVisible={setBidListModal}
-                bidList={bidList}
-              />
-            </ModalPortal>
+            <BidModal
+              type="bidList"
+              isVisible={bidListModal}
+              setIsVisible={setBidListModal}
+              bidList={bidList}
+            />
           )}
         </Col>
       </Row>
@@ -161,19 +166,19 @@ const DetailData = ({
             입찰하기
           </Button>
           {bidModal && (
-            <ModalPortal>
-              <BidModal
-                type="bid"
-                isVisible={bidModal}
-                setIsVisible={setBidModal}
-                itemName={itemName}
-                quickPrice={quickPrice}
-                currentPrice={currentPrice}
-                endDt={endDt}
-                bidCount={bidCount}
-                createDt={createDt}
-              />
-            </ModalPortal>
+            <BidModal
+              type="bid"
+              isVisible={bidModal}
+              setIsVisible={setBidModal}
+              endDt={endDt}
+              itemName={itemName}
+              quickPrice={quickPrice}
+              currentPrice={currentPrice}
+              minBidPrice={minBidPrice}
+              bidPrice={bidPrice}
+              onChangeBidField={onChangeBidField}
+              onSubmitBid={onSubmitBid}
+            />
           )}
         </Col>
       </Row>

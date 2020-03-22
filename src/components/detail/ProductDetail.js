@@ -68,11 +68,14 @@ const DropdownMenu = styled.div`
 `;
 
 const ProductDetail = ({
+  loading,
   detail,
   detailError,
+  bidPrice,
   bidList,
-  loading,
+  onChangeBidField,
   onRemoveProduct,
+  onSubmitBid,
 }) => {
   const menuEl = useRef(null);
 
@@ -91,7 +94,7 @@ const ProductDetail = ({
     itemName,
     quickPrice,
     currentPrice,
-    createDt,
+    minBidPrice,
     endDt,
     category,
     description,
@@ -156,11 +159,14 @@ const ProductDetail = ({
             itemName={itemName}
             quickPrice={quickPrice}
             currentPrice={currentPrice}
+            minBidPrice={minBidPrice}
             endDt={endDt}
             bidCount={bidCount}
             seller={seller}
-            createDt={createDt}
             bidList={bidList}
+            bidPrice={bidPrice}
+            onChangeBidField={onChangeBidField}
+            onSubmitBid={onSubmitBid}
           />
         </Row>
         <Row>
