@@ -282,7 +282,7 @@ const ChatRoom = ({
             ref={$records}
             containerHeight={380}
             elementHeight={40}
-            infiniteLoadBeginEdgeOffset={10}
+            infiniteLoadBeginEdgeOffset={200}
             onInfiniteLoad={loadMoreRecords}
             displayBottomUpwards
           >

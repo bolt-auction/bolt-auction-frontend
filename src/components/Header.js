@@ -71,7 +71,7 @@ const HeaderBlock = styled.nav`
       font-weight: 500;
       width: 100%;
       height: 100%;
-      padding: 8px 24px;
+      /* padding: 8px 24px; */
       cursor: pointer;
     }
   }
