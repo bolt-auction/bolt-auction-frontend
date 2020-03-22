@@ -11,5 +11,5 @@ export const getItemBidList = itemId => client.get(`/api/bid/${itemId}`);
  * @param {number} itemId - 상품 아이디
  * @param {number} price - 입찰 가격
  */
-export const postBid = (itemId, price) =>
-  client.post(`/api/bid/${itemId}?price=${price}`);
+export const postBid = ({ itemId, bidPrice }) =>
+  client.post(`/api/bid/${itemId}?price=${bidPrice}`);
