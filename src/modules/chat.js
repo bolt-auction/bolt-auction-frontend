@@ -24,7 +24,7 @@ const SEND = 'chat/SEND';
 const SEND_SUCCESS = 'chat/SEND_SUCCESS';
 const SEND_FAILURE = 'chat/SEND_FAILURE';
 const RECEIVE = 'chat/RECEIVE';
-const RECEIVE_SUCCESS = 'chat/RECEIVE_SUCCESS';
+// const RECEIVE_SUCCESS = 'chat/RECEIVE_SUCCESS';
 
 // const WS_CONNECTED = 'chat/WS_CONNECTED';
 // const WS_DISCONNECTED = 'chat/WS_DISCONNECTED';
@@ -34,6 +34,7 @@ const RECEIVE_SUCCESS = 'chat/RECEIVE_SUCCESS';
 // 채팅 기록 가져오기
 const LOAD_RECORDS = 'chat/LOAD_RECORDS';
 const LOAD_RECORDS_SUCCESS = 'chat/LOAD_RECORDS_SUCCESS';
+// const LOAD_LIST_SUCCESS_MORE = 'chat/LOAD_LIST_SUCCESS_MORE';
 
 // Action Creators
 // 채팅방 목록 가져오기
@@ -93,32 +94,32 @@ const postChatSaga = function*(action) {
   }
 };
 
-const receiveChatSaga = function*(action) {
-  const { msg, records } = action.payload;
+// const receiveChatSaga = function*(action) {
+//   const { msg } = action.payload;
 
-  yield put({
-    type: RECEIVE_SUCCESS,
-    payload: msg,
-  });
-
-  records.scrollTop = records.scrollHeight;
-};
+//   yield put({
+//     type: RECEIVE_SUCCESS,
+//     payload: msg,
+//   });
+// };
 
 // rootSaga에 전달할 Saga
 export function* chatSaga() {
   yield takeLatest(LOAD_LIST, loadListSaga);
+  // yield takeEvery(RECEIVE, receiveChatSaga);
   yield takeLatest(CREATE, createSaga);
   yield takeLatest(CREATE_SUCCESS, loadListSaga);
   yield takeLatest(LOAD_RECORDS, loadRecordsSaga);
+
   yield takeEvery(SEND, postChatSaga);
-  yield takeEvery(RECEIVE, receiveChatSaga);
 }
 
 // initialState
 const initialState = {
   list: [],
   activeRoom: null, // 활성 채팅방
-  roomRecord: [], // 채팅방 대화 기록
+  roomRecord: [], // 채팅방 대화 기록,
+  isMore: false,
 };
 
 // Reducer
@@ -143,10 +144,15 @@ const chat = handleActions(
     [RECEIVE]: (state, action) => ({
       ...state,
       roomRecord: [...state.roomRecord, action.payload.msg],
+      isMore: false,
     }),
     [LOAD_LIST_SUCCESS]: (state, action) => ({
       ...state,
       list: action.payload['_embedded'].chatRoomList,
+    }),
+    [LOAD_RECORDS]: (state, action) => ({
+      ...state,
+      isMore: true,
     }),
     [LOAD_RECORDS_SUCCESS]: (state, action) => ({
       ...state,

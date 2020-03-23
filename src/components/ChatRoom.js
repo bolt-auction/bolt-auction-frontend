@@ -224,18 +224,18 @@ const ChatRoom = ({
   postChat,
   receiveChat,
   loadRecords,
+  isMore,
 }) => {
   const $input = useRef(null);
   const $client = useRef(null);
   const $records = useRef(null);
   const [message, setMessage] = useState('');
   const page = 0;
-  const [size, setSize] = useState(12);
+  const [size, setSize] = useState(24);
   const wsURL = 'http://18.190.79.25:8080/ws-stomp';
 
   const onSubmit = e => {
     e.preventDefault();
-
     try {
       const socket = $client.current;
       const msg = { content: message, chatRoomId: roomId, senderId: myId };
@@ -248,18 +248,28 @@ const ChatRoom = ({
   };
 
   const onMessage = msg => {
-    receiveChat(msg, $records.current);
+    receiveChat(msg);
   };
 
   useEffect(() => {
-    // const socket = $client.current;
     loadRecords(roomId, page, size);
   }, [loadRecords, page, roomId, size]);
 
   const loadMoreRecords = () => {
+    console.log('아왜이렇게');
     setSize(size + 12); // 12개씩 채팅 기록 load
     loadRecords(roomId, page, size);
   };
+
+  // 항상 스크롤이 최하위에 오도록
+  useEffect(() => {
+    if (isMore) {
+      return;
+    }
+    if (!$records.current.scrollable) return;
+    $records.current.scrollable.scrollTop =
+      $records.current.scrollable.scrollHeight;
+  }, [isMore, roomRecord]);
 
   return (
     <Styled.PopUp>
@@ -282,8 +292,11 @@ const ChatRoom = ({
             ref={$records}
             containerHeight={380}
             elementHeight={40}
-            infiniteLoadBeginEdgeOffset={200}
+            infiniteLoadBeginEdgeOffset={100}
             onInfiniteLoad={loadMoreRecords}
+            preloadBatchSize={Infinite.containerHeightScaleFactor(2)}
+            preloadAdditionalHeight={Infinite.containerHeightScaleFactor(2)}
+            timeScrollStateLastsForAfterUserScrolls={1000}
             displayBottomUpwards
           >
             {roomRecord?.map((rec, idx, recs) => {
