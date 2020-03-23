@@ -54,6 +54,7 @@ export function* sellSaga() {
 // SECTION : Initial State
 const initialState = {
   sellForm: {
+    supCategoryId: '',
     categoryId: '',
     name: '',
     quickPrice: '',

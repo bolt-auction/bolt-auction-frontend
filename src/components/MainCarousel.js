@@ -70,24 +70,6 @@ const MainCarousel = () => {
             alt="Carousel 4"
           />
         </div>
-        <div>
-          <img
-            src="https://media.bunjang.co.kr/images/nocrop/433923859.jpg"
-            alt="Carousel 5"
-          />
-        </div>
-        <div>
-          <img
-            src="https://media.bunjang.co.kr/images/nocrop/431881862.jpg"
-            alt="Carousel 6"
-          />
-        </div>
-        <div>
-          <img
-            src="https://media.bunjang.co.kr/images/nocrop/415809298.jpg"
-            alt="Carousel 7"
-          />
-        </div>
       </Carousel>
     </CarouselBlock>
   );

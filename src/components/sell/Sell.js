@@ -15,11 +15,12 @@ const Sell = ({
   sellForm,
   categoryList,
   onChange,
+  onChangeFile,
   onSubmit,
-  handleChangeFile,
   imgBase64,
 }) => {
   const {
+    supCategoryId,
     categoryId,
     name,
     quickPrice,
@@ -51,13 +52,14 @@ const Sell = ({
                 type="file"
                 accept="image/.jpg, .jpeg, .png"
                 multiple
-                onChange={handleChangeFile}
+                onChange={onChangeFile}
               />
             </Col>
           </Row>
           <Divider margin="2rem" />
           <SellForm
             categoryList={categoryList}
+            supCategoryId={supCategoryId}
             categoryId={categoryId}
             name={name}
             quickPrice={quickPrice}
