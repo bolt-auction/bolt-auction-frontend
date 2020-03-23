@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -11,17 +11,15 @@ import { calEndTime } from '../lib/util';
  *  [x]카테고리 리스트 받아오기
  *  [x]제출성공 후 해당 상품 페이지로 이동
  *  [x]이미지 업로드 기능
- *  []업로드할 이미지 미리보기
- *  []상품이미지 업로드 4개로 제한
+ *  [x]업로드할 이미지 미리보기
+ *  [x]상품이미지 업로드 4개로 제한
+ *  []원하는 이미지 삭제 하기
  *  []밸리데이션 추가
  *    []숫자만 존재하는지
  *    [x]모든 양식이 채워졌는지
  *  []에러 메시지 랜더링
  */
 
-/**
- * Sell Container
- */
 const SellContainer = withRouter(
   ({
     history,
@@ -33,13 +31,50 @@ const SellContainer = withRouter(
     error,
     itemId,
   }) => {
-    const onChange = e => {
-      const { value, name, files } = e.target;
-      if (files)
-        return changeField({
-          key: name,
-          value: [...files],
+    const [imgBase64, setImgBase64] = useState([]);
+    const onChangeFile = e => {
+      const { files } = e.target;
+      const imageFiles = [...sellForm.images, ...files];
+      // 선택한 이미지의 개수가 4개 이상일 경우 초기화
+      if (imageFiles.length > 4) {
+        e.target.value = '';
+        return alert('최대 4개의 이미지만 업로드 가능합니다.');
+      }
+      // 이미지를 선택 안하고 취소했을시 초기화
+      if (imageFiles.length === 0) {
+        setImgBase64([]);
+        changeField({
+          key: 'images',
+          value: [],
         });
+      }
+      if (imageFiles) {
+        let images = [];
+        imageFiles.forEach(file => {
+          let reader = new FileReader();
+          reader.onloadend = () => {
+            images = [...images, reader.result];
+            setImgBase64(images);
+          };
+          reader.readAsDataURL(file);
+        });
+        changeField({
+          key: 'images',
+          value: imageFiles,
+        });
+      }
+      e.target.value = '';
+    };
+
+    const onChange = e => {
+      const { value, name } = e.target;
+      // 상위 카테고리가 변경될 경우 세부 카테고리를 초기화
+      if (name === 'supCategoryId') {
+        changeField({
+          key: 'categoryId',
+          value: '',
+        });
+      }
       changeField({
         key: name,
         value,
@@ -103,8 +138,10 @@ const SellContainer = withRouter(
       <Sell
         sellForm={sellForm}
         onChange={onChange}
+        onChangeFile={onChangeFile}
         onSubmit={onSubmit}
         categoryList={categoryList}
+        imgBase64={imgBase64}
       />
     );
   },

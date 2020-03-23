@@ -22,6 +22,7 @@ const ColWithMarginTop = styled(Col)`
 
 const SellForm = ({
   categoryList,
+  supCategoryId,
   categoryId,
   name,
   quickPrice,
@@ -35,12 +36,27 @@ const SellForm = ({
     <>
       <RowWithMarginTop>
         <Col xs="2" sm="2" md="3">
-          <Select name="categoryId" onChange={onChange} value={categoryId}>
+          <Select
+            name="supCategoryId"
+            onChange={onChange}
+            value={supCategoryId}
+          >
             <option value="">카테고리</option>
             {categoryList &&
-              categoryList.map(cat => (
-                <option key={cat.id} value={cat.id}>
+              categoryList.map((cat, i) => (
+                <option key={cat.id} value={i}>
                   {cat.name}
+                </option>
+              ))}
+          </Select>
+        </Col>
+        <Col xs="2" sm="2" md="3">
+          <Select name="categoryId" onChange={onChange} value={categoryId}>
+            <option value="">세부 카테고리</option>
+            {supCategoryId &&
+              categoryList[supCategoryId].subCategoryList.map(subCat => (
+                <option key={subCat.id} value={subCat.id}>
+                  {subCat.name}
                 </option>
               ))}
           </Select>
@@ -88,7 +104,7 @@ const SellForm = ({
         </ColWithMarginTop>
         <ColWithMarginTop xs="4" sm="4" md="3" lg="3">
           <Select name="minBidPrice" onChange={onChange} value={minBidPrice}>
-            <option value="">최소 입찰단위</option>
+            <option value="">입찰단위</option>
             <option value="100">100원</option>
             <option value="1000">1,000원</option>
             <option value="5000">5,000원</option>
