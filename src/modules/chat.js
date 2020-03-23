@@ -34,6 +34,7 @@ const RECEIVE = 'chat/RECEIVE';
 // 채팅 기록 가져오기
 const LOAD_RECORDS = 'chat/LOAD_RECORDS';
 const LOAD_RECORDS_SUCCESS = 'chat/LOAD_RECORDS_SUCCESS';
+// const LOAD_LIST_SUCCESS_MORE = 'chat/LOAD_LIST_SUCCESS_MORE';
 
 // Action Creators
 // 채팅방 목록 가져오기
@@ -109,6 +110,7 @@ export function* chatSaga() {
   yield takeLatest(CREATE, createSaga);
   yield takeLatest(CREATE_SUCCESS, loadListSaga);
   yield takeLatest(LOAD_RECORDS, loadRecordsSaga);
+
   yield takeEvery(SEND, postChatSaga);
 }
 
@@ -116,7 +118,8 @@ export function* chatSaga() {
 const initialState = {
   list: [],
   activeRoom: null, // 활성 채팅방
-  roomRecord: [], // 채팅방 대화 기록
+  roomRecord: [], // 채팅방 대화 기록,
+  isMore: false,
 };
 
 // Reducer
@@ -141,10 +144,15 @@ const chat = handleActions(
     [RECEIVE]: (state, action) => ({
       ...state,
       roomRecord: [...state.roomRecord, action.payload.msg],
+      isMore: false,
     }),
     [LOAD_LIST_SUCCESS]: (state, action) => ({
       ...state,
       list: action.payload['_embedded'].chatRoomList,
+    }),
+    [LOAD_RECORDS]: (state, action) => ({
+      ...state,
+      isMore: true,
     }),
     [LOAD_RECORDS_SUCCESS]: (state, action) => ({
       ...state,

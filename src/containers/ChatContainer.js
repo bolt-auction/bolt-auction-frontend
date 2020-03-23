@@ -23,6 +23,7 @@ const ChatContainer = ({
   receive,
   loadList,
   loadRecords,
+  isMore,
 }) => {
   return activeRoom ? (
     <ChatRoom
@@ -35,6 +36,7 @@ const ChatContainer = ({
       room={activeRoom}
       myId={user?.id}
       loadRecords={loadRecords}
+      isMore={isMore}
     />
   ) : (
     <ChatList
@@ -53,6 +55,7 @@ export default React.memo(
       list: chat.list,
       activeRoom: chat.activeRoom,
       roomRecord: chat.roomRecord,
+      isMore: chat.isMore,
     }),
     {
       enter,
