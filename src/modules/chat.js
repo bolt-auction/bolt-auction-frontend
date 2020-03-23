@@ -24,7 +24,7 @@ const SEND = 'chat/SEND';
 const SEND_SUCCESS = 'chat/SEND_SUCCESS';
 const SEND_FAILURE = 'chat/SEND_FAILURE';
 const RECEIVE = 'chat/RECEIVE';
-const RECEIVE_SUCCESS = 'chat/RECEIVE_SUCCESS';
+// const RECEIVE_SUCCESS = 'chat/RECEIVE_SUCCESS';
 
 // const WS_CONNECTED = 'chat/WS_CONNECTED';
 // const WS_DISCONNECTED = 'chat/WS_DISCONNECTED';
@@ -93,25 +93,23 @@ const postChatSaga = function*(action) {
   }
 };
 
-const receiveChatSaga = function*(action) {
-  const { msg, records } = action.payload;
+// const receiveChatSaga = function*(action) {
+//   const { msg } = action.payload;
 
-  yield put({
-    type: RECEIVE_SUCCESS,
-    payload: msg,
-  });
-
-  records.scrollTop = records.scrollHeight;
-};
+//   yield put({
+//     type: RECEIVE_SUCCESS,
+//     payload: msg,
+//   });
+// };
 
 // rootSaga에 전달할 Saga
 export function* chatSaga() {
   yield takeLatest(LOAD_LIST, loadListSaga);
+  // yield takeEvery(RECEIVE, receiveChatSaga);
   yield takeLatest(CREATE, createSaga);
   yield takeLatest(CREATE_SUCCESS, loadListSaga);
   yield takeLatest(LOAD_RECORDS, loadRecordsSaga);
   yield takeEvery(SEND, postChatSaga);
-  yield takeEvery(RECEIVE, receiveChatSaga);
 }
 
 // initialState

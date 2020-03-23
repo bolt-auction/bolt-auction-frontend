@@ -235,7 +235,6 @@ const ChatRoom = ({
 
   const onSubmit = e => {
     e.preventDefault();
-
     try {
       const socket = $client.current;
       const msg = { content: message, chatRoomId: roomId, senderId: myId };
@@ -248,11 +247,10 @@ const ChatRoom = ({
   };
 
   const onMessage = msg => {
-    receiveChat(msg, $records.current);
+    receiveChat(msg);
   };
 
   useEffect(() => {
-    // const socket = $client.current;
     loadRecords(roomId, page, size);
   }, [loadRecords, page, roomId, size]);
 
@@ -260,6 +258,13 @@ const ChatRoom = ({
     setSize(size + 12); // 12개씩 채팅 기록 load
     loadRecords(roomId, page, size);
   };
+
+  // 항상 스크롤이 최하위에 오도록
+  useEffect(() => {
+    if (!$records.current.scrollable) return;
+    $records.current.scrollable.scrollTop =
+      $records.current.scrollable.scrollHeight;
+  }, [roomRecord]);
 
   return (
     <Styled.PopUp>
@@ -282,8 +287,11 @@ const ChatRoom = ({
             ref={$records}
             containerHeight={380}
             elementHeight={40}
-            infiniteLoadBeginEdgeOffset={200}
+            infiniteLoadBeginEdgeOffset={0}
             onInfiniteLoad={loadMoreRecords}
+            preloadBatchSize={Infinite.containerHeightScaleFactor(2)}
+            preloadAdditionalHeight={Infinite.containerHeightScaleFactor(2)}
+            timeScrollStateLastsForAfterUserScrolls={1000}
             displayBottomUpwards
           >
             {roomRecord?.map((rec, idx, recs) => {
