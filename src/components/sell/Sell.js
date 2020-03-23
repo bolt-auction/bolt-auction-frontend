@@ -11,7 +11,14 @@ import TextField from '../common/TextField';
  * TODO:
  *  []업로드, 미리보기 컴포넌트 작성
  */
-const Sell = ({ sellForm, categoryList, onChange, onSubmit }) => {
+const Sell = ({
+  sellForm,
+  categoryList,
+  onChange,
+  onSubmit,
+  handleChangeFile,
+  imgBase64,
+}) => {
   const {
     categoryId,
     name,
@@ -32,31 +39,19 @@ const Sell = ({ sellForm, categoryList, onChange, onSubmit }) => {
         </Row>
         <form onSubmit={onSubmit}>
           <Row>
-            {/* <Col xs="2" sm="2" md="3" lg="3">
-              <img
-                src="https://via.placeholder.com/190x190"
-                alt="상품 이미지"
-              />
-            </Col>
-            <Col xs="2" sm="2" md="3" lg="3">
-              <img
-                src="https://via.placeholder.com/190x190"
-                alt="상품 이미지"
-              />
-            </Col>
-            <Col xs="2" sm="2" md="3" lg="3">
-              <img
-                src="https://via.placeholder.com/190x190"
-                alt="상품 이미지"
-              />
-            </Col> */}
+            {imgBase64 &&
+              imgBase64.map((ib, i) => (
+                <Col xs="2" sm="2" md="3" lg="3" key={i}>
+                  <img alt="상품 이미지" src={ib} />
+                </Col>
+              ))}
             <Col xs="2" sm="2" md="3" lg="3">
               <TextField
                 name="images"
                 type="file"
                 accept="image/.jpg, .jpeg, .png"
                 multiple
-                onChange={onChange}
+                onChange={handleChangeFile}
               />
             </Col>
           </Row>
