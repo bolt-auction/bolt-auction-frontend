@@ -18,6 +18,7 @@ const Sell = ({
   onChangeFile,
   onSubmit,
   imgBase64,
+  onImageRemove,
 }) => {
   const {
     supCategoryId,
@@ -43,18 +44,25 @@ const Sell = ({
             {imgBase64 &&
               imgBase64.map((ib, i) => (
                 <Col xs="2" sm="2" md="3" lg="3" key={i}>
-                  <img alt="상품 이미지" src={ib} />
+                  <img
+                    alt="상품 이미지"
+                    src={ib.base64}
+                    name={ib.name}
+                    onClick={onImageRemove}
+                  />
                 </Col>
               ))}
-            <Col xs="2" sm="2" md="3" lg="3">
-              <TextField
-                name="images"
-                type="file"
-                accept="image/.jpg, .jpeg, .png"
-                multiple
-                onChange={onChangeFile}
-              />
-            </Col>
+            {images.length < 4 && (
+              <Col xs="2" sm="2" md="3" lg="3">
+                <TextField
+                  name="images"
+                  type="file"
+                  accept="image/.jpg, .jpeg, .png"
+                  multiple
+                  onChange={onChangeFile}
+                />
+              </Col>
+            )}
           </Row>
           <Divider margin="2rem" />
           <SellForm

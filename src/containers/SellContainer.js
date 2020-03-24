@@ -34,8 +34,7 @@ const SellContainer = withRouter(
     const [imgBase64, setImgBase64] = useState([]);
     const onChangeFile = e => {
       const { files } = e.target;
-      const imageFiles = [...sellForm.images, ...files];
-      // 선택한 이미지의 개수가 4개 이상일 경우 초기화
+      const imageFiles = [...sellForm.images, ...files]; // 선택한 이미지의 개수가 4개 이상일 경우 경고 메시지
       if (imageFiles.length > 4) {
         e.target.value = '';
         return alert('최대 4개의 이미지만 업로드 가능합니다.');
@@ -49,11 +48,12 @@ const SellContainer = withRouter(
         });
       }
       if (imageFiles) {
+        // 이미지 프리뷰 생성
         let images = [];
         imageFiles.forEach(file => {
           let reader = new FileReader();
           reader.onloadend = () => {
-            images = [...images, reader.result];
+            images = [...images, { name: file.name, base64: reader.result }];
             setImgBase64(images);
           };
           reader.readAsDataURL(file);
@@ -64,6 +64,33 @@ const SellContainer = withRouter(
         });
       }
       e.target.value = '';
+    };
+
+    const onImageRemove = e => {
+      const imageFiles = [...sellForm.images].filter(
+        image => image.name !== e.target.name,
+      );
+      if (imageFiles.length === 0) {
+        setImgBase64([]);
+        changeField({
+          key: 'images',
+          value: [],
+        });
+        return;
+      }
+      let images = [];
+      imageFiles.forEach(file => {
+        let reader = new FileReader();
+        reader.onloadend = () => {
+          images = [...images, { name: file.name, base64: reader.result }];
+          setImgBase64(images);
+        };
+        reader.readAsDataURL(file);
+      });
+      changeField({
+        key: 'images',
+        value: imageFiles,
+      });
     };
 
     const onChange = e => {
@@ -142,6 +169,7 @@ const SellContainer = withRouter(
         onSubmit={onSubmit}
         categoryList={categoryList}
         imgBase64={imgBase64}
+        onImageRemove={onImageRemove}
       />
     );
   },
