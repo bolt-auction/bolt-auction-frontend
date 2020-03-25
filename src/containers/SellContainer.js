@@ -32,44 +32,13 @@ const SellContainer = withRouter(
     itemId,
   }) => {
     const [imgBase64, setImgBase64] = useState([]);
-    const onChangeFile = e => {
-      const { files } = e.target;
-      const imageFiles = [...sellForm.images, ...files]; // 선택한 이미지의 개수가 4개 이상일 경우 경고 메시지
-      if (imageFiles.length > 4) {
-        e.target.value = '';
-        return alert('최대 4개의 이미지만 업로드 가능합니다.');
-      }
-      // 이미지를 선택 안하고 취소했을시 초기화
-      if (imageFiles.length === 0) {
-        setImgBase64([]);
-        changeField({
-          key: 'images',
-          value: [],
-        });
-      }
-      if (imageFiles) {
-        // 이미지 프리뷰 생성
-        let images = [];
-        imageFiles.forEach(file => {
-          let reader = new FileReader();
-          reader.onloadend = () => {
-            images = [...images, { name: file.name, base64: reader.result }];
-            setImgBase64(images);
-          };
-          reader.readAsDataURL(file);
-        });
-        changeField({
-          key: 'images',
-          value: imageFiles,
-        });
-      }
-      e.target.value = '';
-    };
 
-    const onImageRemove = e => {
-      const imageFiles = [...sellForm.images].filter(
-        image => image.name !== e.target.name,
-      );
+    /**
+     * 이미지 파일 핸들러
+     * @param {array} imageFiles
+     */
+    const imageFilesHandler = imageFiles => {
+      // 이미지를 선택 안하고 취소했을시 초기화
       if (imageFiles.length === 0) {
         setImgBase64([]);
         changeField({
@@ -78,19 +47,48 @@ const SellContainer = withRouter(
         });
         return;
       }
-      let images = [];
-      imageFiles.forEach(file => {
-        let reader = new FileReader();
-        reader.onloadend = () => {
-          images = [...images, { name: file.name, base64: reader.result }];
-          setImgBase64(images);
-        };
-        reader.readAsDataURL(file);
-      });
+      // 프리뷰 이미지로 사용하기 위한 인코딩
+      (function() {
+        let images = [];
+        imageFiles.forEach(file => {
+          let reader = new FileReader();
+          reader.onloadend = () => {
+            images = [
+              ...images,
+              {
+                name: file.name,
+                base64: reader.result,
+              },
+            ];
+            setImgBase64(images);
+          };
+          reader.readAsDataURL(file);
+        });
+      })();
+      // 리덕스의 이미지 데이터 변경
       changeField({
         key: 'images',
         value: imageFiles,
       });
+    };
+
+    const onChangeFile = e => {
+      const { files } = e.target;
+      const imageFiles = [...sellForm.images, ...files];
+      // 선택한 이미지의 개수가 4개 이상일 경우 경고 메시지
+      if (imageFiles.length > 4) {
+        e.target.value = '';
+        return alert('최대 4개의 이미지만 업로드 가능합니다.');
+      }
+      imageFilesHandler(imageFiles);
+      e.target.value = '';
+    };
+
+    const onRemoveImage = name => {
+      const imageFiles = [...sellForm.images].filter(
+        image => image.name !== name,
+      );
+      imageFilesHandler(imageFiles);
     };
 
     const onChange = e => {
@@ -132,7 +130,7 @@ const SellContainer = withRouter(
           images,
         ].includes('')
       ) {
-        console.log('모든 양식을 입력해주세요.');
+        alert('모든 양식을 입력해주세요.');
         return;
       }
       sellProduct({
@@ -169,7 +167,7 @@ const SellContainer = withRouter(
         onSubmit={onSubmit}
         categoryList={categoryList}
         imgBase64={imgBase64}
-        onImageRemove={onImageRemove}
+        onRemoveImage={onRemoveImage}
       />
     );
   },

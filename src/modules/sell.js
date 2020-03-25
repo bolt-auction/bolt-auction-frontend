@@ -6,6 +6,7 @@ import * as API from '../lib/api';
 
 // SECTION : Action Types
 const CHANGE_FIELD = 'sell/CHANGE_FIELD';
+const HANDLE_FILE = 'sell/HANDLE_FILE';
 const INITIALIZE_FORM = 'sell/INITIALIZE_FORM'; // 모든 내용 초기화
 
 const SELL_PRODUCT = 'sell/SELL_PRODUCT';
@@ -17,6 +18,7 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
+export const handleFile = createAction(HANDLE_FILE, value => value);
 export const initializeForm = createAction(INITIALIZE_FORM);
 
 // FIXME: calEndTime() 어디서 실행 해야하는지 다시 고려하기
@@ -74,6 +76,10 @@ const sell = handleActions(
     [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
       produce(state, draft => {
         draft.sellForm[key] = value;
+      }),
+    [HANDLE_FILE]: (state, { payload: value }) =>
+      produce(state, draft => {
+        draft.sellForm.images = value;
       }),
     [INITIALIZE_FORM]: state => initialState,
     [SELL_PRODUCT_SUCCESS]: (state, { payload: { itemId } }) => ({
