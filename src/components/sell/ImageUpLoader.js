@@ -1,22 +1,37 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'react-awesome-styled-grid';
 import { MdRemove, MdAddCircleOutline } from 'react-icons/md';
 
 const ImageUpLoaderBlock = styled(Row)`
   .add-Img {
-    cursor: pointer;
-    svg {
-      font-size: 4rem;
+    width: 100%;
+    height: 27vh;
+    background-color: whitesmoke;
+    border-radius: 4px;
+    &,
+    label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: dimgray;
+      svg {
+        font-size: 4rem;
+      }
+    }
+    label {
+      cursor: pointer;
     }
   }
   .image-preview {
-    position: relative;
-    height: 23vh;
-    overflow: hidden;
+    height: 27vh;
     display: flex;
     align-items: center;
-    background-color: #00000052;
+    position: relative;
+    overflow: hidden;
+    background-color: whitesmoke;
+    border-radius: 4px;
   }
   .close {
     position: absolute;
@@ -29,32 +44,45 @@ const ImageUpLoaderBlock = styled(Row)`
     svg {
       font-size: 1.25rem;
       border-radius: 50%;
-      color: white;
-      background-color: #00000052;
+      color: whitesmoke;
+      background-color: #0000008a;
     }
   }
 `;
 
-const ImageUpLoader = ({ images, imgBase64, onRemoveImage, onChangeFile }) => {
+const ImageUpLoader = ({ previewImages, onRemoveImage, onChangeFile }) => {
+  const fileInputEl = useRef(null);
   return (
     <ImageUpLoaderBlock>
-      {images.length < 4 && (
-        <Col xs="2" sm="2" md="3" lg="3" justify="center" align="center">
+      {previewImages.length < 4 && (
+        <Col
+          xs="2"
+          sm="2"
+          md="3"
+          lg="3"
+          justify="center"
+          align="center"
+          style={{ marginTop: '1rem' }}
+        >
           <div className="add-Img">
-            <MdAddCircleOutline />
+            <label htmlFor="images" onClick={() => fileInputEl.current.click()}>
+              <MdAddCircleOutline />
+              이미지 업로드
+            </label>
+            <input
+              ref={fileInputEl}
+              name="images"
+              type="file"
+              accept="image/.jpg, .jpeg, .png"
+              multiple
+              onChange={onChangeFile}
+              style={{ display: 'none' }}
+            />
           </div>
-          <input
-            name="images"
-            type="file"
-            accept="image/.jpg, .jpeg, .png"
-            multiple
-            onChange={onChangeFile}
-            style={{ display: 'none' }}
-          />
         </Col>
       )}
-      {imgBase64 &&
-        imgBase64.map((ib, i) => (
+      {previewImages &&
+        previewImages.map((pi, i) => (
           <Col
             xs="2"
             sm="2"
@@ -68,10 +96,10 @@ const ImageUpLoader = ({ images, imgBase64, onRemoveImage, onChangeFile }) => {
             }}
           >
             <div className="image-preview">
-              <div className="close" onClick={() => onRemoveImage(ib.name)}>
+              <div className="close" onClick={() => onRemoveImage(pi.name)}>
                 <MdRemove />
               </div>
-              <img alt="상품 이미지" src={ib.base64} />
+              <img alt="상품 이미지" src={pi.base64} />
             </div>
           </Col>
         ))}

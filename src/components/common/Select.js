@@ -56,7 +56,7 @@ const Select = ({ name, onChange, value, children }) => {
   return (
     <StyledSelectBlock>
       <div className="out-line">
-        <select name={name} onChange={onChange} value={value}>
+        <select name={name} onChange={onChange} value={value} required>
           {children}
         </select>
         <MdArrowDropDown />

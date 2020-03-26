@@ -17,7 +17,7 @@ const Sell = ({
   onChange,
   onChangeFile,
   onSubmit,
-  imgBase64,
+  previewImages,
   onRemoveImage,
 }) => {
   const {
@@ -41,8 +41,7 @@ const Sell = ({
         </Row>
         <form onSubmit={onSubmit}>
           <ImageUpLoader
-            images={images}
-            imgBase64={imgBase64}
+            previewImages={previewImages}
             onChangeFile={onChangeFile}
             onRemoveImage={onRemoveImage}
           />
