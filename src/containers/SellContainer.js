@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Sell from '../components/sell/Sell';
-import { changeField, initializeForm, sellProduct } from '../modules/sell';
+import {
+  changeField,
+  initializeForm,
+  sellProduct,
+  changeFile,
+} from '../modules/sell';
 import { calEndTime } from '../lib/util';
 
 /*
@@ -13,7 +18,7 @@ import { calEndTime } from '../lib/util';
  *  [x]이미지 업로드 기능
  *  [x]업로드할 이미지 미리보기
  *  [x]상품이미지 업로드 4개로 제한
- *  []원하는 이미지 삭제 하기
+ *  [x]원하는 이미지 삭제 하기
  *  []밸리데이션 추가
  *    []숫자만 존재하는지
  *    [x]모든 양식이 채워졌는지
@@ -28,42 +33,63 @@ const SellContainer = withRouter(
     sellForm,
     initializeForm,
     sellProduct,
+    changeFile,
     error,
     itemId,
   }) => {
-    const [imgBase64, setImgBase64] = useState([]);
+    const [previewImages, setPreviewImages] = useState([]);
+    /**
+     * 이미지 파일 핸들러
+     * @param {array} imageFiles
+     */
+    const imageFilesHandler = imageFiles => {
+      // 이미지를 선택 안하고 취소했을시 초기화, 마지막 파일을 제거했을때 imgBase64 초기화
+      if (imageFiles.length === 0) {
+        setPreviewImages([]);
+        changeFile([]);
+        return;
+      }
+      // 프리뷰 이미지로 사용하기 위한 인코딩 객체 생성
+      // NOTE: useCallback을 사용하고 커스텀 훅을 만들어서 분리해도 좋을것 같다.
+      (function() {
+        let images = [];
+        imageFiles.forEach((file, i) => {
+          let reader = new FileReader();
+          reader.onloadend = () => {
+            images = [
+              ...images,
+              {
+                name: `${i}${file.name}`,
+                base64: reader.result,
+              },
+            ];
+            setPreviewImages(images);
+            console.log(images);
+          };
+          reader.readAsDataURL(file);
+        });
+      })();
+      // 리덕스의 이미지 데이터 변경
+      changeFile(imageFiles);
+    };
+
     const onChangeFile = e => {
       const { files } = e.target;
-      const imageFiles = [...sellForm.images, ...files];
-      // 선택한 이미지의 개수가 4개 이상일 경우 초기화
+      const imageFiles = [...files, ...sellForm.images];
+      // 선택한 이미지의 개수가 4개 이상일 경우 경고 메시지
       if (imageFiles.length > 4) {
         e.target.value = '';
         return alert('최대 4개의 이미지만 업로드 가능합니다.');
       }
-      // 이미지를 선택 안하고 취소했을시 초기화
-      if (imageFiles.length === 0) {
-        setImgBase64([]);
-        changeField({
-          key: 'images',
-          value: [],
-        });
-      }
-      if (imageFiles) {
-        let images = [];
-        imageFiles.forEach(file => {
-          let reader = new FileReader();
-          reader.onloadend = () => {
-            images = [...images, reader.result];
-            setImgBase64(images);
-          };
-          reader.readAsDataURL(file);
-        });
-        changeField({
-          key: 'images',
-          value: imageFiles,
-        });
-      }
+      imageFilesHandler(imageFiles);
       e.target.value = '';
+    };
+
+    const onRemoveImage = name => {
+      const imageFiles = [...sellForm.images].filter(
+        (image, i) => `${i}${image.name}` !== name,
+      );
+      imageFilesHandler(imageFiles);
     };
 
     const onChange = e => {
@@ -105,7 +131,7 @@ const SellContainer = withRouter(
           images,
         ].includes('')
       ) {
-        console.log('모든 양식을 입력해주세요.');
+        alert('모든 양식을 입력해주세요.');
         return;
       }
       sellProduct({
@@ -141,7 +167,8 @@ const SellContainer = withRouter(
         onChangeFile={onChangeFile}
         onSubmit={onSubmit}
         categoryList={categoryList}
-        imgBase64={imgBase64}
+        previewImages={previewImages}
+        onRemoveImage={onRemoveImage}
       />
     );
   },
@@ -158,5 +185,6 @@ export default connect(
     changeField,
     initializeForm,
     sellProduct,
+    changeFile,
   },
 )(SellContainer);

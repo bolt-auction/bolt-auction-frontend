@@ -5,9 +5,9 @@ import Button from '../common/Button';
 import ContentSection from '../common/ContentSection';
 import Divider from '../common/Divider';
 import SellForm from './SellForm';
-import TextField from '../common/TextField';
+import ImageUpLoader from './ImageUpLoader';
 
-/**
+/*
  * TODO:
  *  []업로드, 미리보기 컴포넌트 작성
  */
@@ -17,7 +17,8 @@ const Sell = ({
   onChange,
   onChangeFile,
   onSubmit,
-  imgBase64,
+  previewImages,
+  onRemoveImage,
 }) => {
   const {
     supCategoryId,
@@ -35,27 +36,15 @@ const Sell = ({
       <Container style={{ padding: '4rem' }}>
         <Row>
           <Col>
-            <h3>이미지 등록 {images.length}/4</h3>
+            <h3>이미지 등록 {images.length} / 4</h3>
           </Col>
         </Row>
         <form onSubmit={onSubmit}>
-          <Row>
-            {imgBase64 &&
-              imgBase64.map((ib, i) => (
-                <Col xs="2" sm="2" md="3" lg="3" key={i}>
-                  <img alt="상품 이미지" src={ib} />
-                </Col>
-              ))}
-            <Col xs="2" sm="2" md="3" lg="3">
-              <TextField
-                name="images"
-                type="file"
-                accept="image/.jpg, .jpeg, .png"
-                multiple
-                onChange={onChangeFile}
-              />
-            </Col>
-          </Row>
+          <ImageUpLoader
+            previewImages={previewImages}
+            onChangeFile={onChangeFile}
+            onRemoveImage={onRemoveImage}
+          />
           <Divider margin="2rem" />
           <SellForm
             categoryList={categoryList}

@@ -72,6 +72,7 @@ const SellForm = ({
             maxLength="64"
             onChange={onChange}
             value={name}
+            required
           />
         </Col>
       </RowWithMarginTop>
@@ -87,6 +88,7 @@ const SellForm = ({
             icon="won"
             min="100"
             step="100"
+            required
           />
         </ColWithMarginTop>
         <ColWithMarginTop xs="4" sm="4" md="3" lg="3">
@@ -100,6 +102,7 @@ const SellForm = ({
             icon="won"
             min="100"
             step="100"
+            required
           />
         </ColWithMarginTop>
         <ColWithMarginTop xs="4" sm="4" md="3" lg="3">
