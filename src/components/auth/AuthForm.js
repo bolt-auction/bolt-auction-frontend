@@ -6,6 +6,8 @@ import Button from '../common/Button';
 import Modal from '../common/Modal';
 import TextField from '../common/TextField';
 import Welcome from './Welcome';
+import LoadingSpinner from '../common/LoadingSpinner';
+import ModalPortal from '../common/ModalPortal';
 
 /*
  * TODO:
@@ -49,10 +51,33 @@ const textMap = {
 };
 
 const ErrorMessage = styled.div`
+  position: absolute;
   color: red;
   text-align: center;
   font-size: 0.875rem;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
+  width: 328px;
+  animation: vibrate 1s ease;
+  animation-fill-mode: forwards;
+  @keyframes vibrate {
+    0%,
+    50% {
+      transform: translateX(0px);
+    }
+    5%,
+    15%,
+    25%,
+    35%,
+    45% {
+      transform: translateX(2px);
+    }
+    10%,
+    20%,
+    30%,
+    40% {
+      transform: translateX(-2px);
+    }
+  }
 `;
 
 /**
@@ -66,10 +91,15 @@ const ErrorMessage = styled.div`
  * @param {event} props.onSubmit
  * @param {?string} props.error 유저에게 보여지는 에러 메시지
  */
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const AuthForm = ({ type, form, onChange, onSubmit, loading, error }) => {
   const text = textMap[type];
   return (
     <Modal randomBg title={text}>
+      {loading && (
+        <ModalPortal>
+          <LoadingSpinner />
+        </ModalPortal>
+      )}
       {type === 'signin' && <Welcome />}
       <AuthFormBlock>
         <form onSubmit={onSubmit}>
@@ -113,7 +143,6 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
               value={form.name}
             />
           )}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
           <ButtonWithMarginTop primary fullWidth>
             {text}
           </ButtonWithMarginTop>
@@ -123,6 +152,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             카카오톡으로 로그인
           </ButtonWithMarginTop>
         )}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <AuthFooter>
           {type === 'signin' ? (
             <Link to="/signup">회원가입</Link>

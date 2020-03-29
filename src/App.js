@@ -79,8 +79,7 @@ const App = () => {
         <Route
           render={({ location }) => (
             <div>
-              <h2>존재하지 않는 페이지:</h2>
-              <p>{location.pathname}</p>
+              <h2>존재하지 않는 페이지: {location.pathname}</h2>
             </div>
           )}
         />

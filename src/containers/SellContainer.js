@@ -31,6 +31,7 @@ const SellContainer = withRouter(
     categoryList,
     changeField,
     sellForm,
+    images,
     initializeForm,
     sellProduct,
     changeFile,
@@ -75,7 +76,7 @@ const SellContainer = withRouter(
 
     const onChangeFile = e => {
       const { files } = e.target;
-      const imageFiles = [...files, ...sellForm.images];
+      const imageFiles = [...files, images];
       // 선택한 이미지의 개수가 4개 이상일 경우 경고 메시지
       if (imageFiles.length > 4) {
         e.target.value = '';
@@ -86,7 +87,7 @@ const SellContainer = withRouter(
     };
 
     const onRemoveImage = name => {
-      const imageFiles = [...sellForm.images].filter(
+      const imageFiles = images.filter(
         (image, i) => `${i}${image.name}` !== name,
       );
       imageFilesHandler(imageFiles);
@@ -163,6 +164,7 @@ const SellContainer = withRouter(
     return (
       <Sell
         sellForm={sellForm}
+        images={images}
         onChange={onChange}
         onChangeFile={onChangeFile}
         onSubmit={onSubmit}
@@ -177,6 +179,7 @@ const SellContainer = withRouter(
 export default connect(
   ({ sell, category }) => ({
     sellForm: sell.sellForm,
+    images: sell.sellForm.images,
     error: sell.error,
     itemId: sell.itemId,
     categoryList: category.categories.supCategoryList,

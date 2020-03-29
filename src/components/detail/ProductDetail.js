@@ -6,6 +6,7 @@ import { Carousel } from 'react-responsive-carousel';
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
 import Elevation from '../../styles/Elevation';
+import LoadingSpinner from '../common/LoadingSpinner';
 import ContentSection from '../common/ContentSection';
 import Divider from '../common/Divider';
 import DetailData from './DetailData';
@@ -14,7 +15,7 @@ import { MdMoreVert } from 'react-icons/md';
 /*
  * TODO:
  *  [x]상품삭제 메뉴 추가 (상품 판매자에게만 보여야 함)
- *  []상품삭제 기능 추가
+ *  [x]상품삭제 기능 추가
  */
 
 const ProductDetailBlock = styled(Container)`
@@ -87,7 +88,7 @@ const ProductDetail = ({
   }
 
   if (loading || !detail) {
-    return null;
+    return <LoadingSpinner />;
   }
 
   const {
@@ -180,7 +181,7 @@ const ProductDetail = ({
             <p>{description}</p>
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col className="sub-title">
             <h2>연관상품</h2>
           </Col>
@@ -191,7 +192,7 @@ const ProductDetail = ({
           <Col>카드 2</Col>
           <Col>카드 3</Col>
           <Col>카드 4</Col>
-        </Row>
+        </Row> */}
       </ProductDetailBlock>
     </ContentSection>
   );

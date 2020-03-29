@@ -81,9 +81,7 @@ const product = handleActions(
       state,
       {
         payload: {
-          _embedded: {
-            bidDtoList: [...bidList],
-          },
+          _embedded: { bidList },
         },
       },
     ) => ({

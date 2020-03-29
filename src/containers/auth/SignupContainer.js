@@ -6,12 +6,24 @@ import { withRouter } from 'react-router-dom';
 import { validation } from '../../lib/util';
 
 const SignupForm = withRouter(
-  ({ history, form, auth, authError, changeField, initializeForm, signup }) => {
+  ({
+    history,
+    form,
+    auth,
+    authError,
+    changeField,
+    initializeForm,
+    signup,
+    loading,
+  }) => {
     const [error, setError] = useState(null);
 
     // 인풋 변경 이벤트 핸들러
     const onChange = e => {
       const { value, name } = e.target;
+      if (error) {
+        setError(null);
+      }
       changeField({
         form: 'signup',
         key: name,
@@ -69,6 +81,7 @@ const SignupForm = withRouter(
         });
         return;
       }
+      setError(null);
       signup({
         uid,
         passwd,
@@ -85,6 +98,7 @@ const SignupForm = withRouter(
     // TODO: []회원가입 성공 후 로그인 페이지로 이동하기 전 성공했다는 메시지 보여주기
     // NOTE: 회원가입 API response에 토큰이 없어 성공시에 로그인 페이지로 이동 시킴
     useEffect(() => {
+      setError(null);
       if (authError) {
         if (authError.response.status === 403) {
           setError('이미 사용중인 이메일입니다.');
@@ -106,16 +120,18 @@ const SignupForm = withRouter(
         onChange={onChange}
         onSubmit={onSubmit}
         error={error}
+        loading={loading}
       />
     );
   },
 );
 
 export default connect(
-  ({ auth }) => ({
+  ({ auth, loading }) => ({
     form: auth.signup,
     auth: auth.auth,
     authError: auth.authError,
+    loading: loading['auth/SIGNUP'],
   }),
   {
     changeField,

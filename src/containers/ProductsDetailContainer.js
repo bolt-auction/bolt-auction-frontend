@@ -91,24 +91,22 @@ const ProductsDetailContainer = withRouter(
   },
 );
 
-export default React.memo(
-  connect(
-    ({ product, auth, loading }) => ({
-      detail: product.detail,
-      detailError: product.detailError,
-      bidPrice: product.bidPrice,
-      bid: product.bid,
-      bidList: product.bidList,
-      bidListError: product.bidListError,
-      userId: auth.user.id,
-      loading: loading['product/PRODUCT_DETAIL'],
-    }),
-    {
-      getProductDetail,
-      changeBidField,
-      postBid,
-      getBidList,
-      unloadProductDetail,
-    },
-  )(ProductsDetailContainer),
-);
+export default connect(
+  ({ product, auth, loading }) => ({
+    detail: product.detail,
+    detailError: product.detailError,
+    bidPrice: product.bidPrice,
+    bid: product.bid,
+    bidList: product.bidList,
+    bidListError: product.bidListError,
+    userId: auth.user.id,
+    loading: loading['product/PRODUCT_DETAIL'],
+  }),
+  {
+    getProductDetail,
+    changeBidField,
+    postBid,
+    getBidList,
+    unloadProductDetail,
+  },
+)(ProductsDetailContainer);
