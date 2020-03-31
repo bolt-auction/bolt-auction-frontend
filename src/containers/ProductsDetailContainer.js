@@ -3,47 +3,53 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
   getProductDetail,
-  changeBidField,
-  postBid,
+  getAuctioned,
   getBidList,
+  postBid,
+  changeBidField,
   unloadProductDetail,
 } from '../modules/product';
+import { create } from '../modules/chat';
+import { deleteItem, postReservedPrice } from '../lib/api';
 import ProductDetail from '../components/detail/ProductDetail';
-import { deleteItem } from '../lib/api';
 
 const ProductsDetailContainer = withRouter(
   ({
     match,
     history,
-    userId,
     loading,
     detail,
     detailError,
-    bidList,
-    bidPrice,
+    auctioned,
     bid,
+    bidPrice,
+    bidList,
     bidListError,
+    userId,
     getProductDetail,
     getBidList,
+    getAuctioned,
     changeBidField,
     postBid,
+    create,
     unloadProductDetail,
   }) => {
     const { itemId } = match.params;
-
-    // 상품 정보, 입찰 리스트 조회
-    useEffect(() => {
-      getProductDetail(itemId);
-      getBidList(itemId);
-      if (bid) {
-        console.log('입찰 성공');
-      }
-    }, [itemId, getProductDetail, getBidList, bid]);
 
     const onRemoveProduct = async () => {
       try {
         await deleteItem(itemId);
         console.log('삭제 성공');
+        history.push('/');
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const onReservedPrice = async () => {
+      try {
+        await postReservedPrice(itemId);
+        alert('즉시낙찰 성공');
         history.push('/');
       } catch (error) {
         console.log(error);
@@ -60,12 +66,35 @@ const ProductsDetailContainer = withRouter(
       postBid({ itemId, bidPrice });
     };
 
+    const onChatRoomCreate = () => {
+      create(`${detail.itemName}`, detail.itemId, auctioned.memberId);
+      console.log(`${detail.itemName}`, detail.itemId, auctioned.memberId);
+    };
+
     // useEffect(() => {
     //   if (bid) {
     //     console.log('입찰 성공');
     //     history.go(0);
     //   }
     // }, [bid, history]);
+
+    // 상품 정보, 입찰 리스트 조회
+    useEffect(() => {
+      getProductDetail(itemId);
+      getBidList(itemId);
+      // getAuctioned(itemId);
+      if (bid) {
+        console.log('입찰 성공');
+      }
+    }, [itemId, getProductDetail, getBidList, getAuctioned, bid]);
+
+    // useEffect(() => {
+    //   if (detail?.end) {
+    //     getAuctioned(itemId);
+    //     console.log('낙찰조회');
+    //   }
+    // }, [itemId, getAuctioned, detail]);
+
     useEffect(() => {
       return () => {
         unloadProductDetail();
@@ -80,11 +109,15 @@ const ProductsDetailContainer = withRouter(
         loading={loading}
         detail={detail}
         detailError={detailError}
+        auctioned={auctioned}
         bidList={bidList}
         bidListError={bidListError}
         bidPrice={bidPrice}
+        ownProduct={ownProduct}
+        onChatRoomCreate={ownProduct && onChatRoomCreate}
         onRemoveProduct={ownProduct && onRemoveProduct}
         onChangeBidField={onChangeBidField}
+        onReservedPrice={onReservedPrice}
         onSubmitBid={onSubmitBid}
       />
     );
@@ -95,8 +128,9 @@ export default connect(
   ({ product, auth, loading }) => ({
     detail: product.detail,
     detailError: product.detailError,
-    bidPrice: product.bidPrice,
+    auctioned: product.auctioned,
     bid: product.bid,
+    bidPrice: product.bidPrice,
     bidList: product.bidList,
     bidListError: product.bidListError,
     userId: auth.user.id,
@@ -104,9 +138,11 @@ export default connect(
   }),
   {
     getProductDetail,
-    changeBidField,
-    postBid,
+    getAuctioned,
     getBidList,
+    postBid,
+    changeBidField,
     unloadProductDetail,
+    create,
   },
 )(ProductsDetailContainer);
