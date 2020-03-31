@@ -82,6 +82,7 @@ const DetailData = ({
   onChangeBidField,
   onSubmitBid,
   onReservedPrice,
+  ownProduct,
 }) => {
   const [bidModal, setBidModal] = useState(false);
   const [bidListModal, setBidListModal] = useState(false);
@@ -163,12 +164,16 @@ const DetailData = ({
       <Divider thick="1px" />
       <Row justify="center" align="center">
         <Col xs={2} sm={3} md={6} lg={6}>
-          <Button primary onClick={() => onReservedPrice()}>
+          <Button primary onClick={onReservedPrice} disabled={ownProduct}>
             즉시낙찰
           </Button>
         </Col>
         <Col xs={2} sm={3} md={6} lg={6}>
-          <Button primary onClick={() => setBidModal(true)}>
+          <Button
+            primary
+            onClick={() => setBidModal(true)}
+            disabled={ownProduct}
+          >
             입찰하기
           </Button>
           {bidModal && (

@@ -8,9 +8,9 @@ import Typography from '../../styles/Typography';
 import Elevation from '../../styles/Elevation';
 import LoadingSpinner from '../common/LoadingSpinner';
 import ContentSection from '../common/ContentSection';
-import Button from '../common/Button';
 import Divider from '../common/Divider';
 import DetailData from './DetailData';
+import BidEndModal from './BidEndModal';
 import { MdMoreVert } from 'react-icons/md';
 
 /*
@@ -69,20 +69,6 @@ const DropdownMenu = styled.div`
   }
 `;
 
-const BidEnd = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: ${Colors.scrim};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 30;
-  color: white;
-`;
-
 const ProductDetail = ({
   loading,
   detail,
@@ -106,7 +92,7 @@ const ProductDetail = ({
     return <ContentSection>오류가 발생했어요 ㅠㅠ</ContentSection>;
   }
 
-  if (loading || !detail || !auctioned) {
+  if (loading || !detail) {
     return <LoadingSpinner />;
   }
 
@@ -126,21 +112,15 @@ const ProductDetail = ({
 
   return (
     <ContentSection>
-      {end &&
-        (ownProduct ? (
-          auctioned.response && auctioned.response.status === 404 ? (
-            <BidEnd>상품이 낙찰되지 못했습니다.</BidEnd>
-          ) : (
-            <BidEnd>
-              상품이 성공적으로 낙찰되었습니다!{' '}
-              <Button onClick={() => onChatRoomCreate()}>
-                구매자와 대화하기
-              </Button>
-            </BidEnd>
-          )
-        ) : (
-          <BidEnd>종료된 경매입니다.</BidEnd>
-        ))}
+      {end && (
+        <BidEndModal
+          ownProduct={ownProduct}
+          auctioned={auctioned}
+          itemName={itemName}
+          onChatRoomCreate={onChatRoomCreate}
+          onRemoveProduct={onRemoveProduct}
+        />
+      )}
       <ProductDetailBlock>
         <Row justify="space-between">
           <Col className="category-name" xs={2} sm={2} md={4} lg={4}>
@@ -205,6 +185,7 @@ const ProductDetail = ({
             onChangeBidField={onChangeBidField}
             onSubmitBid={onSubmitBid}
             onReservedPrice={onReservedPrice}
+            ownProduct={ownProduct}
           />
         </Row>
         <Row>

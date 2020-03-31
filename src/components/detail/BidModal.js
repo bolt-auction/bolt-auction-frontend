@@ -50,6 +50,7 @@ const BidModalBlock = styled.div`
   .label {
     width: 94px;
     ${Typography.Headline6};
+    font-size: 18px;
     color: ${Colors.onSurfaceMedium};
     margin-right: 1rem;
   }
@@ -160,7 +161,8 @@ const BidModal = ({
                 <div className="row">
                   <div className="label">경매 종료</div>
                   <div>
-                    <Moment date={endDt} toNow />{' '}
+                    <Moment date={endDt} toNow />
+                    <br />
                     <Moment date={endDt} format="[(]YYYY-MM-DD HH:mm[)]" />
                   </div>
                 </div>
@@ -190,6 +192,3 @@ const BidModal = ({
 };
 
 export default BidModal;
-
-// export const handleModal = (state, setState) =>
-//   !state ? setState(true) : setState(false);

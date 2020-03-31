@@ -96,7 +96,6 @@ const ProductCard = ({ item }) => {
           <IsSellBlock>
             <MdTimerOff />
             <p>종료된 경매</p>
-            {/* <div className="blur"></div> */}
           </IsSellBlock>
         )}
         <div className="product-img">

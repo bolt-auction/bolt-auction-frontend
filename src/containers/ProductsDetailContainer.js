@@ -39,7 +39,7 @@ const ProductsDetailContainer = withRouter(
     const onRemoveProduct = async () => {
       try {
         await deleteItem(itemId);
-        console.log('삭제 성공');
+        alert('삭제 성공');
         history.push('/');
       } catch (error) {
         console.log(error);
@@ -68,7 +68,7 @@ const ProductsDetailContainer = withRouter(
 
     const onChatRoomCreate = () => {
       create(`${detail.itemName}`, detail.itemId, auctioned.memberId);
-      console.log(`${detail.itemName}`, detail.itemId, auctioned.memberId);
+      history.push('/');
     };
 
     // useEffect(() => {
@@ -82,18 +82,16 @@ const ProductsDetailContainer = withRouter(
     useEffect(() => {
       getProductDetail(itemId);
       getBidList(itemId);
-      // getAuctioned(itemId);
       if (bid) {
-        console.log('입찰 성공');
+        alert('입찰 성공');
       }
-    }, [itemId, getProductDetail, getBidList, getAuctioned, bid]);
+    }, [itemId, getProductDetail, getBidList, bid]);
 
-    // useEffect(() => {
-    //   if (detail?.end) {
-    //     getAuctioned(itemId);
-    //     console.log('낙찰조회');
-    //   }
-    // }, [itemId, getAuctioned, detail]);
+    useEffect(() => {
+      if (detail && detail.end) {
+        getAuctioned(itemId);
+      }
+    }, [itemId, getAuctioned, detail]);
 
     useEffect(() => {
       return () => {
