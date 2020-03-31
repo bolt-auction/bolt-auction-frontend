@@ -8,7 +8,7 @@ const StoreProducts = ({ items, setActiveTab }) => {
   }, [setActiveTab]);
   return (
     <div style={{ marginTop: 24 }}>
-      <ProductList items={items['_embedded']?.itemDtoList} />
+      <ProductList items={items['_embedded']?.itemList} />
     </div>
   );
 };

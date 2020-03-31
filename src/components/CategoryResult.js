@@ -55,7 +55,7 @@ const CategoryResult = ({ match, order, id, items, getItems }) => {
           setActiveTab={setActiveTab}
         />
         <Styled.Divider />
-        <ProductList items={items['_embedded']?.itemDtoList} />
+        <ProductList items={items['_embedded']?.itemList} />
       </Styled.ContentsBox>
     </div>
   );

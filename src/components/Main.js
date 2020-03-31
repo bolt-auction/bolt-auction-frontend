@@ -38,7 +38,7 @@ const Main = ({ items, getItems }) => {
       <MainContentBlock>
         <h2 className="content-title">경매장터 인기상품</h2>
         <Divider />
-        <ProductList items={items['_embedded']?.itemDtoList} />
+        <ProductList items={items['_embedded']?.itemList} />
       </MainContentBlock>
     </>
   );

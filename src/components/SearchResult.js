@@ -49,7 +49,7 @@ const SearchResult = ({ keyword, items, order, search }) => {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
-        <ProductList items={items['_embedded']?.itemDtoList} />
+        <ProductList items={items['_embedded']?.itemList} />
       </Styled.ContentsBox>
     </div>
   );
