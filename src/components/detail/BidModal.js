@@ -121,7 +121,6 @@ const BidModal = ({
                   member={bidItem.member}
                   price={bidItem.price}
                   createDt={bidItem.createDt}
-                  memberImagePath={bidItem.memberImagePath}
                 />
               ))
             ) : (

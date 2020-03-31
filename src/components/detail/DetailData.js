@@ -9,6 +9,7 @@ import PriceFormat from '../common/PriceFormat';
 import Button from '../common/Button';
 import Divider from '../common/Divider';
 import BidModal from './BidModal';
+import { Link } from 'react-router-dom';
 // import ModalPortal from '../common/ModalPortal';
 
 /*
@@ -17,7 +18,7 @@ import BidModal from './BidModal';
  * TODO:
  *  [x]가격 포맷팅 기능 추가 (예: 25,000원)
  *  [x]유저 네임 가져오기, auth.seller.memberName
- *  []유저 이미지 가져오기, (아마도)auth.seller.imagePath
+ *  [x]유저 이미지 가져오기, (아마도)auth.seller.imagePath
  */
 
 const DetailDataBlock = styled(Col)`
@@ -80,6 +81,7 @@ const DetailData = ({
   bidList,
   onChangeBidField,
   onSubmitBid,
+  onReservedPrice,
 }) => {
   const [bidModal, setBidModal] = useState(false);
   const [bidListModal, setBidListModal] = useState(false);
@@ -88,18 +90,20 @@ const DetailData = ({
     <DetailDataBlock justify="center" xs={4} sm={5} md={7} lg={7}>
       <Row align="center">
         <Col xs={1} sm={2} md={4} lg={4}>
-          <div className="seller">
-            <img
-              src={
-                seller.memberImagePath
-                  ? seller.memberImagePath
-                  : `https://avatars.dicebear.com/v2/identicon/${seller.memberName}${seller.memberId}.svg`
-              }
-              alt={seller.memberName}
-              style={{ width: '48px' }}
-            />
-            <p>{seller.memberName}</p>
-          </div>
+          <Link to={`/store/${seller.memberId}`}>
+            <div className="seller">
+              <img
+                src={
+                  seller.imagePath
+                    ? seller.imagePath
+                    : `https://avatars.dicebear.com/v2/identicon/${seller.memberName}${seller.memberId}.svg`
+                }
+                alt={seller.memberName}
+                style={{ width: '48px' }}
+              />
+              <p>{seller.memberName}</p>
+            </div>
+          </Link>
         </Col>
       </Row>
       <Divider thick="1px" />
@@ -159,7 +163,9 @@ const DetailData = ({
       <Divider thick="1px" />
       <Row justify="center" align="center">
         <Col xs={2} sm={3} md={6} lg={6}>
-          <Button disabled>즉시낙찰</Button>
+          <Button primary onClick={() => onReservedPrice()}>
+            즉시낙찰
+          </Button>
         </Col>
         <Col xs={2} sm={3} md={6} lg={6}>
           <Button primary onClick={() => setBidModal(true)}>

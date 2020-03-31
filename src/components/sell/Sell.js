@@ -6,10 +6,12 @@ import ContentSection from '../common/ContentSection';
 import Divider from '../common/Divider';
 import SellForm from './SellForm';
 import ImageUpLoader from './ImageUpLoader';
+import ModalPortal from '../common/ModalPortal';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 /*
  * TODO:
- *  []업로드, 미리보기 컴포넌트 작성
+ *  [x]업로드, 미리보기 컴포넌트 작성
  */
 const Sell = ({
   sellForm,
@@ -17,6 +19,7 @@ const Sell = ({
   onChange,
   onChangeFile,
   onSubmit,
+  loading,
   previewImages,
   onRemoveImage,
 }) => {
@@ -33,6 +36,11 @@ const Sell = ({
   } = sellForm;
   return (
     <ContentSection title="판매하기">
+      {loading && (
+        <ModalPortal>
+          <LoadingSpinner />
+        </ModalPortal>
+      )}
       <Container style={{ padding: '4rem' }}>
         <Row>
           <Col>

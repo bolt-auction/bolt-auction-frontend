@@ -30,14 +30,14 @@ const BidListItemBlock = styled.div`
   }
 `;
 
-const BidListItem = ({ member, price, createDt, memberImagePath }) => {
+const BidListItem = ({ member, price, createDt }) => {
   return (
     <>
       <BidListItemBlock>
         <img
           src={
-            memberImagePath
-              ? memberImagePath
+            member.memberImagePath
+              ? member.memberImagePath
               : `https://avatars.dicebear.com/v2/identicon/${member.memberName}${member.memberId}.svg`
           }
           alt="프로필 이미지"
