@@ -256,7 +256,6 @@ const ChatRoom = ({
   }, [loadRecords, page, roomId, size]);
 
   const loadMoreRecords = () => {
-    console.log('아왜이렇게');
     setSize(size + 12); // 12개씩 채팅 기록 load
     loadRecords(roomId, page, size);
   };

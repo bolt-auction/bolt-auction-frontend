@@ -7,7 +7,6 @@ import client from './client';
  * @param {number} recvMemberId - 상대방 Member id
  */
 export const postChatroom = ({ chatRoomName, itemId, recvMemberId }) => {
-  console.log({ chatRoomName, itemId, recvMemberId });
   return client.post(`/api/chat/room`, { chatRoomName, itemId, recvMemberId });
 };
 

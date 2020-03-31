@@ -23,8 +23,8 @@ const SearchResult = ({ keyword, items, order, search }) => {
     },
     {
       name: '마감 임박순',
-      params: `/search?keyword=${keyword}&order=finish`,
-      id: 'finish',
+      params: `/search?keyword=${keyword}&order=endDt,asc`,
+      id: 'endDt,asc',
     },
     {
       name: '낮은 가격순',

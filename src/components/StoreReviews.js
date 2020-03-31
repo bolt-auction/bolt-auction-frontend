@@ -205,11 +205,6 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
                             </Moment>
                           );
                         })()}
-                        {/* {moment(
-                          review.createDt,
-                          'YYYY-MM-DD[T]HH:mm:ss',
-                        ).fromNow()} */}
-                        {/* {console.log(review.createDt)} */}
                       </span>
                     </div>
                   </li>

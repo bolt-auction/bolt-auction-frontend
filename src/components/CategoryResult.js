@@ -26,8 +26,8 @@ const CategoryResult = ({ match, order, id, items, getItems }) => {
     },
     {
       name: '마감 임박순',
-      params: `/categories/${category}?order=finish`,
-      id: 'finish',
+      params: `/categories/${category}?order=endDt,asc`,
+      id: 'endDt,asc',
     },
     {
       name: '낮은 가격순',

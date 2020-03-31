@@ -65,7 +65,6 @@ const SellContainer = withRouter(
               },
             ];
             setPreviewImages(images);
-            console.log(images);
           };
           reader.readAsDataURL(file);
         });
