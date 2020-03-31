@@ -10,7 +10,8 @@ export const getStoreInfo = id => client.get(`/api/store/${id}`);
  * 상점에 등록된 상품 불러오기
  * @param {number} id - 상점주 id
  */
-export const getStoreProducts = id => client.get(`/api/item/store/${id}`);
+export const getStoreProducts = id =>
+  client.get(`/api/item/store/${id}?sort=endDt,asc`);
 
 /**
  * 상점에 등록된 리뷰 불러오기

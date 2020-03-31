@@ -69,8 +69,10 @@ const Footer = () => {
       <FooterContainer>
         <Row justify="space-between">
           <Col xs={0.8} sm={1.5} md={2} lg={2} align="center" justify="center">
-            <span className="bolt-auction">번개옥션</span>
-            <p className="description">중고거래 경매 사이트</p>
+            <a href="https://github.com/bolt-auction">
+              <span className="bolt-auction">번개옥션</span>
+              <p className="description">중고 경매 거래</p>
+            </a>
           </Col>
           {developers
             .sort((a, b) => {

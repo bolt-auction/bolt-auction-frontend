@@ -211,30 +211,30 @@ const Header = withRouter(({ history, user, signout }) => {
               </Menu>
             </Col>
 
-            <Col
+            {/* <Col
               md={1}
               offset={{ md: 6 }}
               justify="center"
               align={{ md: 'center', lg: 'flex-end' }}
             >
               <div className="notice">알림</div>
-            </Col>
+            </Col> */}
 
             <Col
-              md={1.5}
+              xs={1}
+              sm={1}
+              md={1}
+              lg={1}
+              offset={{ xs: 1, sm: 4, md: 7 }}
               justify="center"
-              align={{ md: 'center', lg: 'flex-end' }}
+              align="flex-end"
             >
               <div className="my-store">
                 <Link to={`/store/${user?.id}`}>내 상점</Link>
               </div>
             </Col>
 
-            <Col
-              md={1.5}
-              justify="center"
-              align={{ md: 'center', lg: 'flex-end' }}
-            >
+            <Col xs={1} sm={1} md={2} lg={2} justify="center" align="flex-end">
               {user ? (
                 <LogOutButton className="logout" onClick={signout}>
                   로그아웃

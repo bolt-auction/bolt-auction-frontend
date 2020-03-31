@@ -3,22 +3,21 @@ import ProductCard from './ProductCard';
 import { Container, Row, Col } from 'react-awesome-styled-grid';
 
 const ProductData = [
-  { itemId: 1, owner: 0 },
-  { itemId: 2, owner: 1 },
-  { itemId: 3, owner: 0 },
-  { itemId: 4, owner: 1 },
-  { itemId: 5, owner: 0 },
-  { itemId: 6, owner: 1 },
-  { itemId: 7, owner: 0 },
-  { itemId: 8, owner: 1 },
-  { itemId: 9, owner: 0 },
-  { itemId: 10, owner: 1 },
-  { itemId: 11, owner: 0 },
-  { itemId: 12, owner: 1 },
+  { itemId: 1, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 2, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 3, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 4, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 5, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 6, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 7, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 8, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 9, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 10, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 11, itemName: 'loading..', currentPrice: 1000 },
+  { itemId: 12, itemName: 'loading..', currentPrice: 1000 },
 ];
 
 const ProductList = ({ items }) => {
-  console.log('productList: ', items);
   return (
     <Container style={{ padding: 0 }}>
       <Row>

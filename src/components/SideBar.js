@@ -5,9 +5,9 @@ import ChatContainer from '../containers/ChatContainer';
 
 const ChatButton = styled.button`
   position: fixed;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
+  top: 75%;
+  right: 5%;
+  /* transform: translateY(-50%); */
   background-color: ${Colors.primary};
   padding: 16px 28px;
   cursor: pointer;
