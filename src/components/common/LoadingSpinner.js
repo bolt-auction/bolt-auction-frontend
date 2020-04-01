@@ -10,6 +10,7 @@ import Colors from '../../styles/Colors';
 const LoadingSpinnerBlock = styled.div`
   height: 85vh;
   width: 100%;
+  background-color: ${Colors.surface};
   &,
   .spinner-bg {
     display: flex;

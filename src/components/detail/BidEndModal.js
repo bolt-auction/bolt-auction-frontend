@@ -6,18 +6,19 @@ import Modal from '../common/Modal';
 import PriceFormat from '../common/PriceFormat';
 import Typography from '../../styles/Typography';
 import Colors from '../../styles/Colors';
-import twoCats from '../../imgs/ginger-cat-745.png';
-import failCat from '../../imgs/ginger-cat-754.png';
-import waitingCat from '../../imgs/ginger-cat-757.png';
+import gingerCatWithGrayCat from '../../lib/images/gingerCatWithGrayCat.png';
+import gingerCatFail from '../../lib/images/gingerCatFail.png';
+import gingerCatWaiting from '../../lib/images/gingerCatWaiting.png';
 
 const BidEndModalBlock = styled.div`
   justify-content: space-evenly;
   height: 100%;
   &,
-  .text {
+  .flex-block {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
   .text {
     color: ${Colors.onSurfaceHigh};
@@ -56,27 +57,28 @@ const BidEndModal = ({
         {ownProduct && auctioned ? (
           auctioned.response && auctioned.response.status === 404 ? (
             <>
-              <div className="text">
-                <img alt="X키를 눌러 조의를 표하십시오." src={failCat} />
+              <div className="text flex-block">
+                <img alt="X키를 눌러 조의를 표하십시오." src={gingerCatFail} />
                 <b>상품이 낙찰되지 못했습니다.</b>
                 <p>다시 등록해보세요!</p>
               </div>
-              <Button primary fullWidth onClick={onRemoveProduct}>
+              <Button primary fullwidth onClick={onRemoveProduct}>
                 상품 삭제하기
               </Button>
+              <Button to="/">메인으로 돌아가기</Button>
             </>
           ) : (
             <>
-              <div className="text">
+              <div className="text flex-block">
                 <b>{itemName}</b>
                 <p>
                   낙찰가: <PriceFormat price={auctioned.price} />
                 </p>
-                <img alt="귀여운 고양이가 두 마리" src={twoCats} />
+                <img alt="귀여운 고양이가 두 마리" src={gingerCatWithGrayCat} />
                 <b>상품이 성공적으로 낙찰되었습니다.</b>
                 <p>구매자와 대화하여 거래를 마무리하세요!</p>
               </div>
-              <Button primary fullWidth onClick={onChatRoomCreate}>
+              <Button primary fullwidth onClick={onChatRoomCreate}>
                 구매자와 대화방 생성
               </Button>
               <Button to="/">메인으로 돌아가기</Button>
@@ -84,12 +86,12 @@ const BidEndModal = ({
           )
         ) : (
           <>
-            <div className="text">
-              <img alt="경매가 끝나서 화난 고양이" src={waitingCat} />
+            <div className="text flex-block">
+              <img alt="경매가 끝나서 화난 고양이" src={gingerCatWaiting} />
               <b>종료된 경매입니다.</b>
               <p>다른 상품을 찾아보세요!</p>
             </div>
-            <Button primary fullWidth to="/">
+            <Button to="/" primary fullwidth>
               메인으로 돌아가기
             </Button>
           </>

@@ -11,7 +11,7 @@ import Typography from '../../styles/Typography';
 import Colors from '../../styles/Colors';
 import BidListItem from './BidListItem';
 
-import gingerCatBulb from '../../imgs/ginger-cat-729.png';
+import gingerCatBulb from '../../lib/images/gingerCatBulb.png';
 
 const BidModalBlock = styled.div`
   height: 100%;
@@ -179,7 +179,7 @@ const BidModal = ({
                   min={currentPrice}
                   step={minBidPrice}
                 />
-                <Button primary fullWidth>
+                <Button primary fullwidth>
                   입찰하기
                 </Button>
               </form>

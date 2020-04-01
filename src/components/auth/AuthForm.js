@@ -143,12 +143,12 @@ const AuthForm = ({ type, form, onChange, onSubmit, loading, error }) => {
               value={form.name}
             />
           )}
-          <ButtonWithMarginTop primary fullWidth>
+          <ButtonWithMarginTop primary fullwidth>
             {text}
           </ButtonWithMarginTop>
         </form>
         {type === 'signin' && (
-          <ButtonWithMarginTop kakao fullWidth disabled>
+          <ButtonWithMarginTop kakao fullwidth disabled>
             카카오톡으로 로그인
           </ButtonWithMarginTop>
         )}
