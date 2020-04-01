@@ -124,8 +124,8 @@ const ProductDetail = ({
       <ProductDetailBlock>
         <Row justify="space-between">
           <Col className="category-name" xs={2} sm={2} md={4} lg={4}>
-            {category.name}
-            {category.supCategoryName && ` > ${category.supCategoryName}`}
+            {category.supCategoryName}
+            {category.name && ` > ${category.name}`}
           </Col>
           {ownProduct && (
             <Col

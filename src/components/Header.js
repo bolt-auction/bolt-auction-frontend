@@ -6,19 +6,18 @@ import CategoriesContainer from '../containers/CategoriesContainer';
 
 import { Container, Row, Col, Hidden } from 'react-awesome-styled-grid';
 import Colors from '../styles/Colors';
-import Elevation from '../styles/Elevation';
 import Typography from '../styles/Typography';
 import { IconContext } from 'react-icons';
 import { FiMenu } from 'react-icons/fi';
 import { GoSearch } from 'react-icons/go';
-import logo512 from '../imgs/logo512.png';
+import boltAuctionLogo from '../lib/images/boltAuctionLogo.png';
 
 const HeaderBlock = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  box-shadow: ${Elevation.z4};
+  box-shadow: 0 0 12px 0 rgba(69, 88, 115, 0.2);
   background-color: ${Colors.surface};
   z-index: 20;
 
@@ -152,7 +151,11 @@ const Header = withRouter(({ history, user, signout }) => {
             <Hidden xs>
               <Col sm={1} md={2} lg={2} align="center" justify="center">
                 <Link to="/">
-                  <img className="logo-img" src={logo512} alt="번개옥션" />
+                  <img
+                    className="logo-img"
+                    src={boltAuctionLogo}
+                    alt="번개옥션"
+                  />
                 </Link>
               </Col>
             </Hidden>

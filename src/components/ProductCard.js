@@ -11,17 +11,22 @@ import { MdTimer, MdTimerOff } from 'react-icons/md';
 const ProductCardBlock = styled.div`
   border-radius: 4px;
   margin-top: 24px;
-  box-shadow: ${Elevation.z1};
   background-color: ${Colors.surface};
   min-width: 214px;
   max-width: 224px;
   position: relative;
+  box-shadow: ${Elevation.z1};
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    box-shadow: ${Elevation.z4};
+  }
   .product-img {
     margin-bottom: 12px;
     img {
       border-radius: 4px 4px 0 0;
       display: block;
-      min-height: 224px;
+      width: 224px;
+      height: 224px;
       object-fit: cover;
       background-color: ${Colors.onSurfaceLow};
     }

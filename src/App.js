@@ -16,6 +16,7 @@ import SigninContainer from './containers/auth/SigninContainer';
 import SignupContainer from './containers/auth/SignupContainer';
 import SellContainer from './containers/SellContainer';
 import MainContainer from './containers/MainContainer';
+import NotFound from './components/common/NotFound';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -77,11 +78,7 @@ const App = () => {
         <AuthRoute path="/sell" component={SellContainer} />
         <AuthRoute path="/" exact component={MainContainer} />
         <Route
-          render={({ location }) => (
-            <div>
-              <h2>존재하지 않는 페이지: {location.pathname}</h2>
-            </div>
-          )}
+          render={({ location }) => <NotFound pathName={location.pathname} />}
         />
       </Switch>
       <Footer />

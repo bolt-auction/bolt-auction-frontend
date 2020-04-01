@@ -282,7 +282,7 @@ const ChatRoom = ({
         <div className="scroll-blind">
           <div className="item-wrapper">
             <Link className="item-link" to={`/products/${room.item?.itemId}`}>
-              <img src={room.item?.itemImagePath} alt="아이템" />
+              <img src={room.item?.imagePath} alt="아이템" />
             </Link>
           </div>
 
@@ -325,7 +325,7 @@ const ChatRoom = ({
                   {isFirst ? (
                     <img
                       className="profile-image"
-                      src={room?.item?.itemImagePath}
+                      src={rec.sender?.imagePath}
                       alt="me"
                     />
                   ) : (

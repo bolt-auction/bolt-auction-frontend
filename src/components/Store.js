@@ -13,7 +13,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { FaCamera } from 'react-icons/fa';
-import defaultImg from '../imgs/default-profile.webp';
 
 const StoreTo = ({ match }) => {
   return <Redirect to={`${match.path}/products`} />;
@@ -109,7 +108,11 @@ const Store = ({
             >
               <img
                 className="profile-image"
-                src={editInfo.image || info.imagePath || defaultImg}
+                src={
+                  editInfo.image ||
+                  info.imagePath ||
+                  `https://avatars.dicebear.com/v2/identicon/${info.memberName}${id}.svg`
+                }
                 alt=""
               />
               {editMode ? (

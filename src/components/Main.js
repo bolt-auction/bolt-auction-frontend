@@ -13,6 +13,7 @@ const MainContentBlock = styled.section`
   max-width: 1024px;
   border-radius: 15px 15px 0 0;
   box-shadow: ${Elevation.z4};
+  background-color: ${Colors.surface};
 
   & h2 {
     color: ${Colors.primary};
