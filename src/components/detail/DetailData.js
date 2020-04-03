@@ -65,6 +65,8 @@ const DetailDataBlock = styled(Col)`
     align-items: center;
     img {
       border-radius: 50%;
+      width: 48px;
+      height: 48px;
     }
   }
 `;
@@ -100,7 +102,6 @@ const DetailData = ({
                     : `https://avatars.dicebear.com/v2/identicon/${seller.memberName}${seller.memberId}.svg`
                 }
                 alt={seller.memberName}
-                style={{ width: '48px' }}
               />
               <p>{seller.memberName}</p>
             </div>
@@ -144,7 +145,7 @@ const DetailData = ({
         <Col className="label" xs={1} sm={2} md={4} lg={4}>
           입찰수
         </Col>
-        <Col xs={1} sm={1} md={1} lg={1}>
+        <Col xs={1} sm={1} md={2} lg={2}>
           <p>{bidCount}회</p>
         </Col>
         <Col xs={1} sm={2} md={2} lg={2}>

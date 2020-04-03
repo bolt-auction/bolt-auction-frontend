@@ -53,7 +53,7 @@ export function* productSaga() {
 const initialState = {
   detail: null,
   detailError: null,
-  bidPrice: null,
+  bidPrice: '',
   bid: null,
   bidError: null,
   bidList: null,

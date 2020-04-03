@@ -30,7 +30,7 @@ const Divider = styled.div`
 
 const Main = ({ items, getItems }) => {
   useEffect(() => {
-    getItems(0);
+    getItems(0, 'bidCount,desc');
   }, [getItems]);
 
   return (

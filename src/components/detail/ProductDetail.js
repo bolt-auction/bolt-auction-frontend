@@ -123,7 +123,7 @@ const ProductDetail = ({
       )}
       <ProductDetailBlock>
         <Row justify="space-between">
-          <Col className="category-name" xs={2} sm={2} md={4} lg={4}>
+          <Col className="category-name" xs={3} sm={3} md={4} lg={4}>
             {category.supCategoryName}
             {category.name && ` > ${category.name}`}
           </Col>
@@ -157,7 +157,7 @@ const ProductDetail = ({
         </Row>
         <Divider />
         <Row>
-          <Col xs={4} sm={3} md={5} lg={5}>
+          <Col xs={4} sm={3} md={5} lg={5} align="center" justify="center">
             <Carousel
               showThumbs={false}
               showStatus={false}

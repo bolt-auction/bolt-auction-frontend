@@ -14,6 +14,8 @@ const BidListItemBlock = styled.div`
   justify-content: space-around;
   img {
     border-radius: 50%;
+    width: 48px;
+    height: 48px;
   }
   .bid {
     &-user {
@@ -35,13 +37,12 @@ const BidListItem = ({ member, price, createDt }) => {
     <>
       <BidListItemBlock>
         <img
+          alt="프로필 이미지"
           src={
             member.memberImagePath
               ? member.memberImagePath
               : `https://avatars.dicebear.com/v2/identicon/${member.memberName}${member.memberId}.svg`
           }
-          alt="프로필 이미지"
-          style={{ width: '48px' }}
         />
         <div>
           <h4 className="bid-user">{member.memberName}</h4>

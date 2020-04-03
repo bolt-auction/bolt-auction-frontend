@@ -30,7 +30,7 @@ const ProductCardBlock = styled.div`
       object-fit: cover;
       background-color: ${Colors.onSurfaceLow};
     }
-    border-bottom: 0.5px solid #00000008;
+    border-bottom: 1px solid #00000008;
   }
   .product-data {
     margin: 0 16px 12px 16px;
@@ -59,6 +59,7 @@ const ProductCardBlock = styled.div`
         span {
           ${Typography.Headline6};
           color: ${Colors.onSurfaceHigh};
+          font-size: 18px;
         }
       }
       .limit-time {
@@ -68,7 +69,7 @@ const ProductCardBlock = styled.div`
         align-items: center;
         ${Typography.Caption};
         color: ${Colors.onSurfaceMedium};
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         padding-top: 1.75em;
       }
     }

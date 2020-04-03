@@ -16,8 +16,8 @@ const CategoryResult = ({ match, order, id, items, getItems }) => {
   const filter = [
     {
       name: '인기순',
-      params: `/categories/${category}?order=bidCount,asc`,
-      id: 'bidCount,asc',
+      params: `/categories/${category}?order=bidCount,desc`,
+      id: 'bidCount,desc',
     },
     {
       name: '최신순',

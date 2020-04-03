@@ -87,7 +87,7 @@ const Categories = ({
                 }}
               >
                 <Link
-                  to={`/categories/${cat.name}?order=bidCount,asc`}
+                  to={`/categories/${cat.name}?order=bidCount,desc`}
                   onClick={() => onCategotyClick(cat.id, cat.name)}
                 >
                   {/* <FaHeart
@@ -106,7 +106,7 @@ const Categories = ({
                   {cat.subCategoryList.map(subCat => (
                     <li className="sub-category" key={subCat.id}>
                       <Link
-                        to={`/categories/${subCat.name}?order=bidCount,asc`}
+                        to={`/categories/${subCat.name}?order=bidCount,desc`}
                         onClick={() => onCategotyClick(subCat.id, subCat.name)}
                       >
                         {subCat.name}

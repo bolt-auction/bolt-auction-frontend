@@ -282,10 +282,9 @@ const ChatRoom = ({
         <div className="scroll-blind">
           <div className="item-wrapper">
             <Link className="item-link" to={`/products/${room.item?.itemId}`}>
-              <img src={room.item?.imagePath} alt="아이템" />
+              <img alt="아이템" src={room?.item?.itemImagePath} />
             </Link>
           </div>
-
           <Infinite
             className="chat-records"
             ref={$records}
