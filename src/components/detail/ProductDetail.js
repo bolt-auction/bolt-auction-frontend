@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Col, Container, Row } from 'react-awesome-styled-grid';
 import { Carousel } from 'react-responsive-carousel';
+// import { Link } from 'react-router-dom';
 
 import Colors from '../../styles/Colors';
 import Typography from '../../styles/Typography';
@@ -9,9 +10,10 @@ import Elevation from '../../styles/Elevation';
 import LoadingSpinner from '../common/LoadingSpinner';
 import ContentSection from '../common/ContentSection';
 import Divider from '../common/Divider';
+import ErrorMessage from '../common/ErrorMessage';
 import DetailData from './DetailData';
 import BidEndModal from './BidEndModal';
-import { MdMoreVert } from 'react-icons/md';
+import { MdMoreVert, MdNavigateNext } from 'react-icons/md';
 
 /*
  * TODO:
@@ -23,12 +25,19 @@ const ProductDetailBlock = styled(Container)`
   .category-name {
     ${Typography.Headline6};
     color: ${Colors.onSurfaceMedium};
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    a:hover {
+      color: ${Colors.primaryMatte[5]};
+    }
   }
   .sub-title {
     margin-top: 2rem;
   }
   .product-img {
     height: 100%;
+    max-height: 476px;
     display: flex;
     align-items: center;
   }
@@ -87,9 +96,9 @@ const ProductDetail = ({
 
   if (detailError) {
     if (detailError.response && detailError.response.status === 404) {
-      return <ContentSection>존재하지 않는 상품입니다.</ContentSection>;
+      return <ErrorMessage notFound="해당 상품" />;
     }
-    return <ContentSection>오류가 발생했어요 ㅠㅠ</ContentSection>;
+    return <ErrorMessage errorResponse={detailError.response} />;
   }
 
   if (loading || !detail) {
@@ -123,9 +132,31 @@ const ProductDetail = ({
       )}
       <ProductDetailBlock>
         <Row justify="space-between">
-          <Col className="category-name" xs={3} sm={3} md={4} lg={4}>
-            {category.supCategoryName}
-            {category.name && ` > ${category.name}`}
+          <Col className="category-name" xs={3} sm={3} md={4} lg={6}>
+            {category.supCategoryName && (
+              <span>{category.supCategoryName}</span>
+            )}
+            {category.name && (
+              <>
+                <MdNavigateNext />
+                <span>{category.name}</span>
+              </>
+            )}
+            {/* {category.supCategoryName && (
+              <Link
+                to={`/categories/${category.supCategoryName}?order=bidCount,desc`}
+              >
+                {category.supCategoryName}
+              </Link>
+            )}
+            {category.name && (
+              <>
+                <MdNavigateNext />
+                <Link to={`/categories/${category.name}?order=bidCount,desc`}>
+                  {category.name}
+                </Link>
+              </>
+            )} */}
           </Col>
           {ownProduct && (
             <Col
@@ -157,7 +188,7 @@ const ProductDetail = ({
         </Row>
         <Divider />
         <Row>
-          <Col xs={4} sm={3} md={5} lg={5} align="center" justify="center">
+          <Col xs={4} sm={4} md={6} lg={6} align="center" justify="center">
             <Carousel
               showThumbs={false}
               showStatus={false}
