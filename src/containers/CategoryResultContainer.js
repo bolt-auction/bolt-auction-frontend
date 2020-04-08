@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import qs from 'qs';
 
 import CategoryResult from '../components/CategoryResult';
 import { connect } from 'react-redux';
-import { getCategoryItems } from '../modules/category';
+import { getCategoryItems, initializeCategoryItems } from '../modules/category';
 
 const CategoryResultContainer = ({
   match,
@@ -11,11 +11,19 @@ const CategoryResultContainer = ({
   selectedCategory,
   categoryItems,
   getCategoryItems,
+  initializeCategoryItems,
 }) => {
   const query = qs.parse(location.search, {
     ignoreQueryPrefix: true,
   });
   const order = query.order;
+
+  useEffect(() => {
+    return () => {
+      initializeCategoryItems();
+    };
+  }, [initializeCategoryItems]);
+
   return (
     <CategoryResult
       match={match}
@@ -35,6 +43,7 @@ export default React.memo(
     }),
     {
       getCategoryItems,
+      initializeCategoryItems,
     },
   )(CategoryResultContainer),
 );

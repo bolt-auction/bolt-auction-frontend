@@ -9,11 +9,14 @@ import createRequestSaga from '../lib/createRequestSaga';
 const GET_ITEMS = 'item/GET_ITEMS';
 const GET_ITEMS_SUCCESS = 'item/GET_ITEMS_SUCCESS';
 
+const UNLOAD_SEARCH_RESULT = 'item/UNLOAD_SEARCH_RESULT';
+
 // Action Creators
 export const getItems = createAction(GET_ITEMS, (keyword, filter) => ({
   keyword,
   filter,
 }));
+export const unloadSearchResult = createAction(UNLOAD_SEARCH_RESULT);
 
 // Action Saga
 const getItemsSaga = createRequestSaga(GET_ITEMS, API.searchItem);
@@ -35,6 +38,7 @@ const item = handleActions(
       ...state,
       searchedItems: action.payload,
     }),
+    [UNLOAD_SEARCH_RESULT]: () => initialState,
   },
   initialState,
 );

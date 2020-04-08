@@ -41,6 +41,8 @@ const PUT_INFO = 'store/PUT_INFO';
 const PUT_INFO_SUCCESS = 'store/PUT_INFO_SUCCESS';
 const PUT_INFO_FAILURE = 'store/PUT_INFO_FAILURE';
 
+const UNLOAD_STORE = 'store/UNLOAD_STORE';
+
 // SECTION Action Creator
 export const getInfo = createAction(GET_INFO, id => id);
 export const getProducts = createAction(GET_PRODUCTS, id => id);
@@ -59,6 +61,8 @@ export const putInfo = createAction(PUT_INFO, (name, desc, file) => ({
   desc,
   file,
 }));
+
+export const unloadStore = createAction(UNLOAD_STORE);
 
 //SECTION Action Saga
 const getInfoSaga = createRequestSaga(GET_INFO, API.getStoreInfo);
@@ -151,6 +155,7 @@ const store = handleActions(
       ...state,
       error: action.payload,
     }),
+    [UNLOAD_STORE]: () => initialState,
   },
   initialState,
 );

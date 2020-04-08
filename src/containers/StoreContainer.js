@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Store from '../components/Store';
 import { connect } from 'react-redux';
 import {
@@ -11,6 +11,7 @@ import {
   editImage,
   putInfo,
   editFile,
+  unloadStore,
 } from '../modules/store';
 import { create } from '../modules/chat';
 
@@ -32,9 +33,16 @@ const StoreContainer = ({
   putInfo,
   error,
   create,
+  unloadStore,
 }) => {
   const { id } = match.params;
   const isMyStore = user.id === +id;
+
+  useEffect(() => {
+    return () => {
+      unloadStore();
+    };
+  }, [unloadStore]);
 
   // FIXME : id랑 name은 info로 대체될 수 있음
   return (
@@ -82,6 +90,7 @@ export default React.memo(
       editImage,
       putInfo,
       create,
+      unloadStore,
     },
   )(StoreContainer),
 );
