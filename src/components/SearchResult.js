@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ProductList from './ProductList';
+import ProductList from './productCard/ProductList';
 import * as Styled from '../styles/Styled';
-import Tab from './Tab';
+import Tab from './common/Tab';
 
 const SearchResult = ({ keyword, items, order, search }) => {
   const [activeTab, setActiveTab] = useState(order);
@@ -23,8 +23,8 @@ const SearchResult = ({ keyword, items, order, search }) => {
     },
     {
       name: '마감 임박순',
-      params: `/search?keyword=${keyword}&order=finish`,
-      id: 'finish',
+      params: `/search?keyword=${keyword}&order=endDt,asc`,
+      id: 'endDt,asc',
     },
     {
       name: '낮은 가격순',
@@ -49,7 +49,7 @@ const SearchResult = ({ keyword, items, order, search }) => {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
-        <ProductList items={items['_embedded']?.itemDtoList} />
+        <ProductList items={items['_embedded']?.itemList} />
       </Styled.ContentsBox>
     </div>
   );

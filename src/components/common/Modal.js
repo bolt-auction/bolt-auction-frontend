@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { MdClose } from 'react-icons/md';
+// import { MdChevronLeft } from 'react-icons/md';
 import Colors from '../../styles/Colors';
 import Elevation from '../../styles/Elevation';
 
@@ -27,6 +28,7 @@ const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 30;
+  /* backdrop-filter: blur(1px); */
 `;
 
 const ModalBlock = styled.div`

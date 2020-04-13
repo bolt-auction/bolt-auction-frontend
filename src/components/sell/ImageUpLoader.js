@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'react-awesome-styled-grid';
-import { MdRemove, MdAddCircleOutline } from 'react-icons/md';
+import { MdRemove, MdAddAPhoto } from 'react-icons/md';
 
 const ImageUpLoaderBlock = styled(Row)`
   .add-Img {
@@ -17,7 +17,7 @@ const ImageUpLoaderBlock = styled(Row)`
       justify-content: center;
       color: dimgray;
       svg {
-        font-size: 4rem;
+        font-size: 3rem;
       }
     }
     label {
@@ -66,7 +66,7 @@ const ImageUpLoader = ({ previewImages, onRemoveImage, onChangeFile }) => {
         >
           <div className="add-Img">
             <label htmlFor="images" onClick={() => fileInputEl.current.click()}>
-              <MdAddCircleOutline />
+              <MdAddAPhoto />
               이미지 업로드
             </label>
             <input

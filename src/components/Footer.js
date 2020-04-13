@@ -4,13 +4,10 @@ import Colors from '../styles/Colors';
 import { FaGithub } from 'react-icons/fa';
 import { Container, Row, Col } from 'react-awesome-styled-grid';
 
-const FooterBox = styled.div`
+const FooterBlock = styled.footer`
   width: 100%;
   height: 122px;
   text-align: center;
-  background-color: #ffffff;
-  border-top: 1px solid ${Colors.primary};
-  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 16px 24px 0 rgba(0, 0, 0, 0.14);
 
   .bolt-auction {
     color: ${Colors.primary};
@@ -42,6 +39,14 @@ const FooterBox = styled.div`
   }
 `;
 
+const FooterContainer = styled(Container)`
+  max-width: 1024px;
+  box-shadow: 0px 3px 4px -2px rgba(0, 0, 0, 0.2),
+    0px 6px 5px 0 rgba(0, 0, 0, 0.14), 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
+  background-color: ${Colors.surface};
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+`;
+
 // const FlexBox = styled.div`
 //   display: flex;
 //   max-width: 1024px;
@@ -53,20 +58,22 @@ const FooterBox = styled.div`
 // `;
 
 const developers = [
-  { name: '박수빈', github: 'https://github.com/Sub2n' },
   { name: '김현수', github: 'https://github.com/hscom96' },
-  { name: '신지섭', github: 'https://github.com/JiSop' },
   { name: '김태연', github: 'https://github.com/ki1556ki' },
+  { name: '박수빈', github: 'https://github.com/Sub2n' },
+  { name: '신지섭', github: 'https://github.com/JiSop' },
 ];
 
 const Footer = () => {
   return (
-    <FooterBox>
-      <Container style={{ maxWidth: 1024 }}>
+    <FooterBlock>
+      <FooterContainer>
         <Row justify="space-between">
           <Col xs={0.8} sm={1.5} md={2} lg={2} align="center" justify="center">
-            <span className="bolt-auction">번개옥션</span>
-            <p className="description">중고거래 경매 사이트</p>
+            <a href="https://github.com/bolt-auction">
+              <span className="bolt-auction">번개옥션</span>
+              <p className="description">중고 경매 거래</p>
+            </a>
           </Col>
           {developers
             .sort((a, b) => {
@@ -90,8 +97,8 @@ const Footer = () => {
               </Col>
             ))}
         </Row>
-      </Container>
-    </FooterBox>
+      </FooterContainer>
+    </FooterBlock>
   );
 };
 

@@ -82,7 +82,7 @@ const sell = handleActions(
       produce(state, draft => {
         draft.sellForm.images = value;
       }),
-    [INITIALIZE_FORM]: state => initialState,
+    [INITIALIZE_FORM]: () => initialState,
     [SELL_PRODUCT_SUCCESS]: (state, { payload: { itemId } }) => ({
       ...state,
       itemId,

@@ -12,6 +12,7 @@ const SigninForm = withRouter(
     auth,
     authError,
     user,
+    loading,
     changeField,
     initializeForm,
     signin,
@@ -34,6 +35,7 @@ const SigninForm = withRouter(
     const onSubmit = e => {
       e.preventDefault();
       const { uid, passwd } = form;
+      setError(null);
       signin({ uid, passwd });
     };
 
@@ -42,6 +44,7 @@ const SigninForm = withRouter(
     }, [initializeForm]);
 
     useEffect(() => {
+      setError(null);
       if (authError) {
         if (authError.response.status === 403) {
           setError('아이디 혹은 비밀번호가 잘못되었습니다.');
@@ -74,6 +77,7 @@ const SigninForm = withRouter(
         form={form}
         onChange={onChange}
         onSubmit={onSubmit}
+        loading={loading}
         error={error}
       />
     );
@@ -81,11 +85,12 @@ const SigninForm = withRouter(
 );
 
 export default connect(
-  ({ auth }) => ({
+  ({ auth, loading }) => ({
     form: auth.signin,
     auth: auth.auth,
     authError: auth.authError,
     user: auth.user,
+    loading: loading['auth/SIGNIN'],
   }),
   {
     changeField,

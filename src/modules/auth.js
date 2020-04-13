@@ -105,6 +105,7 @@ const auth = handleActions(
       }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
+      authError: null,
       [form]: initialState[form],
     }),
     // 회원가입 성공

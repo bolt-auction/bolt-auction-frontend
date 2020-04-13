@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Typography from '../../styles/Typography';
 import Colors from '../../styles/Colors';
-import catWithBox from '../../imgs/ginger-cat-741.png';
+import gingerCatWithBox from '../../lib/images/gingerCatWithBox.png';
 
 const WelcomeBlock = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const WelcomeBlock = styled.div`
 const Welcome = () => {
   return (
     <WelcomeBlock>
-      <img src={catWithBox} alt="welcome" />
+      <img src={gingerCatWithBox} alt="welcome" />
       <b>번개 옥션으로 중고거래 시작하기</b>
       <p>간편하게 가입하고 중고거래를 시작하세요!</p>
     </WelcomeBlock>

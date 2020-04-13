@@ -5,7 +5,7 @@ import { Col, Row } from 'react-awesome-styled-grid';
 import Select from '../common/Select';
 import TextField from '../common/TextField';
 
-/**
+/*
  * FIXME:
  *  []경매 진행기간 선택 캘린더(피커)로 전환 (현재 일로부터 최대 일주일)
  * NOTE:

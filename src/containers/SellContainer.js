@@ -31,9 +31,11 @@ const SellContainer = withRouter(
     categoryList,
     changeField,
     sellForm,
+    images,
     initializeForm,
     sellProduct,
     changeFile,
+    loading,
     error,
     itemId,
   }) => {
@@ -50,7 +52,6 @@ const SellContainer = withRouter(
         return;
       }
       // 프리뷰 이미지로 사용하기 위한 인코딩 객체 생성
-      // NOTE: useCallback을 사용하고 커스텀 훅을 만들어서 분리해도 좋을것 같다.
       (function() {
         let images = [];
         imageFiles.forEach((file, i) => {
@@ -64,7 +65,6 @@ const SellContainer = withRouter(
               },
             ];
             setPreviewImages(images);
-            console.log(images);
           };
           reader.readAsDataURL(file);
         });
@@ -75,18 +75,17 @@ const SellContainer = withRouter(
 
     const onChangeFile = e => {
       const { files } = e.target;
-      const imageFiles = [...files, ...sellForm.images];
+      const imageFiles = [...files, ...images];
       // 선택한 이미지의 개수가 4개 이상일 경우 경고 메시지
       if (imageFiles.length > 4) {
         e.target.value = '';
         return alert('최대 4개의 이미지만 업로드 가능합니다.');
       }
       imageFilesHandler(imageFiles);
-      e.target.value = '';
     };
 
     const onRemoveImage = name => {
-      const imageFiles = [...sellForm.images].filter(
+      const imageFiles = images.filter(
         (image, i) => `${i}${image.name}` !== name,
       );
       imageFilesHandler(imageFiles);
@@ -147,7 +146,9 @@ const SellContainer = withRouter(
     };
 
     useEffect(() => {
-      initializeForm();
+      return () => {
+        initializeForm();
+      };
     }, [initializeForm]);
 
     useEffect(() => {
@@ -163,9 +164,11 @@ const SellContainer = withRouter(
     return (
       <Sell
         sellForm={sellForm}
+        images={images}
         onChange={onChange}
         onChangeFile={onChangeFile}
         onSubmit={onSubmit}
+        loading={loading}
         categoryList={categoryList}
         previewImages={previewImages}
         onRemoveImage={onRemoveImage}
@@ -175,11 +178,13 @@ const SellContainer = withRouter(
 );
 
 export default connect(
-  ({ sell, category }) => ({
+  ({ sell, category, loading }) => ({
     sellForm: sell.sellForm,
+    images: sell.sellForm.images,
     error: sell.error,
     itemId: sell.itemId,
     categoryList: category.categories.supCategoryList,
+    loading: loading['sell/SELL_PRODUCT'],
   }),
   {
     changeField,

@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductList from './ProductList';
+import ProductList from '../productCard/ProductList';
 import { useEffect } from 'react';
 
 const StoreProducts = ({ items, setActiveTab }) => {
@@ -8,7 +8,7 @@ const StoreProducts = ({ items, setActiveTab }) => {
   }, [setActiveTab]);
   return (
     <div style={{ marginTop: 24 }}>
-      <ProductList items={items['_embedded']?.itemDtoList} />
+      <ProductList items={items['_embedded']?.itemList} />
     </div>
   );
 };

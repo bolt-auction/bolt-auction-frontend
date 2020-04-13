@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import Tab from './Tab';
+import Tab from '../common/Tab';
 import StoreProducts from './StoreProducts';
 import StoreReviews from './StoreReviews';
 
-import * as Styled from '../styles/Styled';
+import * as Styled from '../../styles/Styled';
 // import Colors from '../styles/Colors';
 
 import { Container, Row, Col } from 'react-awesome-styled-grid';
@@ -13,7 +13,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { FaCamera } from 'react-icons/fa';
-import defaultImg from '../imgs/default-profile.webp';
 
 const StoreTo = ({ match }) => {
   return <Redirect to={`${match.path}/products`} />;
@@ -109,7 +108,11 @@ const Store = ({
             >
               <img
                 className="profile-image"
-                src={editInfo.image || info.imagePath || defaultImg}
+                src={
+                  editInfo.image ||
+                  info.imagePath ||
+                  `https://avatars.dicebear.com/v2/identicon/${info.memberName}${id}.svg`
+                }
                 alt=""
               />
               {editMode ? (

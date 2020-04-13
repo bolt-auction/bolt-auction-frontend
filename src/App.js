@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import AuthRoute from './lib/AuthRoute';
 
 import Footer from './components/Footer';
-import SideBar from './components/SideBar';
+import SideBar from './components/chat/SideBar';
 
 import HeaderContainer from './containers/HeaderContainer';
 import CategoryResultContainer from './containers/CategoryResultContainer';
@@ -16,6 +16,7 @@ import SigninContainer from './containers/auth/SigninContainer';
 import SignupContainer from './containers/auth/SignupContainer';
 import SellContainer from './containers/SellContainer';
 import MainContainer from './containers/MainContainer';
+import ErrorMessage from './components/common/ErrorMessage';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -78,10 +79,7 @@ const App = () => {
         <AuthRoute path="/" exact component={MainContainer} />
         <Route
           render={({ location }) => (
-            <div>
-              <h2>존재하지 않는 페이지:</h2>
-              <p>{location.pathname}</p>
-            </div>
+            <ErrorMessage notFound={location.pathname} />
           )}
         />
       </Switch>

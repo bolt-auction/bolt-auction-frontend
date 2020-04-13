@@ -11,7 +11,7 @@ import Typography from '../../styles/Typography';
 import Colors from '../../styles/Colors';
 import BidListItem from './BidListItem';
 
-import gingerCatBulb from '../../imgs/ginger-cat-729.png';
+import gingerCatBulb from '../../lib/images/gingerCatBulb.png';
 
 const BidModalBlock = styled.div`
   height: 100%;
@@ -50,6 +50,7 @@ const BidModalBlock = styled.div`
   .label {
     width: 94px;
     ${Typography.Headline6};
+    font-size: 18px;
     color: ${Colors.onSurfaceMedium};
     margin-right: 1rem;
   }
@@ -121,7 +122,6 @@ const BidModal = ({
                   member={bidItem.member}
                   price={bidItem.price}
                   createDt={bidItem.createDt}
-                  memberImagePath={bidItem.memberImagePath}
                 />
               ))
             ) : (
@@ -161,7 +161,8 @@ const BidModal = ({
                 <div className="row">
                   <div className="label">경매 종료</div>
                   <div>
-                    <Moment date={endDt} toNow />{' '}
+                    <Moment date={endDt} toNow />
+                    <br />
                     <Moment date={endDt} format="[(]YYYY-MM-DD HH:mm[)]" />
                   </div>
                 </div>
@@ -178,7 +179,7 @@ const BidModal = ({
                   min={currentPrice}
                   step={minBidPrice}
                 />
-                <Button primary fullWidth>
+                <Button primary fullwidth>
                   입찰하기
                 </Button>
               </form>
@@ -191,6 +192,3 @@ const BidModal = ({
 };
 
 export default BidModal;
-
-// export const handleModal = (state, setState) =>
-//   !state ? setState(true) : setState(false);

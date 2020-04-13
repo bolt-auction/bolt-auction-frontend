@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as Styled from '../styles/Styled';
-import Colors from '../styles/Colors';
+import * as Styled from '../../styles/Styled';
+import Colors from '../../styles/Colors';
 import { MdArrowBack } from 'react-icons/md';
 // import socket from '../lib/socket';
 import SockJsClient from 'react-stomp';
@@ -232,7 +232,7 @@ const ChatRoom = ({
   const [message, setMessage] = useState('');
   const page = 0;
   const [size, setSize] = useState(24);
-  const wsURL = 'http://18.190.79.25:8080/ws-stomp';
+  const wsURL = 'http://18.190.79.25:8060/ws-stomp';
 
   const onSubmit = e => {
     e.preventDefault();
@@ -282,10 +282,9 @@ const ChatRoom = ({
         <div className="scroll-blind">
           <div className="item-wrapper">
             <Link className="item-link" to={`/products/${room.item?.itemId}`}>
-              <img src={room.item?.itemImagePath} alt="아이템" />
+              <img alt="아이템" src={room?.item?.itemImagePath} />
             </Link>
           </div>
-
           <Infinite
             className="chat-records"
             ref={$records}
@@ -325,7 +324,7 @@ const ChatRoom = ({
                   {isFirst ? (
                     <img
                       className="profile-image"
-                      src={room?.item?.itemImagePath}
+                      src={rec.sender?.imagePath}
                       alt="me"
                     />
                   ) : (

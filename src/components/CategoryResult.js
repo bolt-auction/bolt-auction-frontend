@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
-import ProductList from './ProductList';
+import ProductList from './productCard/ProductList';
 import * as Styled from '../styles/Styled';
-import Tab from './Tab';
+import Tab from './common/Tab';
 import { useState } from 'react';
 
 const CategoryResult = ({ match, order, id, items, getItems }) => {
@@ -16,8 +16,8 @@ const CategoryResult = ({ match, order, id, items, getItems }) => {
   const filter = [
     {
       name: '인기순',
-      params: `/categories/${category}?order=bidCount,asc`,
-      id: 'bidCount,asc',
+      params: `/categories/${category}?order=bidCount,desc`,
+      id: 'bidCount,desc',
     },
     {
       name: '최신순',
@@ -26,8 +26,8 @@ const CategoryResult = ({ match, order, id, items, getItems }) => {
     },
     {
       name: '마감 임박순',
-      params: `/categories/${category}?order=finish`,
-      id: 'finish',
+      params: `/categories/${category}?order=endDt,asc`,
+      id: 'endDt,asc',
     },
     {
       name: '낮은 가격순',
@@ -55,7 +55,7 @@ const CategoryResult = ({ match, order, id, items, getItems }) => {
           setActiveTab={setActiveTab}
         />
         <Styled.Divider />
-        <ProductList items={items['_embedded']?.itemDtoList} />
+        <ProductList items={items['_embedded']?.itemList} />
       </Styled.ContentsBox>
     </div>
   );

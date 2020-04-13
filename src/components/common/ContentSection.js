@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Colors from '../../styles/Colors';
+import Typography from '../../styles/Typography';
 import Elevation from '../../styles/Elevation';
 
 /**
@@ -17,6 +18,7 @@ const ContentSectionBlock = styled.section`
   margin: 1rem auto 0;
   max-width: 1024px;
   padding-top: 1.5rem;
+  background-color: ${Colors.surface};
 `;
 
 const Title = styled.div`
@@ -29,10 +31,11 @@ const Title = styled.div`
   max-width: 1024px;
   padding-left: 16px;
   & h1 {
-    color: ${Colors.onSurfaceHigh};
-    font-size: 48px;
-    line-height: 48px;
     width: 375px;
+    color: ${Colors.onSurfaceHigh};
+    ${Typography.Headline3};
+    /* font-size: 48px; */
+    /* line-height: 48px; */
   }
   & h2 {
     color: ${Colors.primary};
@@ -58,10 +61,10 @@ const ContentSection = ({ title, type, children }) => {
       {title && (
         <Title>
           {type === 'category' && <h1>{title}</h1>}
-          <h2>
+          <h1>
             {title}
             {text}
-          </h2>
+          </h1>
         </Title>
       )}
       <ContentSectionBlock>{children}</ContentSectionBlock>

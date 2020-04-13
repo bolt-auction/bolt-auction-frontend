@@ -20,6 +20,8 @@ const SELECT_CATEGORY = 'category/SELECT_CATEGORY';
 const GET_CATEGORY_ITEM = 'item/GET_CATEGORY_ITEM';
 const GET_CATEGORY_ITEM_SUCCESS = 'item/GET_CATEGORY_ITEM_SUCCESS';
 
+const INITIALIZE_CATEGORY_ITEMS = 'category/INITIALIZE_CATEGORY_ITEMS';
+
 // Action Creators
 export const getCats = createAction(GET_CATS);
 export const activateSub = createAction(ACTIVATE_SUB, id => id);
@@ -32,6 +34,8 @@ export const getCategoryItems = createAction(
   GET_CATEGORY_ITEM,
   (id, filter = null) => ({ id, filter }),
 );
+
+export const initializeCategoryItems = createAction(INITIALIZE_CATEGORY_ITEMS);
 
 // Action Saga
 const getCatsSaga = createRequestSaga(GET_CATS, API.getCategories);
@@ -82,6 +86,10 @@ const category = handleActions(
     [GET_CATEGORY_ITEM_SUCCESS]: (state, action) => ({
       ...state,
       categoryItems: action.payload,
+    }),
+    [INITIALIZE_CATEGORY_ITEMS]: state => ({
+      ...state,
+      categoryItems: [],
     }),
   },
   initialState,

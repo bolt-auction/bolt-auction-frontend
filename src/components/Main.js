@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductList from './ProductList';
+import ProductList from './productCard/ProductList';
 import MainCarousel from './MainCarousel';
 
 import Colors from '../styles/Colors';
@@ -13,6 +13,7 @@ const MainContentBlock = styled.section`
   max-width: 1024px;
   border-radius: 15px 15px 0 0;
   box-shadow: ${Elevation.z4};
+  background-color: ${Colors.surface};
 
   & h2 {
     color: ${Colors.primary};
@@ -29,7 +30,7 @@ const Divider = styled.div`
 
 const Main = ({ items, getItems }) => {
   useEffect(() => {
-    getItems(0);
+    getItems(0, 'bidCount,desc');
   }, [getItems]);
 
   return (
@@ -38,7 +39,7 @@ const Main = ({ items, getItems }) => {
       <MainContentBlock>
         <h2 className="content-title">경매장터 인기상품</h2>
         <Divider />
-        <ProductList items={items['_embedded']?.itemDtoList} />
+        <ProductList items={items['_embedded']?.itemList} />
       </MainContentBlock>
     </>
   );

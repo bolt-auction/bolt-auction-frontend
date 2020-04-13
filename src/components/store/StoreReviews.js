@@ -7,7 +7,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import 'moment/locale/ko';
 
-import Colors from '../styles/Colors';
+import Colors from '../../styles/Colors';
 
 const ReviewBlock = styled.div`
   .review-form {
@@ -205,11 +205,6 @@ const StoreReviews = ({ isMyStore, reviews, id, postReview, setActiveTab }) => {
                             </Moment>
                           );
                         })()}
-                        {/* {moment(
-                          review.createDt,
-                          'YYYY-MM-DD[T]HH:mm:ss',
-                        ).fromNow()} */}
-                        {/* {console.log(review.createDt)} */}
                       </span>
                     </div>
                   </li>

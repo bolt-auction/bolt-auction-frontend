@@ -35,17 +35,16 @@ const buttonStyle = css`
   }
   }
   ${props =>
-    props.roundShape &&
+    props.roundshape &&
     css`
       border-radius: 28px;
     `}
   ${props =>
-    props.fullWidth &&
+    props.fullwidth &&
     css`
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
       width: 100%;
-      font-size: 1.125rem;
     `}
   ${props =>
     (props.primary || props.kakao) &&
@@ -110,27 +109,25 @@ const StyledLink = styled(Link)`
  * <Button /> 랜더링 (default: text style)
  * @param {object} props
  * @param {string} [props.to] - to가 존재 하는경우 StyledLink로 반환합니다.
- * @param {boolean} [props.roundShape] - 둥근 모양의 버튼으로 랜더링합니다.
- * @param {boolean} [props.fullWidth] - 버튼의 크기를 최대 넓이로 랜더링합니다.
+ * @param {boolean} [props.roundshape] - 둥근 모양의 버튼으로 랜더링합니다.
+ * @param {boolean} [props.fullwidth] - 버튼의 크기를 최대 넓이로 랜더링합니다.
  * @param {boolean} [props.primary] - 버튼을 primary색으로 랜더링합니다.
  * @param {boolean} [props.kakao] - 버튼을 카카오색으로 랜더링합니다.
  * @param {boolean} [props.outline] - 버튼을 아웃라인 스타일로 랜더링합니다.
  */
 const Button = props => {
+  // NOTE: 리액트에서 사용자 지정 어트리뷰트는 lowcase이어야한다.
   return props.to ? (
     <StyledLink
       {...props}
       primary={props.primary ? 1 : 0}
       kakao={props.kakao ? 1 : 0}
       outline={props.outline ? 1 : 0}
+      fullwidth={props.fullwidth ? 1 : 0}
+      roundshape={props.roundshape ? 1 : 0}
     />
   ) : (
-    <StyledButton
-      {...props}
-      // primary={props.primary ? 1 : 0}
-      // kakao={props.kakao ? 1 : 0}
-      // outline={props.outline ? 1 : 0}
-    />
+    <StyledButton {...props} />
   );
 };
 
