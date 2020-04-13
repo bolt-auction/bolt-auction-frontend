@@ -7,7 +7,7 @@ export default function socket(chatRoomId) {
   let stompClient;
 
   function connect() {
-    socket = new SockJS('http://18.190.79.25:8080/ws-stomp');
+    socket = new SockJS('http://18.190.79.25:8060/ws-stomp');
     stompClient = Stomp.over(socket);
     stompClient.connect({ chatRoomId: chatRoomId }, stompSuccess, stompFailure);
   }

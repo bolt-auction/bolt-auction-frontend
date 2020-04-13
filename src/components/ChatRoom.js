@@ -232,7 +232,7 @@ const ChatRoom = ({
   const [message, setMessage] = useState('');
   const page = 0;
   const [size, setSize] = useState(24);
-  const wsURL = 'http://18.190.79.25:8080/ws-stomp';
+  const wsURL = 'http://18.190.79.25:8060/ws-stomp';
 
   const onSubmit = e => {
     e.preventDefault();
