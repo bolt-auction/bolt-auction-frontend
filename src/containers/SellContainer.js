@@ -146,7 +146,9 @@ const SellContainer = withRouter(
     };
 
     useEffect(() => {
-      initializeForm();
+      return () => {
+        initializeForm();
+      };
     }, [initializeForm]);
 
     useEffect(() => {

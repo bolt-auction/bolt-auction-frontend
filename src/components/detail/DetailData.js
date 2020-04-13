@@ -90,7 +90,7 @@ const DetailData = ({
   const [bidListModal, setBidListModal] = useState(false);
 
   return (
-    <DetailDataBlock justify="center" xs={4} sm={5} md={7} lg={7}>
+    <DetailDataBlock justify="center" xs={4} sm={4} md={6} lg={6}>
       <Row align="center">
         <Col xs={1} sm={2} md={4} lg={4}>
           <Link to={`/store/${seller.memberId}`}>
@@ -148,7 +148,7 @@ const DetailData = ({
         <Col xs={1} sm={1} md={2} lg={2}>
           <p>{bidCount}회</p>
         </Col>
-        <Col xs={1} sm={2} md={2} lg={2}>
+        <Col xs={1} sm={2} md={3} lg={3}>
           <Button outline onClick={() => setBidListModal(true)}>
             입찰기록
           </Button>
@@ -164,12 +164,12 @@ const DetailData = ({
       </Row>
       <Divider thick="1px" />
       <Row justify="center" align="center">
-        <Col xs={2} sm={3} md={6} lg={6}>
+        <Col xs={2} sm={4} md={6} lg={6}>
           <Button primary onClick={onReservedPrice} disabled={ownProduct}>
             즉시낙찰
           </Button>
         </Col>
-        <Col xs={2} sm={3} md={6} lg={6}>
+        <Col xs={2} sm={4} md={6} lg={6}>
           <Button
             primary
             onClick={() => setBidModal(true)}

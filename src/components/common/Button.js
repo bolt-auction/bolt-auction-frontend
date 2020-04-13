@@ -127,14 +127,7 @@ const Button = props => {
       roundshape={props.roundshape ? 1 : 0}
     />
   ) : (
-    <StyledButton
-      {...props}
-      primary={props.primary ? 1 : 0}
-      kakao={props.kakao ? 1 : 0}
-      outline={props.outline ? 1 : 0}
-      fullwidth={props.fullwidth ? 1 : 0}
-      roundshape={props.roundshape ? 1 : 0}
-    />
+    <StyledButton {...props} />
   );
 };
 
