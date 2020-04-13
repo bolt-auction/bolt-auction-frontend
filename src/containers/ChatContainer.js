@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ChatRoom from '../components/ChatRoom';
-import ChatList from '../components/ChatList';
+import ChatRoom from '../components/chat/ChatRoom';
+import ChatList from '../components/chat/ChatList';
 import {
   enter,
   leave,

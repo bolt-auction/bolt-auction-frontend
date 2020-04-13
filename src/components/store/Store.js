@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import Tab from './Tab';
+import Tab from '../common/Tab';
 import StoreProducts from './StoreProducts';
 import StoreReviews from './StoreReviews';
 
-import * as Styled from '../styles/Styled';
+import * as Styled from '../../styles/Styled';
 // import Colors from '../styles/Colors';
 
 import { Container, Row, Col } from 'react-awesome-styled-grid';

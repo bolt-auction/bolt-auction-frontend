@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import AuthRoute from './lib/AuthRoute';
 
 import Footer from './components/Footer';
-import SideBar from './components/SideBar';
+import SideBar from './components/chat/SideBar';
 
 import HeaderContainer from './containers/HeaderContainer';
 import CategoryResultContainer from './containers/CategoryResultContainer';

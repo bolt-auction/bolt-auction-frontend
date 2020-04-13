@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductList from './ProductList';
+import ProductList from './productCard/ProductList';
 import MainCarousel from './MainCarousel';
 
 import Colors from '../styles/Colors';

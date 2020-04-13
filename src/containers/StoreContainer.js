@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Store from '../components/Store';
+import Store from '../components/store/Store';
 import { connect } from 'react-redux';
 import {
   getProducts,

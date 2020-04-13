@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as Styled from '../styles/Styled';
-import Colors from '../styles/Colors';
+import * as Styled from '../../styles/Styled';
+import Colors from '../../styles/Colors';
 import { MdArrowBack } from 'react-icons/md';
 // import socket from '../lib/socket';
 import SockJsClient from 'react-stomp';

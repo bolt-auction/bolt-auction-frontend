@@ -7,7 +7,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import 'moment/locale/ko';
 
-import Colors from '../styles/Colors';
+import Colors from '../../styles/Colors';
 
 const ReviewBlock = styled.div`
   .review-form {

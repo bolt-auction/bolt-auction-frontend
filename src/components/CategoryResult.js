@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
-import ProductList from './ProductList';
+import ProductList from './productCard/ProductList';
 import * as Styled from '../styles/Styled';
-import Tab from './Tab';
+import Tab from './common/Tab';
 import { useState } from 'react';
 
 const CategoryResult = ({ match, order, id, items, getItems }) => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Colors from '../styles/Colors';
-import ChatContainer from '../containers/ChatContainer';
+import Colors from '../../styles/Colors';
+import ChatContainer from '../../containers/ChatContainer';
 
 const ChatButton = styled.button`
   position: fixed;

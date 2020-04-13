@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Elevation from '../styles/Elevation';
-import Colors from '../styles/Colors';
-import Typography from '../styles/Typography';
+import Elevation from '../../styles/Elevation';
+import Colors from '../../styles/Colors';
+import Typography from '../../styles/Typography';
 import Moment from 'react-moment';
-import PriceFormat from './common/PriceFormat';
+import PriceFormat from '../common/PriceFormat';
 import { MdTimer, MdTimerOff } from 'react-icons/md';
 
 const ProductCardBlock = styled.div`

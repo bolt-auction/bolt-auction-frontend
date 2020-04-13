@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductList from './ProductList';
+import ProductList from '../productCard/ProductList';
 import { useEffect } from 'react';
 
 const StoreProducts = ({ items, setActiveTab }) => {

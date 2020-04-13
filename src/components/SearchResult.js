@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ProductList from './ProductList';
+import ProductList from './productCard/ProductList';
 import * as Styled from '../styles/Styled';
-import Tab from './Tab';
+import Tab from './common/Tab';
 
 const SearchResult = ({ keyword, items, order, search }) => {
   const [activeTab, setActiveTab] = useState(order);

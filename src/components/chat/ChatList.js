@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import * as Styled from '../styles/Styled';
-import Colors from '../styles/Colors';
+import * as Styled from '../../styles/Styled';
+import Colors from '../../styles/Colors';
 import { useEffect } from 'react';
 
 const List = styled.ul``;
