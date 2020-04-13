@@ -2,22 +2,60 @@
   "name": "bolt-auction",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
-  },
+  "main": "index.js",
+  "repository": "https://github.com/bolt-auction/bolt-auction-frontend.git",
+  "author": "bolt-auction",
+  "contributors": [
+    "Sub2n <95su1208@gmail.com>",
+    "JiSop <jisop.shin@gmail.com>"
+  ],
+  "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "proxy": "http://18.190.79.25:8060",
+  "dependencies": {
+    "@stomp/stompjs": "^5.4.3",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.28",
+    "react": "^16.12.0",
+    "react-awesome-styled-grid": "^3.0.3",
+    "react-dom": "^16.12.0",
+    "react-infinite": "^0.13.0",
+    "react-moment": "^0.9.7",
+    "react-redux": "^7.1.3",
+    "react-responsive-carousel": "^3.1.51",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.0",
+    "react-stomp": "^5.0.0",
+    "redux": "^4.0.5",
+    "redux-actions": "^2.6.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.1.3",
+    "sockjs-client": "^1.4.0",
+    "stompjs": "^2.3.3",
+    "websocket": "^1.0.31"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "normalize.css": "^8.0.1",
+    "prettier": "1.19.1",
+    "qs": "^6.9.1",
+    "react-icons": "^3.9.0",
+    "styled-components": "^5.0.0"
+  },
+  "resolutions": {
+    "serialize-javascript": "^2.1.2"
   },
   "browserslist": {
     "production": [
