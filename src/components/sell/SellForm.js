@@ -139,4 +139,4 @@ const SellForm = ({
   );
 };
 
-export default SellForm;
+export default React.memo(SellForm);

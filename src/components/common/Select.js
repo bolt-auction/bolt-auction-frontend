@@ -65,4 +65,4 @@ const Select = ({ name, onChange, value, children }) => {
   );
 };
 
-export default Select;
+export default React.memo(Select);
