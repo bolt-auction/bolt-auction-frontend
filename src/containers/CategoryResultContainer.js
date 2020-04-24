@@ -35,15 +35,13 @@ const CategoryResultContainer = ({
   );
 };
 
-export default React.memo(
-  connect(
-    ({ category }) => ({
-      selectedCategory: category.selectedCategory,
-      categoryItems: category.categoryItems,
-    }),
-    {
-      getCategoryItems,
-      initializeCategoryItems,
-    },
-  )(CategoryResultContainer),
-);
+export default connect(
+  ({ category }) => ({
+    selectedCategory: category.selectedCategory,
+    categoryItems: category.categoryItems,
+  }),
+  {
+    getCategoryItems,
+    initializeCategoryItems,
+  },
+)(CategoryResultContainer);

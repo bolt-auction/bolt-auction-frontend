@@ -34,18 +34,16 @@ const CategoriesContainer = ({
   );
 };
 
-export default React.memo(
-  connect(
-    ({ category }) => ({
-      categories: category.categories,
-      error: category.categoryLoadError,
-      activeCategory: category.activeSupCategory,
-    }),
-    {
-      getCats,
-      activateSub,
-      deactivateSub,
-      selectCategory,
-    },
-  )(CategoriesContainer),
-);
+export default connect(
+  ({ category }) => ({
+    categories: category.categories,
+    error: category.categoryLoadError,
+    activeCategory: category.activeSupCategory,
+  }),
+  {
+    getCats,
+    activateSub,
+    deactivateSub,
+    selectCategory,
+  },
+)(CategoriesContainer);

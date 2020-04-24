@@ -48,22 +48,20 @@ const ChatContainer = ({
   );
 };
 
-export default React.memo(
-  connect(
-    ({ auth, chat }) => ({
-      user: auth.user,
-      list: chat.list,
-      activeRoom: chat.activeRoom,
-      roomRecord: chat.roomRecord,
-      isMore: chat.isMore,
-    }),
-    {
-      enter,
-      leave,
-      send,
-      receive,
-      loadList,
-      loadRecords,
-    },
-  )(ChatContainer),
-);
+export default connect(
+  ({ auth, chat }) => ({
+    user: auth.user,
+    list: chat.list,
+    activeRoom: chat.activeRoom,
+    roomRecord: chat.roomRecord,
+    isMore: chat.isMore,
+  }),
+  {
+    enter,
+    leave,
+    send,
+    receive,
+    loadList,
+    loadRecords,
+  },
+)(ChatContainer);
