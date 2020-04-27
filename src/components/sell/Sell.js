@@ -1,11 +1,10 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-awesome-styled-grid';
 
-import Button from '../common/Button';
-import ContentSection from '../common/ContentSection';
-import Divider from '../common/Divider';
 import SellForm from './SellForm';
 import ImageUpLoader from './ImageUpLoader';
+import Button from '../common/Button';
+import Divider from '../common/Divider';
 import ModalPortal from '../common/ModalPortal';
 import LoadingSpinner from '../common/LoadingSpinner';
 
@@ -35,7 +34,7 @@ const Sell = ({
     images,
   } = sellForm;
   return (
-    <ContentSection title="판매하기">
+    <>
       {loading && (
         <ModalPortal>
           <LoadingSpinner />
@@ -77,7 +76,7 @@ const Sell = ({
           </Row>
         </form>
       </Container>
-    </ContentSection>
+    </>
   );
 };
 

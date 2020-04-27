@@ -14,9 +14,10 @@ import SearchResultContainer from './containers/SearchResultContainer';
 import ProductsDetailContainer from './containers/ProductsDetailContainer';
 import SigninContainer from './containers/auth/SigninContainer';
 import SignupContainer from './containers/auth/SignupContainer';
-import SellContainer from './containers/SellContainer';
 import MainContainer from './containers/MainContainer';
 import ErrorMessage from './components/common/ErrorMessage';
+
+import SellPage from './pages/SellPage';
 
 const customConf = {
   mediaQuery: 'only screen',
@@ -75,7 +76,7 @@ const App = () => {
           path="/categories/:category"
           component={CategoryResultContainer}
         />
-        <AuthRoute path="/sell" component={SellContainer} />
+        <Route path="/sell" component={SellPage} />
         <AuthRoute path="/" exact component={MainContainer} />
         <Route
           render={({ location }) => (
