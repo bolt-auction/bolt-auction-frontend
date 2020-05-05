@@ -107,7 +107,7 @@ const SignupForm = ({ history }) => {
     dispatch(initializeForm('signup'));
   }, [dispatch]);
 
-  // TODO: []개인정보 이용 동의, 약관 동의 체크 버튼 추가 후 동의 여부 밸리데이션
+  // TODO: []개인정보 이용 동의, 약관 동의 체크 버튼 추가 후 동의 여부 확인
   // TODO: []회원가입 성공 후 로그인 페이지로 이동하기 전 성공했다는 메시지 보여주기
   // NOTE: 회원가입 API response에 토큰이 없어 성공시에 로그인 페이지로 이동 시킴
   useEffect(() => {
