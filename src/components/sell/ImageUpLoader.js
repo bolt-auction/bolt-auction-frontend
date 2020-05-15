@@ -107,4 +107,4 @@ const ImageUpLoader = ({ previewImages, onRemoveImage, onChangeFile }) => {
   );
 };
 
-export default ImageUpLoader;
+export default React.memo(ImageUpLoader);

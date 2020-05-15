@@ -7,13 +7,11 @@ const HeaderContainer = ({ user, signout }) => {
   return <Header user={user} signout={signout} />;
 };
 
-export default React.memo(
-  connect(
-    ({ auth }) => ({
-      user: auth.user,
-    }),
-    {
-      signout,
-    },
-  )(HeaderContainer),
-);
+export default connect(
+  ({ auth }) => ({
+    user: auth.user,
+  }),
+  {
+    signout,
+  },
+)(HeaderContainer);

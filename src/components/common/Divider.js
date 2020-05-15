@@ -36,4 +36,4 @@ const Divider = props => {
   return props ? <DividerBlock {...props} /> : <DividerBlock />;
 };
 
-export default Divider;
+export default React.memo(Divider);

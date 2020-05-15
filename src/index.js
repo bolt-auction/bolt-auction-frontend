@@ -1,17 +1,23 @@
+import App from './App';
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import rootReducer, { rootSaga } from './modules';
-import { createLogger } from 'redux-logger';
+import { applyMiddleware, createStore } from 'redux';
+import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+
+import rootReducer, { rootSaga } from './modules';
+import { check, tempSetUser } from './modules/auth';
+import * as serviceWorker from './serviceWorker';
+
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createLogger } from 'redux-logger';
+
 import dotenv from 'dotenv';
-import { tempSetUser, check } from './modules/auth';
+import Moment from 'react-moment';
+import 'moment/locale/ko';
 
 dotenv.config();
 const logger = createLogger({
@@ -37,6 +43,8 @@ function loadUser() {
 
 sagaMiddleware.run(rootSaga);
 loadUser();
+
+Moment.globalLocale = 'ko';
 
 ReactDOM.render(
   <Provider store={store}>

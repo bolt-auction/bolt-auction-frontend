@@ -31,9 +31,7 @@ const SearchResultContainer = ({
   );
 };
 
-export default React.memo(
-  connect(({ item }) => ({ items: item.searchedItems }), {
-    getItems,
-    unloadSearchResult,
-  })(SearchResultContainer),
-);
+export default connect(({ item }) => ({ items: item.searchedItems }), {
+  getItems,
+  unloadSearchResult,
+})(SearchResultContainer);
