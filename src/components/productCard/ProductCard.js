@@ -123,7 +123,7 @@ const ProductCard = ({ item }) => {
             </div>
             <div className="limit-time">
               <MdTimer />
-              <Moment date={item?.endDt} tz="Asia/Seoul" fromNow /> 종료
+              <Moment date={item?.endDt} fromNow /> 종료
             </div>
           </div>
         </div>
